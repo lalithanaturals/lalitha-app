@@ -1,0 +1,68 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Lalitha Naturals",
+  "@appTitle": {"description": "The app's title, shown in the OS task switcher etc. Brand name — not translated."},
+
+  "printHomeTitle": "Lalitha Naturals — Print",
+  "@printHomeTitle": {"description": "AppBar title on the Print module's home screen"},
+
+  "priceTagTileTitle": "Price Tag",
+  "priceTagTileSubtitle": "MRP, discount, final price",
+  "estimateTileTitle": "Estimate",
+  "estimateTileSubtitle": "Quick items bill for a customer",
+  "couponTileTitle": "Coupon",
+  "couponTileSubtitle": "Issue a discount coupon",
+
+  "branchLabel": "Branch",
+  "staffLabel": "Staff",
+  "productLabel": "Product",
+  "mrpLabel": "MRP",
+  "discountPercentOption": "% Off",
+  "discountFlatOption": "Flat Off",
+  "discountPercentFieldLabel": "Discount %",
+  "discountAmountFieldLabel": "Discount Amount",
+  "finalPriceLabel": "Final Price: {amount}",
+  "@finalPriceLabel": {
+    "description": "Live-computed final price on the Price Tag screen",
+    "placeholders": {"amount": {"type": "String"}}
+  },
+  "saveAndPrint": "Save & Print",
+  "priceTagSavedMessage": "Price tag saved",
+  "selectBranchAndProductError": "Select a branch and a product first.",
+  "failedToSaveError": "Failed to save: {error}",
+  "@failedToSaveError": {
+    "placeholders": {"error": {"type": "String"}}
+  },
+
+  "customerNameLabel": "Customer Name (optional)",
+  "customerPhoneLabel": "Customer Phone (optional)",
+  "itemsLabel": "Items",
+  "addItemLabel": "Add Item",
+  "itemLabel": "Item",
+  "qtyLabel": "Qty",
+  "unitPriceLabel": "Unit Price",
+  "totalLabel": "Total: {amount}",
+  "@totalLabel": {
+    "description": "Live-computed running total on the Estimate screen",
+    "placeholders": {"amount": {"type": "String"}}
+  },
+  "estimateSavedMessage": "Estimate saved",
+  "selectBranchError": "Select a branch first.",
+  "addAtLeastOneItemError": "Add at least one item.",
+  "walkInCustomer": "Walk-in Customer",
+
+  "couponTypeLabel": "Coupon Type",
+  "discountValueLabel": "Discount Value",
+  "issueCouponButton": "Issue Coupon",
+  "couponIssuedMessage": "Coupon issued",
+  "redeemButton": "Redeem",
+  "redeemedLabel": "Redeemed",
+  "notRedeemedLabel": "Not redeemed",
+  "couponRedeemedMessage": "Coupon redeemed",
+  "selectBranchAndTypeError": "Select a branch and enter a coupon type first.",
+  "failedToRedeemError": "Failed to redeem: {error}",
+  "@failedToRedeemError": {
+    "placeholders": {"error": {"type": "String"}}
+  }
+}

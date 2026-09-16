@@ -45,4 +45,42 @@ void main() {
       expect(result.redeemed, isTrue);
     });
   });
+
+  group('CouponRepository.listForBranch', () {
+    test('sends the expected branch filter and maps results', () async {
+      Uri? capturedUri;
+      final pb = PocketBase(
+        'http://mock.local',
+        httpClientFactory: () => MockClient((request) async {
+          capturedUri = request.url;
+          final body = jsonEncode({
+            'page': 1,
+            'perPage': 30,
+            'totalItems': 1,
+            'totalPages': 1,
+            'items': [
+              {
+                'id': 'coupon1',
+                'collectionId': 'coupons',
+                'collectionName': 'coupons',
+                'coupon_type': 'festival',
+                'branch': 'branch1',
+                'discount_value': 15,
+                'redeemed': false,
+              },
+            ],
+          });
+          return http.Response(body, 200, headers: {'content-type': 'application/json'});
+        }),
+      );
+
+      final repo = CouponRepository(pb);
+      final result = await repo.listForBranch('branch1');
+
+      expect(result, hasLength(1));
+      expect(result.first.couponType, 'festival');
+      expect(capturedUri!.path, '/api/collections/coupons/records');
+      expect(capturedUri!.queryParameters['filter'], 'branch = "branch1"');
+    });
+  });
 }

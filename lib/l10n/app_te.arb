@@ -1,0 +1,52 @@
+{
+  "@@locale": "te",
+
+  "appTitle": "Lalitha Naturals",
+
+  "printHomeTitle": "లలిత నేచురల్స్ — ప్రింట్",
+
+  "priceTagTileTitle": "ధర ట్యాగ్",
+  "priceTagTileSubtitle": "MRP, డిస్కౌంట్, తుది ధర",
+  "estimateTileTitle": "అంచనా",
+  "estimateTileSubtitle": "కస్టమర్ కోసం త్వరిత వస్తువుల బిల్లు",
+  "couponTileTitle": "కూపన్",
+  "couponTileSubtitle": "డిస్కౌంట్ కూపన్ జారీ చేయండి",
+
+  "branchLabel": "బ్రాంచ్",
+  "staffLabel": "సిబ్బంది",
+  "productLabel": "ఉత్పత్తి",
+  "mrpLabel": "MRP",
+  "discountPercentOption": "% తగ్గింపు",
+  "discountFlatOption": "ఫ్లాట్ తగ్గింపు",
+  "discountPercentFieldLabel": "డిస్కౌంట్ %",
+  "discountAmountFieldLabel": "డిస్కౌంట్ మొత్తం",
+  "finalPriceLabel": "తుది ధర: {amount}",
+  "saveAndPrint": "సేవ్ & ప్రింట్",
+  "priceTagSavedMessage": "ధర ట్యాగ్ సేవ్ చేయబడింది",
+  "selectBranchAndProductError": "ముందుగా బ్రాంచ్ మరియు ఉత్పత్తిని ఎంచుకోండి.",
+  "failedToSaveError": "సేవ్ చేయడంలో విఫలమైంది: {error}",
+
+  "customerNameLabel": "కస్టమర్ పేరు (ఐచ్ఛికం)",
+  "customerPhoneLabel": "కస్టమర్ ఫోన్ (ఐచ్ఛికం)",
+  "itemsLabel": "వస్తువులు",
+  "addItemLabel": "వస్తువు జోడించండి",
+  "itemLabel": "వస్తువు",
+  "qtyLabel": "పరిమాణం",
+  "unitPriceLabel": "యూనిట్ ధర",
+  "totalLabel": "మొత్తం: {amount}",
+  "estimateSavedMessage": "అంచనా సేవ్ చేయబడింది",
+  "selectBranchError": "ముందుగా బ్రాంచ్ ఎంచుకోండి.",
+  "addAtLeastOneItemError": "కనీసం ఒక వస్తువును జోడించండి.",
+  "walkInCustomer": "వాక్-ఇన్ కస్టమర్",
+
+  "couponTypeLabel": "కూపన్ రకం",
+  "discountValueLabel": "డిస్కౌంట్ విలువ",
+  "issueCouponButton": "కూపన్ జారీ చేయండి",
+  "couponIssuedMessage": "కూపన్ జారీ చేయబడింది",
+  "redeemButton": "రీడీమ్ చేయండి",
+  "redeemedLabel": "రీడీమ్ చేయబడింది",
+  "notRedeemedLabel": "రీడీమ్ చేయలేదు",
+  "couponRedeemedMessage": "కూపన్ రీడీమ్ చేయబడింది",
+  "selectBranchAndTypeError": "ముందుగా బ్రాంచ్ ఎంచుకుని కూపన్ రకాన్ని నమోదు చేయండి.",
+  "failedToRedeemError": "రీడీమ్ చేయడంలో విఫలమైంది: {error}"
+}

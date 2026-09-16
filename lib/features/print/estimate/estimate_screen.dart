@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/models/estimate.dart';
 import '../../../core/models/staff.dart';
 import '../../../core/providers.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import 'estimate_providers.dart';
 
 /// One in-progress row in the "Quick Items" table — mirrors the original
@@ -73,13 +74,14 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
   }
 
   Future<void> _save() async {
+    final l10n = AppLocalizations.of(context)!;
     if (_selectedBranchId == null) {
-      setState(() => _errorMessage = 'Select a branch first.');
+      setState(() => _errorMessage = l10n.selectBranchError);
       return;
     }
     final items = _draftItems;
     if (items.isEmpty) {
-      setState(() => _errorMessage = 'Add at least one item.');
+      setState(() => _errorMessage = l10n.addAtLeastOneItemError);
       return;
     }
 
@@ -92,7 +94,7 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
         branchId: _selectedBranchId!,
         staffId: _selectedStaffId,
         customerName: _customerNameController.text.trim().isEmpty
-            ? 'Walk-in Customer'
+            ? l10n.walkInCustomer
             : _customerNameController.text.trim(),
         customerPhone: _customerPhoneController.text.trim(),
         items: items,
@@ -100,11 +102,11 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
       await ref.read(estimateRepositoryProvider).create(estimate);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Estimate saved')),
+          SnackBar(content: Text(l10n.estimateSavedMessage)),
         );
       }
     } catch (e) {
-      setState(() => _errorMessage = 'Failed to save: $e');
+      setState(() => _errorMessage = l10n.failedToSaveError(e.toString()));
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -112,13 +114,14 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final branchesAsync = ref.watch(estimateBranchesProvider);
     final AsyncValue<List<Staff>> staffAsync = _selectedBranchId == null
         ? const AsyncValue.data(<Staff>[])
         : ref.watch(estimateStaffForBranchProvider(_selectedBranchId!));
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Estimate')),
+      appBar: AppBar(title: Text(l10n.estimateTileTitle)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -127,7 +130,7 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
               data: (branches) => DropdownButtonFormField<String>(
                 key: const Key('estimateBranchDropdown'),
                 initialValue: _selectedBranchId,
-                decoration: const InputDecoration(labelText: 'Branch'),
+                decoration: InputDecoration(labelText: l10n.branchLabel),
                 items: branches
                     .map((b) => DropdownMenuItem(value: b.id, child: Text(b.name)))
                     .toList(),
@@ -137,48 +140,48 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
                 }),
               ),
               loading: () => const LinearProgressIndicator(),
-              error: (e, _) => Text('Failed to load branches: $e'),
+              error: (e, _) => Text('$e'),
             ),
             const SizedBox(height: 12),
             staffAsync.when(
               data: (staff) => DropdownButtonFormField<String>(
                 key: const Key('estimateStaffDropdown'),
                 initialValue: _selectedStaffId,
-                decoration: const InputDecoration(labelText: 'Staff'),
+                decoration: InputDecoration(labelText: l10n.staffLabel),
                 items: staff
                     .map((s) => DropdownMenuItem(value: s.id, child: Text(s.name)))
                     .toList(),
                 onChanged: (value) => setState(() => _selectedStaffId = value),
               ),
               loading: () => const LinearProgressIndicator(),
-              error: (e, _) => Text('Failed to load staff: $e'),
+              error: (e, _) => Text('$e'),
             ),
             const SizedBox(height: 12),
             TextField(
               key: const Key('customerNameField'),
               controller: _customerNameController,
-              decoration: const InputDecoration(labelText: 'Customer Name (optional)'),
+              decoration: InputDecoration(labelText: l10n.customerNameLabel),
             ),
             const SizedBox(height: 12),
             TextField(
               key: const Key('customerPhoneField'),
               controller: _customerPhoneController,
               keyboardType: TextInputType.phone,
-              decoration: const InputDecoration(labelText: 'Customer Phone (optional)'),
+              decoration: InputDecoration(labelText: l10n.customerPhoneLabel),
             ),
             const SizedBox(height: 20),
-            Text('Items', style: Theme.of(context).textTheme.titleMedium),
+            Text(l10n.itemsLabel, style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 8),
-            for (var i = 0; i < _items.length; i++) _buildItemRow(i),
+            for (var i = 0; i < _items.length; i++) _buildItemRow(context, l10n, i),
             TextButton.icon(
               key: const Key('addItemButton'),
               onPressed: _addItemRow,
               icon: const Icon(Icons.add),
-              label: const Text('Add Item'),
+              label: Text(l10n.addItemLabel),
             ),
             const Divider(),
             Text(
-              'Total: ₹${_total.toStringAsFixed(2)}',
+              l10n.totalLabel('₹${_total.toStringAsFixed(2)}'),
               key: const Key('estimateTotalText'),
               style: Theme.of(context).textTheme.headlineSmall,
             ),
@@ -190,7 +193,7 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
             FilledButton(
               key: const Key('saveEstimateButton'),
               onPressed: _saving ? null : _save,
-              child: _saving ? const CircularProgressIndicator() : const Text('Save & Print'),
+              child: _saving ? const CircularProgressIndicator() : Text(l10n.saveAndPrint),
             ),
           ],
         ),
@@ -198,7 +201,7 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
     );
   }
 
-  Widget _buildItemRow(int index) {
+  Widget _buildItemRow(BuildContext context, AppLocalizations l10n, int index) {
     final draft = _items[index];
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -210,7 +213,7 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
             child: TextField(
               key: Key('itemNameField_$index'),
               controller: draft.nameController,
-              decoration: const InputDecoration(labelText: 'Item'),
+              decoration: InputDecoration(labelText: l10n.itemLabel),
               onChanged: (_) => setState(() {}),
             ),
           ),
@@ -220,7 +223,7 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
               key: Key('itemQtyField_$index'),
               controller: draft.quantityController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Qty'),
+              decoration: InputDecoration(labelText: l10n.qtyLabel),
               onChanged: (_) => setState(() {}),
             ),
           ),
@@ -231,7 +234,7 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
               key: Key('itemPriceField_$index'),
               controller: draft.priceController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Unit Price'),
+              decoration: InputDecoration(labelText: l10n.unitPriceLabel),
               onChanged: (_) => setState(() {}),
             ),
           ),

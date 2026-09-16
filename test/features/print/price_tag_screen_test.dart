@@ -11,6 +11,8 @@ import 'package:lalitha_app/features/print/price_tag/price_tag_providers.dart';
 import 'package:lalitha_app/features/print/price_tag/price_tag_screen.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../support/localized_test_app.dart';
+
 class _MockPriceTagRepository extends Mock implements PriceTagRepository {}
 
 const _branch = Branch(id: 'branch1', name: 'Gajuwaka');
@@ -26,7 +28,7 @@ Future<void> _pumpScreen(WidgetTester tester, {required PriceTagRepository repo}
         staffForBranchProvider.overrideWith((ref, branchId) async => [_staff]),
         priceTagRepositoryProvider.overrideWithValue(repo),
       ],
-      child: const MaterialApp(home: PriceTagScreen()),
+      child: localizedTestApp(home: const PriceTagScreen()),
     ),
   );
   await tester.pumpAndSettle();

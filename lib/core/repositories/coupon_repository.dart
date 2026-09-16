@@ -12,6 +12,14 @@ class CouponRepository {
     return Coupon.fromJson(record.toJson());
   }
 
+  Future<List<Coupon>> listForBranch(String branchId) async {
+    final records = await _pb.collection('coupons').getFullList(
+          filter: 'branch = "$branchId"',
+          sort: '-created',
+        );
+    return records.map((r) => Coupon.fromJson(r.toJson())).toList();
+  }
+
   Future<Coupon> redeem(String id, {DateTime? at}) async {
     final record = await _pb.collection('coupons').update(
           id,

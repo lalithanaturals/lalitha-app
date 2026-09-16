@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/models/price_tag.dart';
 import '../../../core/models/staff.dart';
 import '../../../core/providers.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import 'price_tag_providers.dart';
 
 class PriceTagScreen extends ConsumerStatefulWidget {
@@ -40,8 +41,9 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
       );
 
   Future<void> _save() async {
+    final l10n = AppLocalizations.of(context)!;
     if (_selectedBranchId == null || _selectedProductId == null) {
-      setState(() => _errorMessage = 'Select a branch and a product first.');
+      setState(() => _errorMessage = l10n.selectBranchAndProductError);
       return;
     }
     setState(() {
@@ -60,11 +62,11 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
       await ref.read(priceTagRepositoryProvider).create(tag);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Price tag saved')),
+          SnackBar(content: Text(l10n.priceTagSavedMessage)),
         );
       }
     } catch (e) {
-      setState(() => _errorMessage = 'Failed to save: $e');
+      setState(() => _errorMessage = l10n.failedToSaveError(e.toString()));
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -72,6 +74,7 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final branchesAsync = ref.watch(branchesProvider);
     final productsAsync = ref.watch(productsProvider);
     final AsyncValue<List<Staff>> staffAsync = _selectedBranchId == null
@@ -79,7 +82,7 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
         : ref.watch(staffForBranchProvider(_selectedBranchId!));
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Price Tag')),
+      appBar: AppBar(title: Text(l10n.priceTagTileTitle)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -88,7 +91,7 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
               data: (branches) => DropdownButtonFormField<String>(
                 key: const Key('branchDropdown'),
                 initialValue: _selectedBranchId,
-                decoration: const InputDecoration(labelText: 'Branch'),
+                decoration: InputDecoration(labelText: l10n.branchLabel),
                 items: branches
                     .map((b) => DropdownMenuItem(value: b.id, child: Text(b.name)))
                     .toList(),
@@ -98,50 +101,50 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
                 }),
               ),
               loading: () => const LinearProgressIndicator(),
-              error: (e, _) => Text('Failed to load branches: $e'),
+              error: (e, _) => Text('$e'),
             ),
             const SizedBox(height: 12),
             staffAsync.when(
               data: (staff) => DropdownButtonFormField<String>(
                 key: const Key('staffDropdown'),
                 initialValue: _selectedStaffId,
-                decoration: const InputDecoration(labelText: 'Staff'),
+                decoration: InputDecoration(labelText: l10n.staffLabel),
                 items: staff
                     .map((s) => DropdownMenuItem(value: s.id, child: Text(s.name)))
                     .toList(),
                 onChanged: (value) => setState(() => _selectedStaffId = value),
               ),
               loading: () => const LinearProgressIndicator(),
-              error: (e, _) => Text('Failed to load staff: $e'),
+              error: (e, _) => Text('$e'),
             ),
             const SizedBox(height: 12),
             productsAsync.when(
               data: (products) => DropdownButtonFormField<String>(
                 key: const Key('productDropdown'),
                 initialValue: _selectedProductId,
-                decoration: const InputDecoration(labelText: 'Product'),
+                decoration: InputDecoration(labelText: l10n.productLabel),
                 items: products
                     .map((p) => DropdownMenuItem(value: p.id, child: Text(p.brandName)))
                     .toList(),
                 onChanged: (value) => setState(() => _selectedProductId = value),
               ),
               loading: () => const LinearProgressIndicator(),
-              error: (e, _) => Text('Failed to load products: $e'),
+              error: (e, _) => Text('$e'),
             ),
             const SizedBox(height: 12),
             TextField(
               key: const Key('mrpField'),
               controller: _mrpController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'MRP'),
+              decoration: InputDecoration(labelText: l10n.mrpLabel),
               onChanged: (_) => setState(() {}),
             ),
             const SizedBox(height: 12),
             SegmentedButton<DiscountType>(
               key: const Key('discountTypeSelector'),
-              segments: const [
-                ButtonSegment(value: DiscountType.percent, label: Text('% Off')),
-                ButtonSegment(value: DiscountType.flat, label: Text('Flat Off')),
+              segments: [
+                ButtonSegment(value: DiscountType.percent, label: Text(l10n.discountPercentOption)),
+                ButtonSegment(value: DiscountType.flat, label: Text(l10n.discountFlatOption)),
               ],
               selected: {_discountType},
               onSelectionChanged: (selection) => setState(() => _discountType = selection.first),
@@ -152,13 +155,15 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
               controller: _discountValueController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: _discountType == DiscountType.percent ? 'Discount %' : 'Discount Amount',
+                labelText: _discountType == DiscountType.percent
+                    ? l10n.discountPercentFieldLabel
+                    : l10n.discountAmountFieldLabel,
               ),
               onChanged: (_) => setState(() {}),
             ),
             const SizedBox(height: 20),
             Text(
-              'Final Price: ₹${_finalPrice.toStringAsFixed(2)}',
+              l10n.finalPriceLabel('₹${_finalPrice.toStringAsFixed(2)}'),
               key: const Key('finalPriceText'),
               style: Theme.of(context).textTheme.headlineSmall,
             ),
@@ -170,7 +175,7 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
             FilledButton(
               key: const Key('saveButton'),
               onPressed: _saving ? null : _save,
-              child: _saving ? const CircularProgressIndicator() : const Text('Save & Print'),
+              child: _saving ? const CircularProgressIndicator() : Text(l10n.saveAndPrint),
             ),
           ],
         ),

@@ -10,6 +10,8 @@ import 'package:lalitha_app/features/print/estimate/estimate_providers.dart';
 import 'package:lalitha_app/features/print/estimate/estimate_screen.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../support/localized_test_app.dart';
+
 class _MockEstimateRepository extends Mock implements EstimateRepository {}
 
 const _branch = Branch(id: 'branch1', name: 'Gajuwaka');
@@ -23,7 +25,7 @@ Future<void> _pumpScreen(WidgetTester tester, {required EstimateRepository repo}
         estimateStaffForBranchProvider.overrideWith((ref, branchId) async => [_staff]),
         estimateRepositoryProvider.overrideWithValue(repo),
       ],
-      child: const MaterialApp(home: EstimateScreen()),
+      child: localizedTestApp(home: const EstimateScreen()),
     ),
   );
   await tester.pumpAndSettle();
