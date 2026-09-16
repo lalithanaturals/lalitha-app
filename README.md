@@ -5,11 +5,11 @@ Flutter client for the Lalitha Naturals app suite, backed by [`lalitha-backend`]
 suite-wide architecture, and its §4/§5 for the data model and API contract this app is built
 against.
 
-**Currently implemented: the Print module's Price Tag screen** — the first module migrated, per
-the master plan's phased approach (Print was chosen first because it's the only one of the four
-original apps with no existing Google Sheets integration to migrate). Estimates, coupons, and the
-other three apps' modules follow the same `lib/core` + `lib/features/<module>` pattern once
-scheduled.
+**Currently implemented: the Print module's Price Tag and Estimate (Quick Items) screens** — the
+first module migrated, per the master plan's phased approach (Print was chosen first because it's
+the only one of the four original apps with no existing Google Sheets integration to migrate).
+Coupons, custom text/location/visiting cards, and the other three apps' modules follow the same
+`lib/core` + `lib/features/<module>` pattern once scheduled.
 
 ## Architecture
 
@@ -23,7 +23,9 @@ lib/
     providers.dart      Riverpod providers wiring client -> repositories
   features/
     print/
-      price_tag/        the Price Tag screen + its Riverpod FutureProviders
+      print_home_screen.dart   entry point — lists the Print module's tools
+      price_tag/                the Price Tag screen + its Riverpod FutureProviders
+      estimate/                  the Estimate/Quick Items screen + its FutureProviders
 ```
 
 Models keep their calculation logic (`calculateFinalPrice`, `calculateEstimateTotal`) as free
@@ -45,8 +47,8 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 37 tests: model/calculation unit tests, repository tests against a mocked
-                   # HTTP client, and widget tests for the Price Tag screen
+flutter test      # 47 tests: model/calculation unit tests, repository tests against a mocked
+                   # HTTP client, and widget tests for the Print home/Price Tag/Estimate screens
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -65,3 +67,7 @@ suite runs fully offline and deterministically.
 - `CouponRepository`: redeem sends only the changed fields
 - `PriceTagScreen`: live-recomputed final price as inputs change, validation before save, and
   that Save actually calls the repository with the computed `PriceTag`
+- `EstimateScreen`: live-recomputed running total as item rows are added/edited/removed,
+  validation (branch required, at least one item), blank customer name falling back to
+  "Walk-in Customer", and that Save calls the repository with the built `Estimate`
+- `PrintHomeScreen`/app boot: both tool tiles are present and navigate to their screens
