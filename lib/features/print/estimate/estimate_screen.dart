@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/models/estimate.dart';
 import '../../../core/models/staff.dart';
 import '../../../core/providers.dart';
@@ -121,7 +122,11 @@ class _EstimateScreenState extends ConsumerState<EstimateScreen> {
         : ref.watch(estimateStaffForBranchProvider(_selectedBranchId!));
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.estimateTileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.estimateTileTitle),
+        backgroundColor: AppColors.print,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(

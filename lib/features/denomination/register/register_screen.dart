@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/denomination_values.dart';
 import '../../../core/models/audit_register.dart';
 import '../../../core/models/staff.dart';
@@ -151,7 +152,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     final closingBalance = calculateClosingBalance(counts);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.registerEntryTitle)),
+      appBar: AppBar(
+        title: Text(l10n.registerEntryTitle),
+        backgroundColor: AppColors.denomination,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(

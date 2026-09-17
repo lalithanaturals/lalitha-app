@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/models/inventory.dart';
 import '../../../core/providers.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -62,7 +63,11 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
         : ref.watch(stockForBranchProvider(_selectedBranchId!));
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.inventoryTileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.inventoryTileTitle),
+        backgroundColor: AppColors.stock,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

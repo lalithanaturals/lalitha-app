@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/denomination_values.dart';
 import '../../../core/models/audit_register.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -34,7 +35,11 @@ class DenominationReceiptScreen extends StatelessWidget {
         '${register.date.day.toString().padLeft(2, '0')}';
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.receiptTitle)),
+      appBar: AppBar(
+        title: Text(l10n.receiptTitle),
+        backgroundColor: AppColors.denomination,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(

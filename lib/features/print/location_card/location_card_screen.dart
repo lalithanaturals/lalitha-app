@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/models/branch.dart';
 import '../../../core/models/custom_print.dart';
 import '../../../core/providers.dart';
@@ -73,7 +74,11 @@ class _LocationCardScreenState extends ConsumerState<LocationCardScreen> {
     final branchesAsync = ref.watch(locationCardBranchesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.locationCardTileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.locationCardTileTitle),
+        backgroundColor: AppColors.print,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: branchesAsync.when(

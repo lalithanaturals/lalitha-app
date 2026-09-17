@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/models/inventory.dart';
 import '../../../core/models/transit_sheet.dart';
 import '../../../core/providers.dart';
@@ -102,7 +103,11 @@ class _TransitSheetScreenState extends ConsumerState<TransitSheetScreen> {
     final itemsAsync = ref.watch(transitSheetAllItemsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.transitSheetTileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.transitSheetTileTitle),
+        backgroundColor: AppColors.stock,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: branchesAsync.when(

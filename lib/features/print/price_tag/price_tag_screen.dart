@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/models/price_tag.dart';
 import '../../../core/models/staff.dart';
 import '../../../core/providers.dart';
@@ -82,7 +83,11 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
         : ref.watch(staffForBranchProvider(_selectedBranchId!));
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.priceTagTileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.priceTagTileTitle),
+        backgroundColor: AppColors.print,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(

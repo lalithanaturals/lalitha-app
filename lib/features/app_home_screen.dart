@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../core/app_colors.dart';
 import '../l10n/generated/app_localizations.dart';
 import 'denomination/denomination_home_screen.dart';
 import 'print/print_home_screen.dart';
@@ -20,55 +21,86 @@ class AppHomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Card(
-            child: ListTile(
-              key: const Key('printModuleTile'),
-              leading: const Icon(Icons.print_outlined),
-              title: Text(l10n.printModuleTitle),
-              subtitle: Text(l10n.printModuleSubtitle),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const PrintHomeScreen()),
-              ),
+          _ModuleTile(
+            key: const Key('printModuleTile'),
+            color: AppColors.print,
+            icon: Icons.print_outlined,
+            title: l10n.printModuleTitle,
+            subtitle: l10n.printModuleSubtitle,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const PrintHomeScreen()),
             ),
           ),
-          Card(
-            child: ListTile(
-              key: const Key('stockModuleTile'),
-              leading: const Icon(Icons.inventory_outlined),
-              title: Text(l10n.stockModuleTitle),
-              subtitle: Text(l10n.stockModuleSubtitle),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const StockHomeScreen()),
-              ),
+          _ModuleTile(
+            key: const Key('stockModuleTile'),
+            color: AppColors.stock,
+            icon: Icons.inventory_outlined,
+            title: l10n.stockModuleTitle,
+            subtitle: l10n.stockModuleSubtitle,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const StockHomeScreen()),
             ),
           ),
-          Card(
-            child: ListTile(
-              key: const Key('scrapModuleTile'),
-              leading: const Icon(Icons.calculate_outlined),
-              title: Text(l10n.scrapModuleTitle),
-              subtitle: Text(l10n.scrapModuleSubtitle),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const CalculatorScreen()),
-              ),
+          _ModuleTile(
+            key: const Key('scrapModuleTile'),
+            color: AppColors.scrap,
+            icon: Icons.calculate_outlined,
+            title: l10n.scrapModuleTitle,
+            subtitle: l10n.scrapModuleSubtitle,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const CalculatorScreen()),
             ),
           ),
-          Card(
-            child: ListTile(
-              key: const Key('denominationModuleTile'),
-              leading: const Icon(Icons.currency_rupee_outlined),
-              title: Text(l10n.denominationModuleTitle),
-              subtitle: Text(l10n.denominationModuleSubtitle),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const DenominationHomeScreen()),
-              ),
+          _ModuleTile(
+            key: const Key('denominationModuleTile'),
+            color: AppColors.denomination,
+            icon: Icons.currency_rupee_outlined,
+            title: l10n.denominationModuleTitle,
+            subtitle: l10n.denominationModuleSubtitle,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const DenominationHomeScreen()),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// A module tile with a colored circular icon badge — carries each module's
+/// original brand color (see [AppColors]) into the suite's home screen so
+/// the four modules stay visually distinct the way their separate apps were.
+class _ModuleTile extends StatelessWidget {
+  const _ModuleTile({
+    super.key,
+    required this.color,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final Color color;
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        leading: CircleAvatar(
+          radius: 24,
+          backgroundColor: color,
+          child: Icon(icon, color: Colors.white),
+        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(subtitle),
+        trailing: Icon(Icons.chevron_right, color: color),
+        onTap: onTap,
       ),
     );
   }

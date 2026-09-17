@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/exchange_rates.dart';
 import '../../../core/models/exchange_record.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -20,7 +21,11 @@ class ReceiptScreen extends StatelessWidget {
         record.status == ExchangeStatus.order ? l10n.statusOrderLabel : l10n.statusEstimateLabel;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.receiptTitle)),
+      appBar: AppBar(
+        title: Text(l10n.receiptTitle),
+        backgroundColor: AppColors.scrap,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(

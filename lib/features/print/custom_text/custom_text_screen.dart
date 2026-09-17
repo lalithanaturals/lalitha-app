@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/models/custom_print.dart';
 import '../../../core/providers.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -80,7 +81,11 @@ class _CustomTextScreenState extends ConsumerState<CustomTextScreen> {
     final branchesAsync = ref.watch(customTextBranchesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.customTextTileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.customTextTileTitle),
+        backgroundColor: AppColors.print,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: branchesAsync.when(

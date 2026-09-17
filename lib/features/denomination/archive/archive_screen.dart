@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/models/audit_register.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../receipt/denomination_receipt_screen.dart';
@@ -22,7 +23,11 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
     final branchesAsync = ref.watch(archiveBranchesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.archiveTitle)),
+      appBar: AppBar(
+        title: Text(l10n.archiveTitle),
+        backgroundColor: AppColors.denomination,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/models/audit_register.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import 'dashboard_providers.dart';
@@ -28,7 +29,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     final branchesAsync = ref.watch(dashboardBranchesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.dashboardTitle)),
+      appBar: AppBar(
+        title: Text(l10n.dashboardTitle),
+        backgroundColor: AppColors.denomination,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

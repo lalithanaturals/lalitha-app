@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/exchange_rates.dart';
 import '../../../core/models/exchange_record.dart';
 import '../../../core/models/staff.dart';
@@ -140,6 +141,8 @@ class _CalculatorScreenState extends ConsumerState<CalculatorScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.calculatorTitle),
+        backgroundColor: AppColors.scrap,
+        foregroundColor: Colors.white,
         actions: [
           IconButton(
             key: const Key('openSearchButton'),

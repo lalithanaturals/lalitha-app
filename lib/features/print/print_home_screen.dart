@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/app_colors.dart';
 import '../../l10n/generated/app_localizations.dart';
 import 'coupon/coupon_screen.dart';
 import 'custom_text/custom_text_screen.dart';
@@ -17,7 +18,11 @@ class PrintHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.printHomeTitle)),
+      appBar: AppBar(
+        title: Text(l10n.printHomeTitle),
+        backgroundColor: AppColors.print,
+        foregroundColor: Colors.white,
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -98,11 +103,15 @@ class _ToolTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
-        leading: Icon(icon),
+        leading: CircleAvatar(
+          backgroundColor: AppColors.print,
+          child: Icon(icon, color: Colors.white),
+        ),
         title: Text(title),
         subtitle: Text(subtitle),
-        trailing: const Icon(Icons.chevron_right),
+        trailing: const Icon(Icons.chevron_right, color: AppColors.print),
         onTap: onTap,
       ),
     );

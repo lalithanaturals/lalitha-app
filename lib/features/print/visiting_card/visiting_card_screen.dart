@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/business_info.dart';
 import '../../../core/models/branch.dart';
 import '../../../core/models/custom_print.dart';
@@ -65,7 +66,11 @@ class _VisitingCardScreenState extends ConsumerState<VisitingCardScreen> {
     final branchesAsync = ref.watch(visitingCardBranchesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.visitingCardTileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.visitingCardTileTitle),
+        backgroundColor: AppColors.print,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: branchesAsync.when(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/app_colors.dart';
 import '../../../core/models/coupon.dart';
 import '../../../core/models/staff.dart';
 import '../../../core/providers.dart';
@@ -94,7 +95,11 @@ class _CouponScreenState extends ConsumerState<CouponScreen> {
         : ref.watch(couponsForBranchProvider(_selectedBranchId!));
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.couponTileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.couponTileTitle),
+        backgroundColor: AppColors.print,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
