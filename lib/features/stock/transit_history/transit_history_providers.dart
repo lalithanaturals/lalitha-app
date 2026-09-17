@@ -4,11 +4,11 @@ import '../../../core/models/branch.dart';
 import '../../../core/models/transit_sheet.dart';
 import '../../../core/providers.dart';
 
-final transitHistoryBranchesProvider = FutureProvider<List<Branch>>((ref) {
+final transitHistoryBranchesProvider = FutureProvider.autoDispose<List<Branch>>((ref) {
   return ref.watch(branchRepositoryProvider).listActive();
 });
 
-final transitHistorySheetsProvider = FutureProvider.family<List<TransitSheet>, String>((ref, branchId) {
+final transitHistorySheetsProvider = FutureProvider.autoDispose.family<List<TransitSheet>, String>((ref, branchId) {
   if (branchId.isEmpty) return Future.value(const []);
   return ref.watch(transitSheetRepositoryProvider).listForBranch(branchId);
 });
@@ -17,12 +17,12 @@ final transitHistorySheetsProvider = FutureProvider.family<List<TransitSheet>, S
 /// [transitSheetAllItemsProvider]-shaped data (see the family's dependency
 /// below) — kept as its own family so each sheet's items load only once its
 /// ExpansionTile is expanded.
-final transitHistoryItemsProvider = FutureProvider.family<List<TransitSheetItem>, String>((ref, sheetId) async {
+final transitHistoryItemsProvider = FutureProvider.autoDispose.family<List<TransitSheetItem>, String>((ref, sheetId) async {
   final allItems = await ref.watch(inventoryAllItemsForTransitHistoryProvider.future);
   final itemNames = {for (final i in allItems) i.id: i.name};
   return ref.watch(transitSheetRepositoryProvider).listItems(sheetId, itemNames: itemNames);
 });
 
-final inventoryAllItemsForTransitHistoryProvider = FutureProvider((ref) {
+final inventoryAllItemsForTransitHistoryProvider = FutureProvider.autoDispose((ref) {
   return ref.watch(inventoryRepositoryProvider).listAllItems();
 });

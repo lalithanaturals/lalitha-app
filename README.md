@@ -87,6 +87,13 @@ functions separate from I/O, so business rules are unit-testable without touchin
 the widget tree — repositories are tested against a mocked `http.Client`
 (`package:http/testing.dart`), and screens are tested with Riverpod provider overrides.
 
+Every `FutureProvider`/`FutureProvider.family` that fetches from the backend is `.autoDispose`, so
+navigating away from a screen and back always refetches instead of reusing a cached result —
+including a cached *error*. Without this, a provider that failed once (a backend hiccup, a schema
+bug since fixed) would keep returning that same stale error for the rest of the app's process
+lifetime, since plain (non-autoDispose) Riverpod providers cache forever until explicitly
+invalidated.
+
 ## Internationalization
 
 Uses Flutter's framework-native `gen-l10n` toolchain (`flutter_localizations` + ARB files), not a
@@ -124,7 +131,7 @@ flutter run
 Every collection except `staff` requires an authenticated user, so the app opens on
 `StaffLoginScreen` (pick your name, enter a 4-digit PIN) until login succeeds — see
 lalitha-backend's README for how that works server-side. The seed migration ships two starting
-accounts: **Admin / 1234** and **Staff / 5678** (Gajuwaka).
+accounts, both using PIN **1234** for easy testing: **Admin** and **Staff** (Gajuwaka).
 
 On a physical Android device connected over USB (not an emulator), `127.0.0.1:8090` from the
 manifest's default resolves to the *device itself*, not your dev machine — run
