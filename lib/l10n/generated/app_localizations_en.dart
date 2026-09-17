@@ -181,4 +181,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get visitingCardPrintedMessage => 'Visiting card printed';
+
+  @override
+  String get customTextTileTitle => 'Custom Text';
+
+  @override
+  String get customTextTileSubtitle => 'Print a custom message';
+
+  @override
+  String get customTextLabel => 'Text';
+
+  @override
+  String get alignLeftOption => 'Left';
+
+  @override
+  String get alignCenterOption => 'Center';
+
+  @override
+  String get alignRightOption => 'Right';
+
+  @override
+  String get boldLabel => 'Bold';
+
+  @override
+  String get fontSizeLabel => 'Font Size';
+
+  @override
+  String get enterTextError => 'Enter some text first.';
+
+  @override
+  String get customTextPrintedMessage => 'Custom text printed';
 }

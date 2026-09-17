@@ -80,5 +80,16 @@
   "visitingCardTileSubtitle": "Print the business card",
   "coreOfferingsLabel": "Core Offerings",
   "phoneLabel": "Call / WhatsApp",
-  "visitingCardPrintedMessage": "Visiting card printed"
+  "visitingCardPrintedMessage": "Visiting card printed",
+
+  "customTextTileTitle": "Custom Text",
+  "customTextTileSubtitle": "Print a custom message",
+  "customTextLabel": "Text",
+  "alignLeftOption": "Left",
+  "alignCenterOption": "Center",
+  "alignRightOption": "Right",
+  "boldLabel": "Bold",
+  "fontSizeLabel": "Font Size",
+  "enterTextError": "Enter some text first.",
+  "customTextPrintedMessage": "Custom text printed"
 }

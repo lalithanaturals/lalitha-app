@@ -5,11 +5,12 @@ Flutter client for the Lalitha Naturals app suite, backed by [`lalitha-backend`]
 suite-wide architecture, and its §4/§5 for the data model and API contract this app is built
 against.
 
-**Currently implemented: the Print module's Price Tag, Estimate (Quick Items), Coupon, Location
-Card, and Visiting Card screens** — the first module migrated, per the master plan's phased
-approach (Print was chosen first because it's the only one of the four original apps with no
-existing Google Sheets integration to migrate). Custom text and the other three apps' modules
-follow the same `lib/core` + `lib/features/<module>` pattern once scheduled.
+**The Print module is now fully migrated** — Price Tag, Estimate (Quick Items), Coupon, Location
+Card, Visiting Card, and Custom Text — every screen from the original Print app, per the master
+plan's phased approach (Print was chosen first because it's the only one of the four original
+apps with no existing Google Sheets integration to migrate). The other three apps' modules
+(Stock-transfer, scrap-calc, Denomination) follow the same `lib/core` + `lib/features/<module>`
+pattern as they're scheduled.
 
 **Fully localized: English (default) + Telugu**, via Flutter's standard `gen-l10n` — see
 [Internationalization](#internationalization) below.
@@ -35,6 +36,7 @@ lib/
       coupon/                    the Coupon issue/redeem screen + its FutureProviders
       location_card/              the Location Card screen + its FutureProviders
       visiting_card/               the Visiting Card screen + its FutureProviders
+      custom_text/                 the Custom Text screen + its FutureProviders
   l10n/
     app_en.arb          English strings (template/default locale)
     app_te.arb           Telugu strings (full parallel translation)
@@ -84,10 +86,9 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 73 tests: model/calculation unit tests, repository tests against a mocked
-                   # HTTP client, widget tests for the Print home/Price Tag/Estimate/Coupon/
-                   # Location Card/Visiting Card screens, and locale-switching tests
-                   # (English/Telugu)
+flutter test      # 78 tests: model/calculation unit tests, repository tests against a mocked
+                   # HTTP client, widget tests for all six Print-module screens, and
+                   # locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -121,6 +122,8 @@ suite runs fully offline and deterministically.
 - `VisitingCardScreen`: the static preview shows both branches' addresses and business info,
   validation requires a branch selection before printing (for attribution), and printing calls
   the repository with a `visiting_card` record whose `content` covers every active branch
-- `PrintHomeScreen`/app boot: all five tool tiles are present and navigate to their screens
+- `CustomTextScreen`: validates a branch and non-empty text before printing, and printing sends
+  the text/alignment/bold/font-size fields as a `custom_text` record's `content`
+- `PrintHomeScreen`/app boot: all six tool tiles are present and navigate to their screens
 - Localization: `AppLocalizations.supportedLocales` includes English and Telugu, and a screen
   actually renders Telugu text when the app locale is `te`

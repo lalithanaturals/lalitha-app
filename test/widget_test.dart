@@ -6,6 +6,7 @@ import 'package:lalitha_app/core/models/coupon.dart';
 import 'package:lalitha_app/core/models/product.dart';
 import 'package:lalitha_app/core/models/staff.dart';
 import 'package:lalitha_app/features/print/coupon/coupon_providers.dart';
+import 'package:lalitha_app/features/print/custom_text/custom_text_providers.dart';
 import 'package:lalitha_app/features/print/estimate/estimate_providers.dart';
 import 'package:lalitha_app/features/print/location_card/location_card_providers.dart';
 import 'package:lalitha_app/features/print/price_tag/price_tag_providers.dart';
@@ -24,6 +25,7 @@ Widget _appWithOverrides() => ProviderScope(
         couponsForBranchProvider.overrideWith((ref, branchId) async => const <Coupon>[]),
         locationCardBranchesProvider.overrideWith((ref) async => const <Branch>[]),
         visitingCardBranchesProvider.overrideWith((ref) async => const <Branch>[]),
+        customTextBranchesProvider.overrideWith((ref) async => const <Branch>[]),
       ],
       child: const LalithaApp(),
     );
@@ -39,6 +41,7 @@ void main() {
     expect(find.byKey(const Key('couponTile')), findsOneWidget);
     expect(find.byKey(const Key('locationCardTile')), findsOneWidget);
     expect(find.byKey(const Key('visitingCardTile')), findsOneWidget);
+    expect(find.byKey(const Key('customTextTile')), findsOneWidget);
   });
 
   testWidgets('tapping the Price Tag tile navigates to the Price Tag screen', (tester) async {
@@ -89,5 +92,15 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('visitingCardBranchDropdown')), findsOneWidget);
+  });
+
+  testWidgets('tapping the Custom Text tile navigates to the Custom Text screen', (tester) async {
+    await tester.pumpWidget(_appWithOverrides());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('customTextTile')));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('customTextField')), findsOneWidget);
   });
 }

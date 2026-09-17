@@ -61,5 +61,16 @@
   "visitingCardTileSubtitle": "బిజినెస్ కార్డ్ ప్రింట్ చేయండి",
   "coreOfferingsLabel": "ప్రధాన ఉత్పత్తులు",
   "phoneLabel": "కాల్ / వాట్సాప్",
-  "visitingCardPrintedMessage": "విజిటింగ్ కార్డ్ ప్రింట్ చేయబడింది"
+  "visitingCardPrintedMessage": "విజిటింగ్ కార్డ్ ప్రింట్ చేయబడింది",
+
+  "customTextTileTitle": "కస్టమ్ టెక్స్ట్",
+  "customTextTileSubtitle": "కస్టమ్ సందేశాన్ని ప్రింట్ చేయండి",
+  "customTextLabel": "టెక్స్ట్",
+  "alignLeftOption": "ఎడమ",
+  "alignCenterOption": "మధ్య",
+  "alignRightOption": "కుడి",
+  "boldLabel": "బోల్డ్",
+  "fontSizeLabel": "ఫాంట్ పరిమాణం",
+  "enterTextError": "ముందుగా కొంత టెక్స్ట్ నమోదు చేయండి.",
+  "customTextPrintedMessage": "కస్టమ్ టెక్స్ట్ ప్రింట్ చేయబడింది"
 }

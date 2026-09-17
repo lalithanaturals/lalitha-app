@@ -421,6 +421,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Visiting card printed'**
   String get visitingCardPrintedMessage;
+
+  /// No description provided for @customTextTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Text'**
+  String get customTextTileTitle;
+
+  /// No description provided for @customTextTileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Print a custom message'**
+  String get customTextTileSubtitle;
+
+  /// No description provided for @customTextLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get customTextLabel;
+
+  /// No description provided for @alignLeftOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Left'**
+  String get alignLeftOption;
+
+  /// No description provided for @alignCenterOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Center'**
+  String get alignCenterOption;
+
+  /// No description provided for @alignRightOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Right'**
+  String get alignRightOption;
+
+  /// No description provided for @boldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Bold'**
+  String get boldLabel;
+
+  /// No description provided for @fontSizeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Font Size'**
+  String get fontSizeLabel;
+
+  /// No description provided for @enterTextError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter some text first.'**
+  String get enterTextError;
+
+  /// No description provided for @customTextPrintedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom text printed'**
+  String get customTextPrintedMessage;
 }
 
 class _AppLocalizationsDelegate

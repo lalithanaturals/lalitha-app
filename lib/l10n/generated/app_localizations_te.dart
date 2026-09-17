@@ -181,4 +181,34 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get visitingCardPrintedMessage => 'విజిటింగ్ కార్డ్ ప్రింట్ చేయబడింది';
+
+  @override
+  String get customTextTileTitle => 'కస్టమ్ టెక్స్ట్';
+
+  @override
+  String get customTextTileSubtitle => 'కస్టమ్ సందేశాన్ని ప్రింట్ చేయండి';
+
+  @override
+  String get customTextLabel => 'టెక్స్ట్';
+
+  @override
+  String get alignLeftOption => 'ఎడమ';
+
+  @override
+  String get alignCenterOption => 'మధ్య';
+
+  @override
+  String get alignRightOption => 'కుడి';
+
+  @override
+  String get boldLabel => 'బోల్డ్';
+
+  @override
+  String get fontSizeLabel => 'ఫాంట్ పరిమాణం';
+
+  @override
+  String get enterTextError => 'ముందుగా కొంత టెక్స్ట్ నమోదు చేయండి.';
+
+  @override
+  String get customTextPrintedMessage => 'కస్టమ్ టెక్స్ట్ ప్రింట్ చేయబడింది';
 }
