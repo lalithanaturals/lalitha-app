@@ -166,4 +166,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String failedToPrintError(String error) {
     return 'Failed to print: $error';
   }
+
+  @override
+  String get visitingCardTileTitle => 'Visiting Card';
+
+  @override
+  String get visitingCardTileSubtitle => 'Print the business card';
+
+  @override
+  String get coreOfferingsLabel => 'Core Offerings';
+
+  @override
+  String get phoneLabel => 'Call / WhatsApp';
+
+  @override
+  String get visitingCardPrintedMessage => 'Visiting card printed';
 }

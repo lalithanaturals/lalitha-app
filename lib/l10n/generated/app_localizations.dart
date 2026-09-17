@@ -391,6 +391,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to print: {error}'**
   String failedToPrintError(String error);
+
+  /// No description provided for @visitingCardTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Visiting Card'**
+  String get visitingCardTileTitle;
+
+  /// No description provided for @visitingCardTileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Print the business card'**
+  String get visitingCardTileSubtitle;
+
+  /// No description provided for @coreOfferingsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Core Offerings'**
+  String get coreOfferingsLabel;
+
+  /// No description provided for @phoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Call / WhatsApp'**
+  String get phoneLabel;
+
+  /// No description provided for @visitingCardPrintedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Visiting card printed'**
+  String get visitingCardPrintedMessage;
 }
 
 class _AppLocalizationsDelegate

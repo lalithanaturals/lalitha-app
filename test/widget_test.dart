@@ -9,6 +9,7 @@ import 'package:lalitha_app/features/print/coupon/coupon_providers.dart';
 import 'package:lalitha_app/features/print/estimate/estimate_providers.dart';
 import 'package:lalitha_app/features/print/location_card/location_card_providers.dart';
 import 'package:lalitha_app/features/print/price_tag/price_tag_providers.dart';
+import 'package:lalitha_app/features/print/visiting_card/visiting_card_providers.dart';
 import 'package:lalitha_app/main.dart';
 
 Widget _appWithOverrides() => ProviderScope(
@@ -22,6 +23,7 @@ Widget _appWithOverrides() => ProviderScope(
         couponStaffForBranchProvider.overrideWith((ref, branchId) async => const <Staff>[]),
         couponsForBranchProvider.overrideWith((ref, branchId) async => const <Coupon>[]),
         locationCardBranchesProvider.overrideWith((ref) async => const <Branch>[]),
+        visitingCardBranchesProvider.overrideWith((ref) async => const <Branch>[]),
       ],
       child: const LalithaApp(),
     );
@@ -36,6 +38,7 @@ void main() {
     expect(find.byKey(const Key('estimateTile')), findsOneWidget);
     expect(find.byKey(const Key('couponTile')), findsOneWidget);
     expect(find.byKey(const Key('locationCardTile')), findsOneWidget);
+    expect(find.byKey(const Key('visitingCardTile')), findsOneWidget);
   });
 
   testWidgets('tapping the Price Tag tile navigates to the Price Tag screen', (tester) async {
@@ -76,5 +79,15 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('locationCardBranchDropdown')), findsOneWidget);
+  });
+
+  testWidgets('tapping the Visiting Card tile navigates to the Visiting Card screen', (tester) async {
+    await tester.pumpWidget(_appWithOverrides());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('visitingCardTile')));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('visitingCardBranchDropdown')), findsOneWidget);
   });
 }

@@ -5,10 +5,10 @@ Flutter client for the Lalitha Naturals app suite, backed by [`lalitha-backend`]
 suite-wide architecture, and its §4/§5 for the data model and API contract this app is built
 against.
 
-**Currently implemented: the Print module's Price Tag, Estimate (Quick Items), Coupon, and
-Location Card screens** — the first module migrated, per the master plan's phased approach (Print
-was chosen first because it's the only one of the four original apps with no existing Google
-Sheets integration to migrate). Visiting card, custom text, and the other three apps' modules
+**Currently implemented: the Print module's Price Tag, Estimate (Quick Items), Coupon, Location
+Card, and Visiting Card screens** — the first module migrated, per the master plan's phased
+approach (Print was chosen first because it's the only one of the four original apps with no
+existing Google Sheets integration to migrate). Custom text and the other three apps' modules
 follow the same `lib/core` + `lib/features/<module>` pattern once scheduled.
 
 **Fully localized: English (default) + Telugu**, via Flutter's standard `gen-l10n` — see
@@ -20,10 +20,13 @@ follow the same `lib/core` + `lib/features/<module>` pattern once scheduled.
 lib/
   core/
     client/           AppPocketBaseClient — owns the single PocketBase instance
-    models/           Branch, Staff, Product, PriceTag, Estimate/EstimateItem, Coupon
-                       (pure fromJson/toJson + pure calculation helpers, no I/O)
+    models/           Branch, Staff, Product, PriceTag, Estimate/EstimateItem, Coupon,
+                       CustomPrint/PrintType (pure fromJson/toJson + pure calculation
+                       helpers, no I/O)
     repositories/      thin wrappers around PocketBase's REST calls per collection
     providers.dart      Riverpod providers wiring client -> repositories
+    business_info.dart   static business info (tagline, offerings, phone, website) — see
+                          the note in that file about migrating it to the `settings` collection
   features/
     print/
       print_home_screen.dart   entry point — lists the Print module's tools
@@ -31,6 +34,7 @@ lib/
       estimate/                  the Estimate/Quick Items screen + its FutureProviders
       coupon/                    the Coupon issue/redeem screen + its FutureProviders
       location_card/              the Location Card screen + its FutureProviders
+      visiting_card/               the Visiting Card screen + its FutureProviders
   l10n/
     app_en.arb          English strings (template/default locale)
     app_te.arb           Telugu strings (full parallel translation)
@@ -80,9 +84,10 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 69 tests: model/calculation unit tests, repository tests against a mocked
+flutter test      # 73 tests: model/calculation unit tests, repository tests against a mocked
                    # HTTP client, widget tests for the Print home/Price Tag/Estimate/Coupon/
-                   # Location Card screens, and locale-switching tests (English/Telugu)
+                   # Location Card/Visiting Card screens, and locale-switching tests
+                   # (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -113,6 +118,9 @@ suite runs fully offline and deterministically.
 - `LocationCardScreen`: print button disabled until a branch is selected, the preview shows the
   selected branch's name/address, printing one branch calls the repository with a
   `location_card` record for it, and "Print Both Branches" calls it once per active branch
-- `PrintHomeScreen`/app boot: all four tool tiles are present and navigate to their screens
+- `VisitingCardScreen`: the static preview shows both branches' addresses and business info,
+  validation requires a branch selection before printing (for attribution), and printing calls
+  the repository with a `visiting_card` record whose `content` covers every active branch
+- `PrintHomeScreen`/app boot: all five tool tiles are present and navigate to their screens
 - Localization: `AppLocalizations.supportedLocales` includes English and Telugu, and a screen
   actually renders Telugu text when the app locale is `te`

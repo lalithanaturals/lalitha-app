@@ -55,5 +55,11 @@
   "addressLabel": "చిరునామా",
   "printBothBranchesButton": "రెండు బ్రాంచ్‌లను ప్రింట్ చేయండి",
   "locationCardPrintedMessage": "లొకేషన్ కార్డ్ ప్రింట్ చేయబడింది",
-  "failedToPrintError": "ప్రింట్ చేయడంలో విఫలమైంది: {error}"
+  "failedToPrintError": "ప్రింట్ చేయడంలో విఫలమైంది: {error}",
+
+  "visitingCardTileTitle": "విజిటింగ్ కార్డ్",
+  "visitingCardTileSubtitle": "బిజినెస్ కార్డ్ ప్రింట్ చేయండి",
+  "coreOfferingsLabel": "ప్రధాన ఉత్పత్తులు",
+  "phoneLabel": "కాల్ / వాట్సాప్",
+  "visitingCardPrintedMessage": "విజిటింగ్ కార్డ్ ప్రింట్ చేయబడింది"
 }

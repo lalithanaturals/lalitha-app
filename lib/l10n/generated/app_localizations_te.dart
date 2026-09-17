@@ -166,4 +166,19 @@ class AppLocalizationsTe extends AppLocalizations {
   String failedToPrintError(String error) {
     return 'ప్రింట్ చేయడంలో విఫలమైంది: $error';
   }
+
+  @override
+  String get visitingCardTileTitle => 'విజిటింగ్ కార్డ్';
+
+  @override
+  String get visitingCardTileSubtitle => 'బిజినెస్ కార్డ్ ప్రింట్ చేయండి';
+
+  @override
+  String get coreOfferingsLabel => 'ప్రధాన ఉత్పత్తులు';
+
+  @override
+  String get phoneLabel => 'కాల్ / వాట్సాప్';
+
+  @override
+  String get visitingCardPrintedMessage => 'విజిటింగ్ కార్డ్ ప్రింట్ చేయబడింది';
 }

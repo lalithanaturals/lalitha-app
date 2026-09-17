@@ -74,5 +74,11 @@
   "failedToPrintError": "Failed to print: {error}",
   "@failedToPrintError": {
     "placeholders": {"error": {"type": "String"}}
-  }
+  },
+
+  "visitingCardTileTitle": "Visiting Card",
+  "visitingCardTileSubtitle": "Print the business card",
+  "coreOfferingsLabel": "Core Offerings",
+  "phoneLabel": "Call / WhatsApp",
+  "visitingCardPrintedMessage": "Visiting card printed"
 }

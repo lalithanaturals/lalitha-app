@@ -5,10 +5,11 @@ import 'coupon/coupon_screen.dart';
 import 'estimate/estimate_screen.dart';
 import 'location_card/location_card_screen.dart';
 import 'price_tag/price_tag_screen.dart';
+import 'visiting_card/visiting_card_screen.dart';
 
 /// Landing screen for the Print module. Lists the individual print tools;
-/// as more of the original app's screens (visiting cards, custom text) are
-/// migrated they get a tile here too.
+/// as more of the original app's screens (custom text) are migrated they
+/// get a tile here too.
 class PrintHomeScreen extends StatelessWidget {
   const PrintHomeScreen({super.key});
 
@@ -54,6 +55,15 @@ class PrintHomeScreen extends StatelessWidget {
             subtitle: l10n.locationCardTileSubtitle,
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => const LocationCardScreen()),
+            ),
+          ),
+          _ToolTile(
+            key: const Key('visitingCardTile'),
+            icon: Icons.badge_outlined,
+            title: l10n.visitingCardTileTitle,
+            subtitle: l10n.visitingCardTileSubtitle,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const VisitingCardScreen()),
             ),
           ),
         ],
