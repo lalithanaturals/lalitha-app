@@ -72,6 +72,21 @@ class AppLocalizationsTe extends AppLocalizations {
       'ముందుగా బ్రాంచ్ మరియు ఉత్పత్తిని ఎంచుకోండి.';
 
   @override
+  String get addProductTooltip => 'కొత్త ఉత్పత్తిని జోడించండి';
+
+  @override
+  String get addProductDialogTitle => 'ఉత్పత్తిని జోడించండి';
+
+  @override
+  String get brandNameLabel => 'బ్రాండ్ పేరు';
+
+  @override
+  String get cancelButton => 'రద్దు చేయండి';
+
+  @override
+  String get enterBrandNameError => 'బ్రాండ్ పేరును నమోదు చేయండి.';
+
+  @override
   String failedToSaveError(String error) {
     return 'సేవ్ చేయడంలో విఫలమైంది: $error';
   }

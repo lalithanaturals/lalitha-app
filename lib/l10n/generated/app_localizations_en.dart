@@ -72,6 +72,21 @@ class AppLocalizationsEn extends AppLocalizations {
       'Select a branch and a product first.';
 
   @override
+  String get addProductTooltip => 'Add a new product';
+
+  @override
+  String get addProductDialogTitle => 'Add Product';
+
+  @override
+  String get brandNameLabel => 'Brand Name';
+
+  @override
+  String get cancelButton => 'Cancel';
+
+  @override
+  String get enterBrandNameError => 'Enter a brand name.';
+
+  @override
   String failedToSaveError(String error) {
     return 'Failed to save: $error';
   }

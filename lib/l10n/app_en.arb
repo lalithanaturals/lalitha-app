@@ -30,6 +30,11 @@
   "saveAndPrint": "Save & Print",
   "priceTagSavedMessage": "Price tag saved",
   "selectBranchAndProductError": "Select a branch and a product first.",
+  "addProductTooltip": "Add a new product",
+  "addProductDialogTitle": "Add Product",
+  "brandNameLabel": "Brand Name",
+  "cancelButton": "Cancel",
+  "enterBrandNameError": "Enter a brand name.",
   "failedToSaveError": "Failed to save: {error}",
   "@failedToSaveError": {
     "placeholders": {"error": {"type": "String"}}

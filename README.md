@@ -144,7 +144,7 @@ cleartext traffic by default.
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 198 tests: model/calculation unit tests, repository tests against a mocked
+flutter test      # 200 tests: model/calculation unit tests, repository tests against a mocked
                    # HTTP client, widget tests for all six Print-module screens plus
                    # Stock-transfer (Inventory, Transit Sheet, Transit History), scrap-calc
                    # (Calculator, Search, Receipt), Denomination (Audit Register, Archive,
@@ -166,8 +166,12 @@ suite runs fully offline and deterministically.
 - `PriceTagRepository`: request shape (filter/method/path) sent to PocketBase for list/create/delete
 - `EstimateRepository`: multi-step create (estimate, then each item tagged with its new parent id)
 - `CouponRepository`: issue, redeem (sends only the changed fields), and branch-filtered listing
-- `PriceTagScreen`: live-recomputed final price as inputs change, validation before save, and
-  that Save actually calls the repository with the computed `PriceTag`
+- `PriceTagScreen`: live-recomputed final price as inputs change, validation before save, that
+  Save actually calls the repository with the computed `PriceTag`, and its inline "+ Add Product"
+  quick-create (matching the old app's free-text "+ Add Brand Name" button) — creates the product,
+  waits for the refreshed list to actually contain it before selecting it (avoids a
+  DropdownButtonFormField assertion if the selection raced ahead of the refetch), and does nothing
+  on a blank name
 - `EstimateScreen`: live-recomputed running total as item rows are added/edited/removed,
   validation (branch required, at least one item), blank customer name falling back to
   "Walk-in Customer", and that Save calls the repository with the built `Estimate`

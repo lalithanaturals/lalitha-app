@@ -218,6 +218,36 @@ abstract class AppLocalizations {
   /// **'Select a branch and a product first.'**
   String get selectBranchAndProductError;
 
+  /// No description provided for @addProductTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new product'**
+  String get addProductTooltip;
+
+  /// No description provided for @addProductDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Product'**
+  String get addProductDialogTitle;
+
+  /// No description provided for @brandNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Brand Name'**
+  String get brandNameLabel;
+
+  /// No description provided for @cancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButton;
+
+  /// No description provided for @enterBrandNameError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a brand name.'**
+  String get enterBrandNameError;
+
   /// No description provided for @failedToSaveError.
   ///
   /// In en, this message translates to:

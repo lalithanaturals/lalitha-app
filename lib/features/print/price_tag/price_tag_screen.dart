@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/app_colors.dart';
 import '../../../core/models/price_tag.dart';
+import '../../../core/models/product.dart';
 import '../../../core/models/staff.dart';
 import '../../../core/providers.dart';
+import '../../../core/repositories/product_repository.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import 'price_tag_providers.dart';
 
@@ -73,6 +75,29 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
     }
   }
 
+  /// Matches the old app's "+ Add Brand Name" button — Price Tag's Product
+  /// field is a dropdown of pre-existing `products` records, but the
+  /// original app let anyone type a new brand name on the spot rather than
+  /// requiring an admin to pre-populate a catalog. `products.createRule` is
+  /// open to any authenticated user for the same reason (see
+  /// lalitha-backend's 1700000024_relax_products_create_and_seed_staff.js).
+  Future<void> _showAddProductDialog() async {
+    final created = await showDialog<Product>(
+      context: context,
+      builder: (dialogContext) => _AddProductDialog(productRepository: ref.read(productRepositoryProvider)),
+    );
+    if (created != null) {
+      // Await the refetch before selecting the new id — otherwise the
+      // dropdown can briefly rebuild with the old cached list (which
+      // doesn't contain `created.id` yet) and its value, throwing
+      // DropdownButtonFormField's "exactly one matching item" assertion.
+      final refreshedProducts = await ref.refresh(productsProvider.future);
+      if (mounted && refreshedProducts.any((p) => p.id == created.id)) {
+        setState(() => _selectedProductId = created.id);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -124,14 +149,27 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
             ),
             const SizedBox(height: 12),
             productsAsync.when(
-              data: (products) => DropdownButtonFormField<String>(
-                key: const Key('productDropdown'),
-                initialValue: _selectedProductId,
-                decoration: InputDecoration(labelText: l10n.productLabel),
-                items: products
-                    .map((p) => DropdownMenuItem(value: p.id, child: Text(p.brandName)))
-                    .toList(),
-                onChanged: (value) => setState(() => _selectedProductId = value),
+              data: (products) => Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      key: const Key('productDropdown'),
+                      initialValue: _selectedProductId,
+                      decoration: InputDecoration(labelText: l10n.productLabel),
+                      items: products
+                          .map((p) => DropdownMenuItem(value: p.id, child: Text(p.brandName)))
+                          .toList(),
+                      onChanged: (value) => setState(() => _selectedProductId = value),
+                    ),
+                  ),
+                  IconButton(
+                    key: const Key('addProductButton'),
+                    tooltip: l10n.addProductTooltip,
+                    icon: const Icon(Icons.add_circle_outline, color: AppColors.print),
+                    onPressed: _showAddProductDialog,
+                  ),
+                ],
               ),
               loading: () => const LinearProgressIndicator(),
               error: (e, _) => Text('$e'),
@@ -185,6 +223,62 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Owns its own `TextEditingController` so it disposes itself as part of
+/// the dialog route's normal exit-transition lifecycle, rather than a
+/// caller disposing one manually right after `showDialog` returns — doing
+/// that races the closing animation and throws "TextEditingController used
+/// after being disposed" while the dialog is still fading out.
+class _AddProductDialog extends StatefulWidget {
+  const _AddProductDialog({required this.productRepository});
+
+  final ProductRepository productRepository;
+
+  @override
+  State<_AddProductDialog> createState() => _AddProductDialogState();
+}
+
+class _AddProductDialogState extends State<_AddProductDialog> {
+  final _nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _confirm() async {
+    final name = _nameController.text.trim();
+    if (name.isEmpty) return;
+    final product = await widget.productRepository.create(Product(id: '', brandName: name));
+    if (mounted) Navigator.of(context).pop(product);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return AlertDialog(
+      title: Text(l10n.addProductDialogTitle),
+      content: TextField(
+        key: const Key('newProductNameField'),
+        controller: _nameController,
+        autofocus: true,
+        decoration: InputDecoration(labelText: l10n.brandNameLabel),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(l10n.cancelButton),
+        ),
+        FilledButton(
+          key: const Key('confirmAddProductButton'),
+          onPressed: _confirm,
+          child: Text(l10n.addLineItemLabel),
+        ),
+      ],
     );
   }
 }

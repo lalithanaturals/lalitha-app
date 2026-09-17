@@ -7,6 +7,7 @@ import 'package:lalitha_app/core/models/product.dart';
 import 'package:lalitha_app/core/models/staff.dart';
 import 'package:lalitha_app/core/providers.dart';
 import 'package:lalitha_app/core/repositories/price_tag_repository.dart';
+import 'package:lalitha_app/core/repositories/product_repository.dart';
 import 'package:lalitha_app/features/print/price_tag/price_tag_providers.dart';
 import 'package:lalitha_app/features/print/price_tag/price_tag_screen.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,18 +16,42 @@ import '../../support/localized_test_app.dart';
 
 class _MockPriceTagRepository extends Mock implements PriceTagRepository {}
 
+/// A stateful fake (not a Mock) so `create` actually shows up in a
+/// subsequent `listAll` — needed to exercise the real
+/// `ref.refresh(productsProvider.future)` flow after adding a product.
+class _FakeProductRepository implements ProductRepository {
+  _FakeProductRepository([List<Product> initial = const []]) : _products = List.of(initial);
+
+  final List<Product> _products;
+  int _nextId = 100;
+
+  @override
+  Future<List<Product>> listAll() async => List.of(_products);
+
+  @override
+  Future<Product> create(Product product) async {
+    final created = Product(id: 'prod${_nextId++}', brandName: product.brandName);
+    _products.add(created);
+    return created;
+  }
+}
+
 const _branch = Branch(id: 'branch1', name: 'Gajuwaka');
 const _staff = Staff(id: 'staff1', name: 'Bhargav', branchId: 'branch1');
 const _product = Product(id: 'prod1', brandName: 'Cold Pressed Oil', defaultPrice: 300);
 
-Future<void> _pumpScreen(WidgetTester tester, {required PriceTagRepository repo}) async {
+Future<void> _pumpScreen(
+  WidgetTester tester, {
+  required PriceTagRepository repo,
+  ProductRepository? productRepo,
+}) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
         branchesProvider.overrideWith((ref) async => [_branch]),
-        productsProvider.overrideWith((ref) async => [_product]),
         staffForBranchProvider.overrideWith((ref, branchId) async => [_staff]),
         priceTagRepositoryProvider.overrideWithValue(repo),
+        productRepositoryProvider.overrideWithValue(productRepo ?? _FakeProductRepository([_product])),
       ],
       child: localizedTestApp(home: const PriceTagScreen()),
     ),
@@ -36,6 +61,7 @@ Future<void> _pumpScreen(WidgetTester tester, {required PriceTagRepository repo}
 
 void main() {
   setUpAll(() {
+    registerFallbackValue(const Product(id: 'fallback', brandName: 'fallback'));
     registerFallbackValue(
       PriceTag.compute(
         productId: 'fallback',
@@ -107,5 +133,35 @@ void main() {
 
     verify(() => repo.create(any())).called(1);
     expect(find.text('Price tag saved'), findsOneWidget);
+  });
+
+  testWidgets('adding a product creates it, selects it, and refreshes the dropdown', (tester) async {
+    final repo = _MockPriceTagRepository();
+    final productRepo = _FakeProductRepository([_product]);
+    await _pumpScreen(tester, repo: repo, productRepo: productRepo);
+
+    await tester.tap(find.byKey(const Key('addProductButton')));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byKey(const Key('newProductNameField')), 'New Brand');
+    await tester.tap(find.byKey(const Key('confirmAddProductButton')));
+    await tester.pumpAndSettle();
+
+    expect(await productRepo.listAll(), hasLength(2));
+    expect(find.text('New Brand'), findsOneWidget);
+  });
+
+  testWidgets('adding a product with a blank name does not call the repository', (tester) async {
+    final repo = _MockPriceTagRepository();
+    final productRepo = _FakeProductRepository([_product]);
+    await _pumpScreen(tester, repo: repo, productRepo: productRepo);
+
+    await tester.tap(find.byKey(const Key('addProductButton')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('confirmAddProductButton')));
+    await tester.pumpAndSettle();
+
+    expect(await productRepo.listAll(), hasLength(1));
   });
 }

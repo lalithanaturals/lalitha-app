@@ -24,6 +24,11 @@
   "saveAndPrint": "సేవ్ & ప్రింట్",
   "priceTagSavedMessage": "ధర ట్యాగ్ సేవ్ చేయబడింది",
   "selectBranchAndProductError": "ముందుగా బ్రాంచ్ మరియు ఉత్పత్తిని ఎంచుకోండి.",
+  "addProductTooltip": "కొత్త ఉత్పత్తిని జోడించండి",
+  "addProductDialogTitle": "ఉత్పత్తిని జోడించండి",
+  "brandNameLabel": "బ్రాండ్ పేరు",
+  "cancelButton": "రద్దు చేయండి",
+  "enterBrandNameError": "బ్రాండ్ పేరును నమోదు చేయండి.",
   "failedToSaveError": "సేవ్ చేయడంలో విఫలమైంది: {error}",
 
   "customerNameLabel": "కస్టమర్ పేరు (ఐచ్ఛికం)",
