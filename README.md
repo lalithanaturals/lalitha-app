@@ -46,6 +46,9 @@ lib/
     denomination_values.dart   the ₹500..₹1 denomination list + the closing-balance cutoff —
                                 same settings-collection tech debt
   features/
+    auth/
+      auth_gate.dart          root widget: StaffLoginScreen until PIN login succeeds, then AppHomeScreen
+      staff_login_screen.dart   "pick your name" + 4-digit PIN, against POST /api/staff-login
     app_home_screen.dart   suite-wide entry point — one tile per module (Print, Stock, ...)
     print/
       print_home_screen.dart   lists the Print module's tools
@@ -114,15 +117,28 @@ for a Pi/cloud deployment):
 flutter run
 ```
 
+Every collection except `staff` requires an authenticated user, so the app opens on
+`StaffLoginScreen` (pick your name, enter a 4-digit PIN) until login succeeds — see
+lalitha-backend's README for how that works server-side. The seed migration ships two starting
+accounts: **Admin / 1234** and **Staff / 5678** (Gajuwaka).
+
+On a physical Android device connected over USB (not an emulator), `127.0.0.1:8090` from the
+manifest's default resolves to the *device itself*, not your dev machine — run
+`adb reverse tcp:8090 tcp:8090` first so the device's localhost forwards to the backend running on
+your machine. The debug build also needs `android/app/src/main/res/xml/network_security_config.xml`
+(already in the repo) to allow plaintext HTTP to `127.0.0.1`/`localhost`, since Android 9+ blocks
+cleartext traffic by default.
+
 ## Testing
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 180 tests: model/calculation unit tests, repository tests against a mocked
+flutter test      # 187 tests: model/calculation unit tests, repository tests against a mocked
                    # HTTP client, widget tests for all six Print-module screens plus
                    # Stock-transfer (Inventory, Transit Sheet), scrap-calc (Calculator, Search,
-                   # Receipt), and Denomination (Audit Register, Archive, Dashboard, Receipt),
-                   # the suite-wide module picker, and locale-switching tests (English/Telugu)
+                   # Receipt), Denomination (Audit Register, Archive, Dashboard, Receipt), staff
+                   # PIN login (StaffLoginScreen, AuthGate), the suite-wide module picker, and
+                   # locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -222,3 +238,12 @@ suite runs fully offline and deterministically.
 - `DenominationReceiptScreen`: shows date/status/denomination breakdown/totals, omits
   denominations with a zero count, and groups line items by category (only rendering categories
   that actually have items); reachable from Archive's "View Receipt" action per register
+- `RegisterScreen`: pre-fills locked Bhargav/Kanthi rows under Owner Bills (name read-only, no
+  remove button, matching the old app's `addLockedRow`) that still submit at commit time even if
+  their amount is left at zero
+- `StaffLoginScreen`: shows an error and skips the login call when submitting without selecting a
+  staff member, calls `AuthRepository.loginWithPin` with the selected staff id and entered PIN on
+  submit, and shows an error message when the login call throws (wrong PIN)
+- `AuthGate`: renders `StaffLoginScreen` while logged out and `AppHomeScreen` once
+  `authStateProvider` reports a valid session, with no manual navigation needed on either side
+- `AppHomeScreen`: the logout button calls `AuthRepository.logout()`

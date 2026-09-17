@@ -991,6 +991,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weight Entries (kg)'**
   String get weightEntriesLabel;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Staff Login'**
+  String get loginTitle;
+
+  /// No description provided for @pinLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'4-Digit PIN'**
+  String get pinLabel;
+
+  /// No description provided for @loginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginButton;
+
+  /// No description provided for @selectStaffError.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your name first.'**
+  String get selectStaffError;
+
+  /// No description provided for @invalidPinError.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect PIN. Please try again.'**
+  String get invalidPinError;
+
+  /// No description provided for @logoutButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logoutButton;
+
+  /// Shown on the suite home screen's AppBar
+  ///
+  /// In en, this message translates to:
+  /// **'Logged in as {name}'**
+  String loggedInAsLabel(String name);
 }
 
 class _AppLocalizationsDelegate

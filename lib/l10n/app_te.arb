@@ -164,5 +164,13 @@
   "viewReceiptButton": "రసీదు చూడండి",
   "displayIdLabel": "ID",
   "customerLabel": "కస్టమర్",
-  "weightEntriesLabel": "బరువు నమోదులు (కేజీ)"
+  "weightEntriesLabel": "బరువు నమోదులు (కేజీ)",
+
+  "loginTitle": "సిబ్బంది లాగిన్",
+  "pinLabel": "4-అంకెల PIN",
+  "loginButton": "లాగిన్",
+  "selectStaffError": "ముందుగా మీ పేరును ఎంచుకోండి.",
+  "invalidPinError": "తప్పు PIN. దయచేసి మళ్ళీ ప్రయత్నించండి.",
+  "logoutButton": "లాగౌట్",
+  "loggedInAsLabel": "{name} గా లాగిన్ అయ్యారు"
 }

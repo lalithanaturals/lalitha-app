@@ -481,4 +481,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weightEntriesLabel => 'Weight Entries (kg)';
+
+  @override
+  String get loginTitle => 'Staff Login';
+
+  @override
+  String get pinLabel => '4-Digit PIN';
+
+  @override
+  String get loginButton => 'Login';
+
+  @override
+  String get selectStaffError => 'Select your name first.';
+
+  @override
+  String get invalidPinError => 'Incorrect PIN. Please try again.';
+
+  @override
+  String get logoutButton => 'Logout';
+
+  @override
+  String loggedInAsLabel(String name) {
+    return 'Logged in as $name';
+  }
 }

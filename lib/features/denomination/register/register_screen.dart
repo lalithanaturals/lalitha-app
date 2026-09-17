@@ -10,18 +10,28 @@ import '../../../l10n/generated/app_localizations.dart';
 import 'register_providers.dart';
 
 class _LineItemDraft {
-  _LineItemDraft()
-      : nameController = TextEditingController(),
+  _LineItemDraft({String name = '', this.locked = false})
+      : nameController = TextEditingController(text: name),
         amountController = TextEditingController();
 
   final TextEditingController nameController;
   final TextEditingController amountController;
+
+  /// True for the default Owner Bill rows (Bhargav, Kanthi) carried over
+  /// from the old app's `addLockedRow('owner', ...)` — pre-filled and
+  /// non-removable so staff can't forget to log them, but the amount stays
+  /// editable. See Denomination/index.html's addLockedRow.
+  final bool locked;
 
   void dispose() {
     nameController.dispose();
     amountController.dispose();
   }
 }
+
+/// Default owner names the old app always pre-filled on a new register
+/// (addLockedRow('owner', 'Bhargav', ''); addLockedRow('owner', 'Kanthi', '')).
+const _defaultOwnerNames = ['Bhargav', 'Kanthi'];
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
@@ -42,7 +52,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     for (final v in DenominationValues.values) v: TextEditingController(),
   };
   final Map<AuditLineCategory, List<_LineItemDraft>> _lineItems = {
-    for (final c in AuditLineCategory.values) c: <_LineItemDraft>[],
+    for (final c in AuditLineCategory.values)
+      c: c == AuditLineCategory.ownerBill
+          ? [for (final name in _defaultOwnerNames) _LineItemDraft(name: name, locked: true)]
+          : <_LineItemDraft>[],
   };
   bool _committing = false;
   String? _errorMessage;
@@ -77,6 +90,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       setState(() => _lineItems[category]!.add(_LineItemDraft()));
 
   void _removeLineItem(AuditLineCategory category, int index) {
+    if (_lineItems[category]![index].locked) return;
     setState(() {
       _lineItems[category]!.removeAt(index).dispose();
     });
@@ -258,6 +272,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     child: TextField(
                       key: Key('lineItemName_${category.name}_$i'),
                       controller: drafts[i].nameController,
+                      readOnly: drafts[i].locked,
                       decoration: InputDecoration(labelText: l10n.lineItemNameLabel),
                     ),
                   ),
@@ -270,11 +285,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       decoration: InputDecoration(labelText: l10n.lineItemAmountLabel),
                     ),
                   ),
-                  IconButton(
-                    key: Key('removeLineItem_${category.name}_$i'),
-                    onPressed: () => _removeLineItem(category, i),
-                    icon: const Icon(Icons.remove_circle_outline),
-                  ),
+                  if (!drafts[i].locked)
+                    IconButton(
+                      key: Key('removeLineItem_${category.name}_$i'),
+                      onPressed: () => _removeLineItem(category, i),
+                      icon: const Icon(Icons.remove_circle_outline),
+                    ),
                 ],
               ),
             ),

@@ -55,6 +55,30 @@ void main() {
     registerFallbackValue(AuditRegister(date: DateTime.utc(2026, 1, 1), branchId: 'fallback'));
   });
 
+  testWidgets('pre-fills locked Bhargav/Kanthi rows under Owner Bills that cannot be removed', (tester) async {
+    final repo = _MockAuditRegisterRepository();
+    when(() => repo.findPreviousRegister(any(), any())).thenAnswer((_) async => null);
+    await _pumpScreen(tester, repo: repo);
+    await _selectBranch(tester);
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('lineItemName_ownerBill_1')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+
+    expect(
+      tester.widget<TextField>(find.byKey(const Key('lineItemName_ownerBill_0'))).controller!.text,
+      'Bhargav',
+    );
+    expect(
+      tester.widget<TextField>(find.byKey(const Key('lineItemName_ownerBill_1'))).controller!.text,
+      'Kanthi',
+    );
+    expect(find.byKey(const Key('removeLineItem_ownerBill_0')), findsNothing);
+    expect(find.byKey(const Key('removeLineItem_ownerBill_1')), findsNothing);
+  });
+
   testWidgets('selecting a branch loads the opening balance from the previous register', (tester) async {
     final repo = _MockAuditRegisterRepository();
     when(() => repo.findPreviousRegister(any(), any())).thenAnswer(
@@ -153,10 +177,15 @@ void main() {
     expect(createdArg.denominationCounts, {100: 5});
     expect(createdArg.status, AuditRegisterStatus.draft);
 
-    final lineItemArg = verify(() => repo.addLineItem(captureAny())).captured.single as AuditLineItem;
+    // Also submits the two default locked Owner Bill rows (Bhargav, Kanthi)
+    // at ₹0, carried over from the old app's addLockedRow behavior.
+    final capturedItems =
+        verify(() => repo.addLineItem(captureAny())).captured.cast<AuditLineItem>();
+    expect(capturedItems, hasLength(3));
+    final lineItemArg = capturedItems.singleWhere((i) => i.name == 'Electricity');
     expect(lineItemArg.auditRegisterId, 'reg1');
-    expect(lineItemArg.name, 'Electricity');
     expect(lineItemArg.amount, 450);
+    expect(capturedItems.map((i) => i.name), containsAll(['Bhargav', 'Kanthi']));
 
     verify(() => repo.commit('reg1', committedByStaffId: any(named: 'committedByStaffId'))).called(1);
     expect(find.text('Register committed'), findsOneWidget);

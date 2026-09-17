@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/app_colors.dart';
-import 'features/app_home_screen.dart';
+import 'features/auth/auth_gate.dart';
 import 'l10n/generated/app_localizations.dart';
 
 void main() {
@@ -27,7 +27,7 @@ class LalithaApp extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const AppHomeScreen(),
+      home: const AuthGate(),
     );
   }
 }

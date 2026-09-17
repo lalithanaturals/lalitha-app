@@ -195,5 +195,17 @@
   "viewReceiptButton": "View Receipt",
   "displayIdLabel": "ID",
   "customerLabel": "Customer",
-  "weightEntriesLabel": "Weight Entries (kg)"
+  "weightEntriesLabel": "Weight Entries (kg)",
+
+  "loginTitle": "Staff Login",
+  "pinLabel": "4-Digit PIN",
+  "loginButton": "Login",
+  "selectStaffError": "Select your name first.",
+  "invalidPinError": "Incorrect PIN. Please try again.",
+  "logoutButton": "Logout",
+  "loggedInAsLabel": "Logged in as {name}",
+  "@loggedInAsLabel": {
+    "description": "Shown on the suite home screen's AppBar",
+    "placeholders": {"name": {"type": "String"}}
+  }
 }

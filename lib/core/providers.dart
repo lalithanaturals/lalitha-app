@@ -3,6 +3,7 @@ import 'package:pocketbase/pocketbase.dart';
 
 import 'client/pocketbase_client.dart';
 import 'repositories/audit_register_repository.dart';
+import 'repositories/auth_repository.dart';
 import 'repositories/branch_repository.dart';
 import 'repositories/coupon_repository.dart';
 import 'repositories/custom_print_repository.dart';
@@ -24,6 +25,19 @@ final pocketBaseClientProvider = Provider<AppPocketBaseClient>((ref) {
 
 final pocketBaseProvider = Provider<PocketBase>((ref) {
   return ref.watch(pocketBaseClientProvider).pb;
+});
+
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
+  return AuthRepository(ref.watch(pocketBaseProvider));
+});
+
+/// True once staff PIN login succeeds, false after logout/token expiry —
+/// drives the AuthGate that picks between StaffLoginScreen and
+/// AppHomeScreen in main.dart.
+final authStateProvider = StreamProvider<bool>((ref) async* {
+  final pb = ref.watch(pocketBaseProvider);
+  yield pb.authStore.isValid;
+  yield* pb.authStore.onChange.map((_) => pb.authStore.isValid);
 });
 
 final branchRepositoryProvider = Provider<BranchRepository>((ref) {

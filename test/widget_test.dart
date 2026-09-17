@@ -6,6 +6,8 @@ import 'package:lalitha_app/core/models/coupon.dart';
 import 'package:lalitha_app/core/models/inventory.dart';
 import 'package:lalitha_app/core/models/product.dart';
 import 'package:lalitha_app/core/models/staff.dart';
+import 'package:lalitha_app/core/providers.dart';
+import 'package:lalitha_app/core/repositories/auth_repository.dart';
 import 'package:lalitha_app/features/print/coupon/coupon_providers.dart';
 import 'package:lalitha_app/features/print/custom_text/custom_text_providers.dart';
 import 'package:lalitha_app/features/print/estimate/estimate_providers.dart';
@@ -17,9 +19,14 @@ import 'package:lalitha_app/features/scrap/calculator/calculator_providers.dart'
 import 'package:lalitha_app/features/stock/inventory/inventory_providers.dart';
 import 'package:lalitha_app/features/stock/transit_sheet/transit_sheet_providers.dart';
 import 'package:lalitha_app/main.dart';
+import 'package:mocktail/mocktail.dart';
 
-Widget _appWithOverrides() => ProviderScope(
+class _MockAuthRepository extends Mock implements AuthRepository {}
+
+Widget _appWithOverrides({AuthRepository? authRepository}) => ProviderScope(
       overrides: [
+        authStateProvider.overrideWith((ref) => Stream.value(true)),
+        if (authRepository != null) authRepositoryProvider.overrideWithValue(authRepository),
         branchesProvider.overrideWith((ref) async => const <Branch>[]),
         productsProvider.overrideWith((ref) async => const <Product>[]),
         staffForBranchProvider.overrideWith((ref, branchId) async => const <Staff>[]),
@@ -91,5 +98,17 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('registerEntryTile')), findsOneWidget);
+  });
+
+  testWidgets('tapping logout calls authRepository.logout()', (tester) async {
+    final authRepository = _MockAuthRepository();
+    when(() => authRepository.logout()).thenReturn(null);
+    await tester.pumpWidget(_appWithOverrides(authRepository: authRepository));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('logoutButton')));
+    await tester.pumpAndSettle();
+
+    verify(() => authRepository.logout()).called(1);
   });
 }

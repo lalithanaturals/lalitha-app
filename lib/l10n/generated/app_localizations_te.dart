@@ -484,4 +484,27 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get weightEntriesLabel => 'బరువు నమోదులు (కేజీ)';
+
+  @override
+  String get loginTitle => 'సిబ్బంది లాగిన్';
+
+  @override
+  String get pinLabel => '4-అంకెల PIN';
+
+  @override
+  String get loginButton => 'లాగిన్';
+
+  @override
+  String get selectStaffError => 'ముందుగా మీ పేరును ఎంచుకోండి.';
+
+  @override
+  String get invalidPinError => 'తప్పు PIN. దయచేసి మళ్ళీ ప్రయత్నించండి.';
+
+  @override
+  String get logoutButton => 'లాగౌట్';
+
+  @override
+  String loggedInAsLabel(String name) {
+    return '$name గా లాగిన్ అయ్యారు';
+  }
 }
