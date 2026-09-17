@@ -100,4 +100,22 @@ void main() {
 
     expect(find.byKey(const Key('noLineItemsText_reg1')), findsOneWidget);
   });
+
+  testWidgets('tapping View Receipt navigates to the receipt preview', (tester) async {
+    await _pumpScreen(
+      tester,
+      registers: [
+        AuditRegister(id: 'reg1', date: DateTime.utc(2026, 9, 17), branchId: 'branch1', cashTotal: 1000),
+      ],
+    );
+    await _selectBranch(tester);
+
+    await tester.tap(find.byKey(const Key('archiveRegisterExpansion_reg1')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('viewReceiptButton_reg1')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Cash Total: ₹1000.00'), findsOneWidget);
+  });
 }

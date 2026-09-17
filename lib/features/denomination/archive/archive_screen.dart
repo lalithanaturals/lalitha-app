@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/models/audit_register.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../receipt/denomination_receipt_screen.dart';
 import 'archive_providers.dart';
 
 class ArchiveScreen extends ConsumerStatefulWidget {
@@ -81,30 +82,40 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
           '${l10n.cashTotalLabel}: ₹${register.cashTotal.toStringAsFixed(2)} · '
           '${l10n.closingBalanceLabel}: ₹${register.closingBalance.toStringAsFixed(2)}',
         ),
-        children: [_buildLineItems(l10n, register.id!)],
+        children: [_buildLineItems(l10n, register)],
       ),
     );
   }
 
-  Widget _buildLineItems(AppLocalizations l10n, String registerId) {
+  Widget _buildLineItems(AppLocalizations l10n, AuditRegister register) {
+    final registerId = register.id!;
     final itemsAsync = ref.watch(archiveLineItemsProvider(registerId));
     return itemsAsync.when(
       data: (items) {
-        if (items.isEmpty) {
-          return Padding(
-            padding: const EdgeInsets.all(12),
-            child: Text(l10n.noLineItemsMessage, key: Key('noLineItemsText_$registerId')),
-          );
-        }
         return Column(
           key: Key('lineItemsList_$registerId'),
           children: [
-            for (final item in items)
-              ListTile(
-                dense: true,
-                title: Text(item.name),
-                trailing: Text('₹${item.amount.toStringAsFixed(2)}'),
+            if (items.isEmpty)
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Text(l10n.noLineItemsMessage, key: Key('noLineItemsText_$registerId')),
+              )
+            else
+              for (final item in items)
+                ListTile(
+                  dense: true,
+                  title: Text(item.name),
+                  trailing: Text('₹${item.amount.toStringAsFixed(2)}'),
+                ),
+            TextButton(
+              key: Key('viewReceiptButton_$registerId'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => DenominationReceiptScreen(register: register, lineItems: items),
+                ),
               ),
+              child: Text(l10n.viewReceiptButton),
+            ),
           ],
         );
       },

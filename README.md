@@ -17,10 +17,11 @@ against.
   preview (thermal-receipt-styled read-only view, reached after saving or from a search result).
   Actual native ESC/POS printing stays deferred suite-wide (master plan Phase 3).
 - **Denomination** — the daily cash Audit Register (denomination counts, category line items,
-  commit), Archive (browse past registers per branch, expand to view line items), and a BI
-  Dashboard (register count, total cash counted, and a per-category breakdown — all summed across
-  a branch's registers). Exports (JPEG/PDF/Thermal/WhatsApp — Denomination's PROJECT_PLAN.md §4)
-  are not yet implemented.
+  commit), Archive (browse past registers per branch, expand to view line items or a Receipt
+  preview), and a BI Dashboard (register count, total cash counted, and a per-category breakdown
+  — all summed across a branch's registers). Actual JPEG/PDF/WhatsApp export (native, per
+  Denomination's PROJECT_PLAN.md §4) stays deferred, same as native ESC/POS printing everywhere
+  else (master plan Phase 3).
 
 **Fully localized: English (default) + Telugu**, via Flutter's standard `gen-l10n` — see
 [Internationalization](#internationalization) below.
@@ -67,6 +68,7 @@ lib/
       register/                        the Audit Register entry/commit screen + its FutureProviders
       archive/                          browse past registers per branch + its FutureProviders
       dashboard/                        cash/category totals across a branch + its FutureProviders
+      receipt/                           thermal-receipt-styled read-only register preview
   l10n/
     app_en.arb          English strings (template/default locale)
     app_te.arb           Telugu strings (full parallel translation)
@@ -116,11 +118,11 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 176 tests: model/calculation unit tests, repository tests against a mocked
+flutter test      # 180 tests: model/calculation unit tests, repository tests against a mocked
                    # HTTP client, widget tests for all six Print-module screens plus
                    # Stock-transfer (Inventory, Transit Sheet), scrap-calc (Calculator, Search,
-                   # Receipt), and Denomination (Audit Register, Archive, Dashboard), the
-                   # suite-wide module picker, and locale-switching tests (English/Telugu)
+                   # Receipt), and Denomination (Audit Register, Archive, Dashboard, Receipt),
+                   # the suite-wide module picker, and locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -217,3 +219,6 @@ suite runs fully offline and deterministically.
   when the branch has no registers yet
 - `DenominationHomeScreen`: the Register Entry, Archive, and Dashboard tiles are all present and
   navigate
+- `DenominationReceiptScreen`: shows date/status/denomination breakdown/totals, omits
+  denominations with a zero count, and groups line items by category (only rendering categories
+  that actually have items); reachable from Archive's "View Receipt" action per register
