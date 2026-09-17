@@ -424,4 +424,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String failedToConvertError(String error) {
     return 'Failed to convert: $error';
   }
+
+  @override
+  String get archiveTitle => 'Archive';
+
+  @override
+  String get archiveTileTitle => 'Archive';
+
+  @override
+  String get archiveTileSubtitle => 'Browse past registers for a branch';
+
+  @override
+  String get noRegistersMessage => 'No registers found for this branch';
+
+  @override
+  String get statusDraftLabel => 'Draft';
+
+  @override
+  String get statusCommittedLabel => 'Committed';
+
+  @override
+  String get viewLineItemsLabel => 'View Line Items';
+
+  @override
+  String get noLineItemsMessage => 'No line items';
 }

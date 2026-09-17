@@ -173,5 +173,14 @@
   "failedToConvertError": "Failed to convert: {error}",
   "@failedToConvertError": {
     "placeholders": {"error": {"type": "String"}}
-  }
+  },
+
+  "archiveTitle": "Archive",
+  "archiveTileTitle": "Archive",
+  "archiveTileSubtitle": "Browse past registers for a branch",
+  "noRegistersMessage": "No registers found for this branch",
+  "statusDraftLabel": "Draft",
+  "statusCommittedLabel": "Committed",
+  "viewLineItemsLabel": "View Line Items",
+  "noLineItemsMessage": "No line items"
 }

@@ -142,5 +142,14 @@
   "statusOrderLabel": "ఆర్డర్",
   "convertToOrderButton": "ఆర్డర్‌గా మార్చండి",
   "orderConvertedMessage": "ఆర్డర్‌గా మార్చబడింది",
-  "failedToConvertError": "మార్చడంలో విఫలమైంది: {error}"
+  "failedToConvertError": "మార్చడంలో విఫలమైంది: {error}",
+
+  "archiveTitle": "ఆర్కైవ్",
+  "archiveTileTitle": "ఆర్కైవ్",
+  "archiveTileSubtitle": "బ్రాంచ్ కోసం గత రిజిస్టర్లను బ్రౌజ్ చేయండి",
+  "noRegistersMessage": "ఈ బ్రాంచ్ కోసం రిజిస్టర్లు కనుగొనబడలేదు",
+  "statusDraftLabel": "డ్రాఫ్ట్",
+  "statusCommittedLabel": "కమిట్ చేయబడింది",
+  "viewLineItemsLabel": "లైన్ ఐటెమ్‌లను చూడండి",
+  "noLineItemsMessage": "లైన్ ఐటెమ్‌లు లేవు"
 }

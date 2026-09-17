@@ -877,6 +877,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to convert: {error}'**
   String failedToConvertError(String error);
+
+  /// No description provided for @archiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archiveTitle;
+
+  /// No description provided for @archiveTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archiveTileTitle;
+
+  /// No description provided for @archiveTileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse past registers for a branch'**
+  String get archiveTileSubtitle;
+
+  /// No description provided for @noRegistersMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No registers found for this branch'**
+  String get noRegistersMessage;
+
+  /// No description provided for @statusDraftLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft'**
+  String get statusDraftLabel;
+
+  /// No description provided for @statusCommittedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Committed'**
+  String get statusCommittedLabel;
+
+  /// No description provided for @viewLineItemsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'View Line Items'**
+  String get viewLineItemsLabel;
+
+  /// No description provided for @noLineItemsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No line items'**
+  String get noLineItemsMessage;
 }
 
 class _AppLocalizationsDelegate

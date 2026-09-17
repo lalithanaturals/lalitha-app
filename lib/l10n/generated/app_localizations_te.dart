@@ -426,4 +426,29 @@ class AppLocalizationsTe extends AppLocalizations {
   String failedToConvertError(String error) {
     return 'మార్చడంలో విఫలమైంది: $error';
   }
+
+  @override
+  String get archiveTitle => 'ఆర్కైవ్';
+
+  @override
+  String get archiveTileTitle => 'ఆర్కైవ్';
+
+  @override
+  String get archiveTileSubtitle =>
+      'బ్రాంచ్ కోసం గత రిజిస్టర్లను బ్రౌజ్ చేయండి';
+
+  @override
+  String get noRegistersMessage => 'ఈ బ్రాంచ్ కోసం రిజిస్టర్లు కనుగొనబడలేదు';
+
+  @override
+  String get statusDraftLabel => 'డ్రాఫ్ట్';
+
+  @override
+  String get statusCommittedLabel => 'కమిట్ చేయబడింది';
+
+  @override
+  String get viewLineItemsLabel => 'లైన్ ఐటెమ్‌లను చూడండి';
+
+  @override
+  String get noLineItemsMessage => 'లైన్ ఐటెమ్‌లు లేవు';
 }

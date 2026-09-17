@@ -38,6 +38,16 @@ class AuditRegisterRepository {
     return AuditRegister.fromJson(result.items.first.toJson());
   }
 
+  /// Archive listing for a branch, most recent first — powers the
+  /// Archive/Search screen (Denomination/PROJECT_PLAN.md §4 #3).
+  Future<List<AuditRegister>> listForBranch(String branchId) async {
+    final records = await _pb.collection('audit_registers').getFullList(
+          filter: 'branch = "$branchId"',
+          sort: '-date',
+        );
+    return records.map((r) => AuditRegister.fromJson(r.toJson())).toList();
+  }
+
   Future<List<AuditLineItem>> listLineItems(String auditRegisterId) async {
     final records = await _pb.collection('audit_line_items').getFullList(
           filter: 'audit_register = "$auditRegisterId"',
