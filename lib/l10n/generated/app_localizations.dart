@@ -925,6 +925,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No line items'**
   String get noLineItemsMessage;
+
+  /// No description provided for @dashboardTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboardTileTitle;
+
+  /// No description provided for @dashboardTileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash & category totals for a branch'**
+  String get dashboardTileSubtitle;
+
+  /// No description provided for @dashboardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Intelligence Dashboard'**
+  String get dashboardTitle;
+
+  /// No description provided for @registerCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Registers'**
+  String get registerCountLabel;
+
+  /// No description provided for @totalCashLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Cash Counted'**
+  String get totalCashLabel;
+
+  /// No description provided for @categoryBreakdownLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Category Breakdown'**
+  String get categoryBreakdownLabel;
 }
 
 class _AppLocalizationsDelegate

@@ -55,6 +55,17 @@ class AuditRegisterRepository {
     return records.map((r) => AuditLineItem.fromJson(r.toJson())).toList();
   }
 
+  /// Every line item across every register for [branchId], via PocketBase's
+  /// relation-field filter (`audit_register.branch`) — a single request
+  /// rather than one per register. Powers the BI Dashboard's category
+  /// breakdown (Denomination/PROJECT_PLAN.md §4 #5).
+  Future<List<AuditLineItem>> listAllLineItemsForBranch(String branchId) async {
+    final records = await _pb.collection('audit_line_items').getFullList(
+          filter: 'audit_register.branch = "$branchId"',
+        );
+    return records.map((r) => AuditLineItem.fromJson(r.toJson())).toList();
+  }
+
   Future<AuditLineItem> addLineItem(AuditLineItem item) async {
     final record = await _pb.collection('audit_line_items').create(body: item.toJson());
     return AuditLineItem.fromJson(record.toJson());

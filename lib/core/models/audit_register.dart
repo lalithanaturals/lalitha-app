@@ -62,6 +62,18 @@ enum AuditRegisterStatus {
   String toJson() => name;
 }
 
+/// Sums line-item amounts per category — powers the BI Dashboard's
+/// per-category breakdown across a branch's registers.
+Map<AuditLineCategory, num> calculateCategoryTotals(List<AuditLineItem> items) {
+  final totals = <AuditLineCategory, num>{
+    for (final c in AuditLineCategory.values) c: 0,
+  };
+  for (final item in items) {
+    totals[item.category] = (totals[item.category] ?? 0) + item.amount;
+  }
+  return totals;
+}
+
 /// Total cash counted across every denomination.
 num calculateCashTotal(Map<int, int> denominationCounts) => denominationCounts.entries
     .fold<num>(0, (sum, entry) => sum + entry.key * entry.value);

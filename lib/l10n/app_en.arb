@@ -182,5 +182,12 @@
   "statusDraftLabel": "Draft",
   "statusCommittedLabel": "Committed",
   "viewLineItemsLabel": "View Line Items",
-  "noLineItemsMessage": "No line items"
+  "noLineItemsMessage": "No line items",
+
+  "dashboardTileTitle": "Dashboard",
+  "dashboardTileSubtitle": "Cash & category totals for a branch",
+  "dashboardTitle": "Business Intelligence Dashboard",
+  "registerCountLabel": "Registers",
+  "totalCashLabel": "Total Cash Counted",
+  "categoryBreakdownLabel": "Category Breakdown"
 }

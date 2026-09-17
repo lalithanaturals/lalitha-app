@@ -16,9 +16,10 @@ against.
   Search (find past estimates/orders by name/phone/ID, convert an estimate to an order).
   Thermal-receipt print preview (scrap-calc's PROJECT_PLAN.md §4) is not yet implemented.
 - **Denomination** — the daily cash Audit Register (denomination counts, category line items,
-  commit) and Archive (browse past registers per branch, expand to view line items). Exports
-  (JPEG/PDF/Thermal/WhatsApp) and the BI dashboard (Denomination's PROJECT_PLAN.md §4) are not
-  yet implemented.
+  commit), Archive (browse past registers per branch, expand to view line items), and a BI
+  Dashboard (register count, total cash counted, and a per-category breakdown — all summed across
+  a branch's registers). Exports (JPEG/PDF/Thermal/WhatsApp — Denomination's PROJECT_PLAN.md §4)
+  are not yet implemented.
 
 **Fully localized: English (default) + Telugu**, via Flutter's standard `gen-l10n` — see
 [Internationalization](#internationalization) below.
@@ -63,6 +64,7 @@ lib/
       denomination_home_screen.dart   lists the Denomination module's tools
       register/                        the Audit Register entry/commit screen + its FutureProviders
       archive/                          browse past registers per branch + its FutureProviders
+      dashboard/                        cash/category totals across a branch + its FutureProviders
   l10n/
     app_en.arb          English strings (template/default locale)
     app_te.arb           Telugu strings (full parallel translation)
@@ -112,11 +114,11 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 166 tests: model/calculation unit tests, repository tests against a mocked
+flutter test      # 173 tests: model/calculation unit tests, repository tests against a mocked
                    # HTTP client, widget tests for all six Print-module screens plus
                    # Stock-transfer (Inventory, Transit Sheet), scrap-calc (Calculator, Search),
-                   # and Denomination (Audit Register, Archive), the suite-wide module picker,
-                   # and locale-switching tests (English/Telugu)
+                   # and Denomination (Audit Register, Archive, Dashboard), the suite-wide
+                   # module picker, and locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -199,4 +201,13 @@ suite runs fully offline and deterministically.
 - `ArchiveScreen`: a "no registers" message when a branch has none, each register lists its
   date/status/cash-total/closing-balance, and expanding it shows its line items (or a "no line
   items" message when there are none)
-- `DenominationHomeScreen`: both the Register Entry and Archive tiles are present and navigate
+- `calculateCategoryTotals`: sums line-item amounts per category, zeroing categories with no
+  items (rather than omitting them), and returns all-zero totals for an empty item list
+- `AuditRegisterRepository.listAllLineItemsForBranch`: uses PocketBase's relation-traversal
+  filter (`audit_register.branch = X`) to fetch every line item across a branch's registers in
+  one request rather than one per register
+- `DashboardScreen`: shows the register count and total cash summed across all of a branch's
+  registers, the per-category breakdown summed across all of its line items, and all-zero totals
+  when the branch has no registers yet
+- `DenominationHomeScreen`: the Register Entry, Archive, and Dashboard tiles are all present and
+  navigate

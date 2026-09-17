@@ -157,4 +157,41 @@ void main() {
       expect(capturedUri!.queryParameters['sort'], '-date');
     });
   });
+
+  group('AuditRegisterRepository.listAllLineItemsForBranch', () {
+    test('filters via the audit_register.branch relation traversal', () async {
+      Uri? capturedUri;
+      final pb = PocketBase(
+        'http://mock.local',
+        httpClientFactory: () => MockClient((request) async {
+          capturedUri = request.url;
+          final body = jsonEncode({
+            'page': 1,
+            'perPage': 30,
+            'totalItems': 1,
+            'totalPages': 1,
+            'items': [
+              {
+                'id': 'item1',
+                'collectionId': 'audit_line_items',
+                'collectionName': 'audit_line_items',
+                'audit_register': 'reg1',
+                'category': 'expense',
+                'name': 'Electricity',
+                'amount': 450,
+              },
+            ],
+          });
+          return http.Response(body, 200, headers: {'content-type': 'application/json'});
+        }),
+      );
+
+      final repo = AuditRegisterRepository(pb);
+      final result = await repo.listAllLineItemsForBranch('branch1');
+
+      expect(result, hasLength(1));
+      expect(result.first.amount, 450);
+      expect(capturedUri!.queryParameters['filter'], 'audit_register.branch = "branch1"');
+    });
+  });
 }

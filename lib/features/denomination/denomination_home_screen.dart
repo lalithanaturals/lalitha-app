@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import 'archive/archive_screen.dart';
+import 'dashboard/dashboard_screen.dart';
 import 'register/register_screen.dart';
 
-/// Landing screen for the Denomination module. Register entry/commit and
-/// Archive/Search are live; exports (JPEG/PDF/Thermal/WhatsApp) and the BI
-/// dashboard (Denomination/PROJECT_PLAN.md §4) are not yet implemented.
+/// Landing screen for the Denomination module. Register entry/commit,
+/// Archive/Search, and the BI Dashboard are live; exports
+/// (JPEG/PDF/Thermal/WhatsApp) — Denomination/PROJECT_PLAN.md §4 — are not
+/// yet implemented.
 class DenominationHomeScreen extends StatelessWidget {
   const DenominationHomeScreen({super.key});
 
@@ -39,6 +41,18 @@ class DenominationHomeScreen extends StatelessWidget {
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const ArchiveScreen()),
+              ),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              key: const Key('dashboardTile'),
+              leading: const Icon(Icons.bar_chart_outlined),
+              title: Text(l10n.dashboardTileTitle),
+              subtitle: Text(l10n.dashboardTileSubtitle),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const DashboardScreen()),
               ),
             ),
           ),

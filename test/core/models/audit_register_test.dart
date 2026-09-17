@@ -13,6 +13,28 @@ void main() {
     });
   });
 
+  group('calculateCategoryTotals', () {
+    test('sums amounts per category and zeroes categories with no items', () {
+      const items = [
+        AuditLineItem(category: AuditLineCategory.expense, name: 'Electricity', amount: 450),
+        AuditLineItem(category: AuditLineCategory.expense, name: 'Water', amount: 100),
+        AuditLineItem(category: AuditLineCategory.ownerBill, name: 'Rent', amount: 5000),
+      ];
+      final totals = calculateCategoryTotals(items);
+      expect(totals[AuditLineCategory.expense], 550);
+      expect(totals[AuditLineCategory.ownerBill], 5000);
+      expect(totals[AuditLineCategory.vendorBill], 0);
+      expect(totals[AuditLineCategory.unbilled], 0);
+    });
+
+    test('returns all-zero totals for an empty item list', () {
+      final totals = calculateCategoryTotals(const []);
+      for (final category in AuditLineCategory.values) {
+        expect(totals[category], 0);
+      }
+    });
+  });
+
   group('calculateClosingBalance', () {
     test('excludes denominations above 200', () {
       final closing = calculateClosingBalance({500: 4, 200: 2, 100: 1});

@@ -151,5 +151,12 @@
   "statusDraftLabel": "డ్రాఫ్ట్",
   "statusCommittedLabel": "కమిట్ చేయబడింది",
   "viewLineItemsLabel": "లైన్ ఐటెమ్‌లను చూడండి",
-  "noLineItemsMessage": "లైన్ ఐటెమ్‌లు లేవు"
+  "noLineItemsMessage": "లైన్ ఐటెమ్‌లు లేవు",
+
+  "dashboardTileTitle": "డాష్‌బోర్డ్",
+  "dashboardTileSubtitle": "బ్రాంచ్ కోసం నగదు & వర్గం మొత్తాలు",
+  "dashboardTitle": "బిజినెస్ ఇంటెలిజెన్స్ డాష్‌బోర్డ్",
+  "registerCountLabel": "రిజిస్టర్లు",
+  "totalCashLabel": "మొత్తం లెక్కించిన నగదు",
+  "categoryBreakdownLabel": "వర్గం వారీ వివరాలు"
 }

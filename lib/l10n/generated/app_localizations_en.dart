@@ -448,4 +448,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noLineItemsMessage => 'No line items';
+
+  @override
+  String get dashboardTileTitle => 'Dashboard';
+
+  @override
+  String get dashboardTileSubtitle => 'Cash & category totals for a branch';
+
+  @override
+  String get dashboardTitle => 'Business Intelligence Dashboard';
+
+  @override
+  String get registerCountLabel => 'Registers';
+
+  @override
+  String get totalCashLabel => 'Total Cash Counted';
+
+  @override
+  String get categoryBreakdownLabel => 'Category Breakdown';
 }

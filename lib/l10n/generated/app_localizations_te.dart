@@ -451,4 +451,22 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get noLineItemsMessage => 'లైన్ ఐటెమ్‌లు లేవు';
+
+  @override
+  String get dashboardTileTitle => 'డాష్‌బోర్డ్';
+
+  @override
+  String get dashboardTileSubtitle => 'బ్రాంచ్ కోసం నగదు & వర్గం మొత్తాలు';
+
+  @override
+  String get dashboardTitle => 'బిజినెస్ ఇంటెలిజెన్స్ డాష్‌బోర్డ్';
+
+  @override
+  String get registerCountLabel => 'రిజిస్టర్లు';
+
+  @override
+  String get totalCashLabel => 'మొత్తం లెక్కించిన నగదు';
+
+  @override
+  String get categoryBreakdownLabel => 'వర్గం వారీ వివరాలు';
 }
