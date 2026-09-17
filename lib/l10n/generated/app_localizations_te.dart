@@ -280,4 +280,62 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get addTransitItemLabel => 'వస్తువు జోడించండి';
+
+  @override
+  String get scrapModuleTitle => 'స్క్రాప్ ఎక్స్ఛేంజ్';
+
+  @override
+  String get scrapModuleSubtitle =>
+      'అల్యూమినియం & స్టీల్ ఎక్స్ఛేంజ్ కాలిక్యులేటర్';
+
+  @override
+  String get calculatorTitle => 'ఎక్స్ఛేంజ్ కాలిక్యులేటర్';
+
+  @override
+  String aluminumTabLabel(String rate) {
+    return 'అల్యూమినియం (₹$rate/కేజీ)';
+  }
+
+  @override
+  String steelTabLabel(String rate) {
+    return 'స్టీల్ (₹$rate/కేజీ)';
+  }
+
+  @override
+  String get weightKgLabel => 'బరువు (కేజీ)';
+
+  @override
+  String get addWeightLabel => 'బరువు జోడించండి';
+
+  @override
+  String get handlesLabel => 'హ్యాండిల్స్';
+
+  @override
+  String get grossWeightLabel => 'మొత్తం బరువు';
+
+  @override
+  String get handlesDeductionLabel => 'హ్యాండిల్స్ తగ్గింపు';
+
+  @override
+  String get netWeightLabel => 'నికర బరువు';
+
+  @override
+  String get materialCostLabel => 'మొత్తం';
+
+  @override
+  String grandTotalLabel(String amount) {
+    return 'గ్రాండ్ టోటల్: $amount';
+  }
+
+  @override
+  String get getEstimationButton => 'అంచనా పొందండి';
+
+  @override
+  String get submitOrderButton => 'ఆర్డర్ సమర్పించండి';
+
+  @override
+  String get exchangeEstimateSavedMessage => 'అంచనా సేవ్ చేయబడింది';
+
+  @override
+  String get exchangeOrderSavedMessage => 'ఆర్డర్ సేవ్ చేయబడింది';
 }

@@ -5,12 +5,14 @@ Flutter client for the Lalitha Naturals app suite, backed by [`lalitha-backend`]
 suite-wide architecture, and its §4/§5 for the data model and API contract this app is built
 against.
 
-**Two modules are live: Print (fully migrated) and Stock-transfer (Inventory + Transit Sheets).**
-The app's home screen is now a module picker (`AppHomeScreen`) — Print has all six original
-screens (Price Tag, Estimate, Coupon, Location Card, Visiting Card, Custom Text); Stock-transfer
-has Inventory (per-branch stock counts with +/- adjustment) and Transit Sheet (dispatch stock
-between branches). scrap-calc and Denomination follow the same `lib/core` +
-`lib/features/<module>` pattern as they're scheduled.
+**Three modules are live: Print (fully migrated), Stock-transfer (Inventory + Transit Sheets), and
+scrap-calc (Exchange Calculator).** The app's home screen is a module picker (`AppHomeScreen`) —
+Print has all six original screens (Price Tag, Estimate, Coupon, Location Card, Visiting Card,
+Custom Text); Stock-transfer has Inventory (per-branch stock counts with +/- adjustment) and
+Transit Sheet (dispatch stock between branches); scrap-calc has the aluminum/steel exchange
+Calculator (Get Estimation / Submit Order — search and thermal-receipt print preview, per
+scrap-calc/PROJECT_PLAN.md §4, are not yet implemented). Denomination follows the same
+`lib/core` + `lib/features/<module>` pattern once it's migrated.
 
 **Fully localized: English (default) + Telugu**, via Flutter's standard `gen-l10n` — see
 [Internationalization](#internationalization) below.
@@ -23,12 +25,14 @@ lib/
     client/           AppPocketBaseClient — owns the single PocketBase instance
     models/           Branch, Staff, Product, PriceTag, Estimate/EstimateItem, Coupon,
                        CustomPrint/PrintType, InventoryCategory/InventoryItem/InventoryStock,
-                       TransitSheet/TransitSheetItem (pure fromJson/toJson + pure
-                       calculation helpers, no I/O)
+                       TransitSheet/TransitSheetItem, ExchangeRecord/MaterialTotals (pure
+                       fromJson/toJson + pure calculation helpers, no I/O)
     repositories/      thin wrappers around PocketBase's REST calls per collection
     providers.dart      Riverpod providers wiring client -> repositories
     business_info.dart   static business info (tagline, offerings, phone, website) — see
                           the note in that file about migrating it to the `settings` collection
+    exchange_rates.dart   static al/st per-kg rates + per-handle deduction — same
+                           settings-collection tech debt as business_info.dart
   features/
     app_home_screen.dart   suite-wide entry point — one tile per module (Print, Stock, ...)
     print/
@@ -43,6 +47,8 @@ lib/
       stock_home_screen.dart    lists the Stock-transfer module's tools
       inventory/                  per-branch stock counts (+/- adjustment) + its FutureProviders
       transit_sheet/               dispatch stock between branches + its FutureProviders
+    scrap/
+      calculator/                the al/st exchange Calculator + its FutureProviders
   l10n/
     app_en.arb          English strings (template/default locale)
     app_te.arb           Telugu strings (full parallel translation)
@@ -92,10 +98,10 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 112 tests: model/calculation unit tests, repository tests against a mocked
-                   # HTTP client, widget tests for all six Print-module screens plus the
-                   # Stock-transfer module (Inventory, Transit Sheet), the suite-wide module
-                   # picker, and locale-switching tests (English/Telugu)
+flutter test      # 132 tests: model/calculation unit tests, repository tests against a mocked
+                   # HTTP client, widget tests for all six Print-module screens plus
+                   # Stock-transfer (Inventory, Transit Sheet) and scrap-calc (Calculator),
+                   # the suite-wide module picker, and locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -145,3 +151,14 @@ suite runs fully offline and deterministically.
   item/quantity is entered before dispatching; dispatching sends a `dispatched` sheet with the
   selected item and quantity
 - `AppHomeScreen`/`StockHomeScreen`: module and tool tiles are present and navigate correctly
+- `ExchangeRecord`/`calculateMaterialTotals`: gross weight sums entered weights, the 0.10kg
+  per-handle deduction is applied before pricing (never negative), aluminum/steel are priced at
+  their own rate, and `toJson`/`fromJson` round-trip the computed totals and `display_id`
+- `ExchangeRecordRepository`: `create` sends the computed totals and surfaces the server-assigned
+  `display_id`; `convertToOrder` PATCHes only `status`; `search` builds the
+  customer_name/customer_phone/display_id filter (and skips the request entirely for a blank
+  query)
+- `CalculatorScreen`: the grand total recomputes live as weights are entered or handles are
+  adjusted, switching material tabs shows that material's own weight rows and rate, validation
+  requires a branch before saving, and Get Estimation/Submit Order create a record with the
+  matching status

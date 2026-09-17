@@ -116,5 +116,26 @@
   "transitSheetDispatchedMessage": "Transit sheet dispatched",
   "selectFromAndToBranchError": "Select both a from-branch and a to-branch.",
   "fromAndToBranchMustDifferError": "From-branch and to-branch must be different.",
-  "addTransitItemLabel": "Add Item"
+  "addTransitItemLabel": "Add Item",
+
+  "scrapModuleTitle": "Scrap Exchange",
+  "scrapModuleSubtitle": "Aluminum & steel exchange calculator",
+  "calculatorTitle": "Exchange Calculator",
+  "aluminumTabLabel": "Aluminum (₹{rate}/kg)",
+  "@aluminumTabLabel": {"placeholders": {"rate": {"type": "String"}}},
+  "steelTabLabel": "Steel (₹{rate}/kg)",
+  "@steelTabLabel": {"placeholders": {"rate": {"type": "String"}}},
+  "weightKgLabel": "Weight (kg)",
+  "addWeightLabel": "Add Weight",
+  "handlesLabel": "Handles",
+  "grossWeightLabel": "Gross Weight",
+  "handlesDeductionLabel": "Handles Deduction",
+  "netWeightLabel": "Net Weight",
+  "materialCostLabel": "Amount",
+  "grandTotalLabel": "Grand Total: {amount}",
+  "@grandTotalLabel": {"placeholders": {"amount": {"type": "String"}}},
+  "getEstimationButton": "Get Estimation",
+  "submitOrderButton": "Submit Order",
+  "exchangeEstimateSavedMessage": "Estimate saved",
+  "exchangeOrderSavedMessage": "Order saved"
 }

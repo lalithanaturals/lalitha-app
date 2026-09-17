@@ -94,5 +94,23 @@
   "transitSheetDispatchedMessage": "ట్రాన్సిట్ షీట్ పంపబడింది",
   "selectFromAndToBranchError": "నుండి-బ్రాంచ్ మరియు కు-బ్రాంచ్ రెండింటినీ ఎంచుకోండి.",
   "fromAndToBranchMustDifferError": "నుండి-బ్రాంచ్ మరియు కు-బ్రాంచ్ వేర్వేరుగా ఉండాలి.",
-  "addTransitItemLabel": "వస్తువు జోడించండి"
+  "addTransitItemLabel": "వస్తువు జోడించండి",
+
+  "scrapModuleTitle": "స్క్రాప్ ఎక్స్ఛేంజ్",
+  "scrapModuleSubtitle": "అల్యూమినియం & స్టీల్ ఎక్స్ఛేంజ్ కాలిక్యులేటర్",
+  "calculatorTitle": "ఎక్స్ఛేంజ్ కాలిక్యులేటర్",
+  "aluminumTabLabel": "అల్యూమినియం (₹{rate}/కేజీ)",
+  "steelTabLabel": "స్టీల్ (₹{rate}/కేజీ)",
+  "weightKgLabel": "బరువు (కేజీ)",
+  "addWeightLabel": "బరువు జోడించండి",
+  "handlesLabel": "హ్యాండిల్స్",
+  "grossWeightLabel": "మొత్తం బరువు",
+  "handlesDeductionLabel": "హ్యాండిల్స్ తగ్గింపు",
+  "netWeightLabel": "నికర బరువు",
+  "materialCostLabel": "మొత్తం",
+  "grandTotalLabel": "గ్రాండ్ టోటల్: {amount}",
+  "getEstimationButton": "అంచనా పొందండి",
+  "submitOrderButton": "ఆర్డర్ సమర్పించండి",
+  "exchangeEstimateSavedMessage": "అంచనా సేవ్ చేయబడింది",
+  "exchangeOrderSavedMessage": "ఆర్డర్ సేవ్ చేయబడింది"
 }

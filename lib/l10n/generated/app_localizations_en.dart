@@ -279,4 +279,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addTransitItemLabel => 'Add Item';
+
+  @override
+  String get scrapModuleTitle => 'Scrap Exchange';
+
+  @override
+  String get scrapModuleSubtitle => 'Aluminum & steel exchange calculator';
+
+  @override
+  String get calculatorTitle => 'Exchange Calculator';
+
+  @override
+  String aluminumTabLabel(String rate) {
+    return 'Aluminum (₹$rate/kg)';
+  }
+
+  @override
+  String steelTabLabel(String rate) {
+    return 'Steel (₹$rate/kg)';
+  }
+
+  @override
+  String get weightKgLabel => 'Weight (kg)';
+
+  @override
+  String get addWeightLabel => 'Add Weight';
+
+  @override
+  String get handlesLabel => 'Handles';
+
+  @override
+  String get grossWeightLabel => 'Gross Weight';
+
+  @override
+  String get handlesDeductionLabel => 'Handles Deduction';
+
+  @override
+  String get netWeightLabel => 'Net Weight';
+
+  @override
+  String get materialCostLabel => 'Amount';
+
+  @override
+  String grandTotalLabel(String amount) {
+    return 'Grand Total: $amount';
+  }
+
+  @override
+  String get getEstimationButton => 'Get Estimation';
+
+  @override
+  String get submitOrderButton => 'Submit Order';
+
+  @override
+  String get exchangeEstimateSavedMessage => 'Estimate saved';
+
+  @override
+  String get exchangeOrderSavedMessage => 'Order saved';
 }

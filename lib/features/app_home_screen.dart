@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../l10n/generated/app_localizations.dart';
 import 'print/print_home_screen.dart';
+import 'scrap/calculator/calculator_screen.dart';
 import 'stock/stock_home_screen.dart';
 
 /// Suite-wide entry point: one app, one tile per module, per the master
-/// plan's "one Flutter app, four modules" recommendation. Print and Stock
-/// are live; scrap-calc and Denomination modules get a tile here once
-/// they're migrated.
+/// plan's "one Flutter app, four modules" recommendation. Print,
+/// Stock-transfer, and scrap-calc are live; Denomination gets a tile here
+/// once it's migrated.
 class AppHomeScreen extends StatelessWidget {
   const AppHomeScreen({super.key});
 
@@ -40,6 +41,18 @@ class AppHomeScreen extends StatelessWidget {
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const StockHomeScreen()),
+              ),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              key: const Key('scrapModuleTile'),
+              leading: const Icon(Icons.calculate_outlined),
+              title: Text(l10n.scrapModuleTitle),
+              subtitle: Text(l10n.scrapModuleSubtitle),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const CalculatorScreen()),
               ),
             ),
           ),

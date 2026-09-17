@@ -6,6 +6,7 @@ import 'repositories/branch_repository.dart';
 import 'repositories/coupon_repository.dart';
 import 'repositories/custom_print_repository.dart';
 import 'repositories/estimate_repository.dart';
+import 'repositories/exchange_record_repository.dart';
 import 'repositories/inventory_repository.dart';
 import 'repositories/price_tag_repository.dart';
 import 'repositories/product_repository.dart';
@@ -58,4 +59,8 @@ final inventoryRepositoryProvider = Provider<InventoryRepository>((ref) {
 
 final transitSheetRepositoryProvider = Provider<TransitSheetRepository>((ref) {
   return TransitSheetRepository(ref.watch(pocketBaseProvider));
+});
+
+final exchangeRecordRepositoryProvider = Provider<ExchangeRecordRepository>((ref) {
+  return ExchangeRecordRepository(ref.watch(pocketBaseProvider));
 });

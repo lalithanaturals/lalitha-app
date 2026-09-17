@@ -607,6 +607,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Item'**
   String get addTransitItemLabel;
+
+  /// No description provided for @scrapModuleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scrap Exchange'**
+  String get scrapModuleTitle;
+
+  /// No description provided for @scrapModuleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Aluminum & steel exchange calculator'**
+  String get scrapModuleSubtitle;
+
+  /// No description provided for @calculatorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exchange Calculator'**
+  String get calculatorTitle;
+
+  /// No description provided for @aluminumTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Aluminum (₹{rate}/kg)'**
+  String aluminumTabLabel(String rate);
+
+  /// No description provided for @steelTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Steel (₹{rate}/kg)'**
+  String steelTabLabel(String rate);
+
+  /// No description provided for @weightKgLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg)'**
+  String get weightKgLabel;
+
+  /// No description provided for @addWeightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Weight'**
+  String get addWeightLabel;
+
+  /// No description provided for @handlesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Handles'**
+  String get handlesLabel;
+
+  /// No description provided for @grossWeightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Gross Weight'**
+  String get grossWeightLabel;
+
+  /// No description provided for @handlesDeductionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Handles Deduction'**
+  String get handlesDeductionLabel;
+
+  /// No description provided for @netWeightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Net Weight'**
+  String get netWeightLabel;
+
+  /// No description provided for @materialCostLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get materialCostLabel;
+
+  /// No description provided for @grandTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Grand Total: {amount}'**
+  String grandTotalLabel(String amount);
+
+  /// No description provided for @getEstimationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Estimation'**
+  String get getEstimationButton;
+
+  /// No description provided for @submitOrderButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Order'**
+  String get submitOrderButton;
+
+  /// No description provided for @exchangeEstimateSavedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate saved'**
+  String get exchangeEstimateSavedMessage;
+
+  /// No description provided for @exchangeOrderSavedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Order saved'**
+  String get exchangeOrderSavedMessage;
 }
 
 class _AppLocalizationsDelegate

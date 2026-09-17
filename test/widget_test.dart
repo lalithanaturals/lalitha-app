@@ -12,6 +12,7 @@ import 'package:lalitha_app/features/print/estimate/estimate_providers.dart';
 import 'package:lalitha_app/features/print/location_card/location_card_providers.dart';
 import 'package:lalitha_app/features/print/price_tag/price_tag_providers.dart';
 import 'package:lalitha_app/features/print/visiting_card/visiting_card_providers.dart';
+import 'package:lalitha_app/features/scrap/calculator/calculator_providers.dart';
 import 'package:lalitha_app/features/stock/inventory/inventory_providers.dart';
 import 'package:lalitha_app/features/stock/transit_sheet/transit_sheet_providers.dart';
 import 'package:lalitha_app/main.dart';
@@ -33,6 +34,7 @@ Widget _appWithOverrides() => ProviderScope(
         inventoryCategoriesProvider.overrideWith((ref) async => const <InventoryCategory>[]),
         transitSheetBranchesProvider.overrideWith((ref) async => const <Branch>[]),
         transitSheetAllItemsProvider.overrideWith((ref) async => const <InventoryItem>[]),
+        calculatorBranchesProvider.overrideWith((ref) async => const <Branch>[]),
       ],
       child: const LalithaApp(),
     );
@@ -44,6 +46,7 @@ void main() {
 
     expect(find.byKey(const Key('printModuleTile')), findsOneWidget);
     expect(find.byKey(const Key('stockModuleTile')), findsOneWidget);
+    expect(find.byKey(const Key('scrapModuleTile')), findsOneWidget);
   });
 
   testWidgets('tapping the Print module tile navigates to the Print home screen', (tester) async {
@@ -65,5 +68,15 @@ void main() {
 
     expect(find.byKey(const Key('inventoryTile')), findsOneWidget);
     expect(find.byKey(const Key('transitSheetTile')), findsOneWidget);
+  });
+
+  testWidgets('tapping the Scrap Exchange tile navigates to the Calculator screen', (tester) async {
+    await tester.pumpWidget(_appWithOverrides());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('scrapModuleTile')));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('calculatorBranchDropdown')), findsOneWidget);
   });
 }
