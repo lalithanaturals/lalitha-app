@@ -159,5 +159,19 @@
   "failedToCommitError": "Failed to commit: {error}",
   "@failedToCommitError": {
     "placeholders": {"error": {"type": "String"}}
+  },
+
+  "searchTitle": "Search Records",
+  "searchQueryLabel": "Name, phone, or ID",
+  "searchButton": "Search",
+  "noResultsMessage": "No results",
+  "netTotalLabel": "Net Total",
+  "statusEstimateLabel": "Estimate",
+  "statusOrderLabel": "Order",
+  "convertToOrderButton": "Convert to Order",
+  "orderConvertedMessage": "Converted to order",
+  "failedToConvertError": "Failed to convert: {error}",
+  "@failedToConvertError": {
+    "placeholders": {"error": {"type": "String"}}
   }
 }

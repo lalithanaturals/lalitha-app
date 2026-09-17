@@ -394,4 +394,36 @@ class AppLocalizationsTe extends AppLocalizations {
   String failedToCommitError(String error) {
     return 'కమిట్ చేయడంలో విఫలమైంది: $error';
   }
+
+  @override
+  String get searchTitle => 'రికార్డులను శోధించండి';
+
+  @override
+  String get searchQueryLabel => 'పేరు, ఫోన్, లేదా ID';
+
+  @override
+  String get searchButton => 'శోధించండి';
+
+  @override
+  String get noResultsMessage => 'ఫలితాలు లేవు';
+
+  @override
+  String get netTotalLabel => 'నికర మొత్తం';
+
+  @override
+  String get statusEstimateLabel => 'అంచనా';
+
+  @override
+  String get statusOrderLabel => 'ఆర్డర్';
+
+  @override
+  String get convertToOrderButton => 'ఆర్డర్‌గా మార్చండి';
+
+  @override
+  String get orderConvertedMessage => 'ఆర్డర్‌గా మార్చబడింది';
+
+  @override
+  String failedToConvertError(String error) {
+    return 'మార్చడంలో విఫలమైంది: $error';
+  }
 }

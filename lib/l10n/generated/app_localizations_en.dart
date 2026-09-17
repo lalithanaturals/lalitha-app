@@ -392,4 +392,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String failedToCommitError(String error) {
     return 'Failed to commit: $error';
   }
+
+  @override
+  String get searchTitle => 'Search Records';
+
+  @override
+  String get searchQueryLabel => 'Name, phone, or ID';
+
+  @override
+  String get searchButton => 'Search';
+
+  @override
+  String get noResultsMessage => 'No results';
+
+  @override
+  String get netTotalLabel => 'Net Total';
+
+  @override
+  String get statusEstimateLabel => 'Estimate';
+
+  @override
+  String get statusOrderLabel => 'Order';
+
+  @override
+  String get convertToOrderButton => 'Convert to Order';
+
+  @override
+  String get orderConvertedMessage => 'Converted to order';
+
+  @override
+  String failedToConvertError(String error) {
+    return 'Failed to convert: $error';
+  }
 }

@@ -12,8 +12,9 @@ against.
 - **Stock-transfer** — Inventory (per-branch stock counts with +/- adjustment) and Transit Sheet
   (dispatch stock between branches). Barcode scanning and offline caching (Stock-transfer's
   PROJECT_PLAN.md §3) are not yet implemented.
-- **scrap-calc** — the aluminum/steel Exchange Calculator (Get Estimation / Submit Order). Search
-  and thermal-receipt print preview (scrap-calc's PROJECT_PLAN.md §4) are not yet implemented.
+- **scrap-calc** — the aluminum/steel Exchange Calculator (Get Estimation / Submit Order) and
+  Search (find past estimates/orders by name/phone/ID, convert an estimate to an order).
+  Thermal-receipt print preview (scrap-calc's PROJECT_PLAN.md §4) is not yet implemented.
 - **Denomination** — the daily cash Audit Register (denomination counts, category line items,
   commit). Archive/search, exports (JPEG/PDF/Thermal/WhatsApp), and the BI dashboard
   (Denomination's PROJECT_PLAN.md §4) are not yet implemented.
@@ -56,6 +57,7 @@ lib/
       transit_sheet/               dispatch stock between branches + its FutureProviders
     scrap/
       calculator/                the al/st exchange Calculator + its FutureProviders
+      search/                     search past estimates/orders, convert estimate -> order
     denomination/
       denomination_home_screen.dart   lists the Denomination module's tools
       register/                        the Audit Register entry/commit screen + its FutureProviders
@@ -108,10 +110,10 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 155 tests: model/calculation unit tests, repository tests against a mocked
+flutter test      # 160 tests: model/calculation unit tests, repository tests against a mocked
                    # HTTP client, widget tests for all six Print-module screens plus
-                   # Stock-transfer (Inventory, Transit Sheet), scrap-calc (Calculator), and
-                   # Denomination (Audit Register), the suite-wide module picker, and
+                   # Stock-transfer (Inventory, Transit Sheet), scrap-calc (Calculator, Search),
+                   # and Denomination (Audit Register), the suite-wide module picker, and
                    # locale-switching tests (English/Telugu)
 ```
 
@@ -186,3 +188,8 @@ suite runs fully offline and deterministically.
   validation requires a branch before committing, and committing creates the register, then each
   entered line item tagged with its new parent id, then commits it
 - `DenominationHomeScreen`: the Register Entry tile is present and navigates to the screen
+- `SearchScreen`: results render from `ExchangeRecordRepository.search`, a "no results" message
+  shows when the search comes back empty, the "Convert to Order" action appears only on
+  `estimate`-status results (never on `order` ones), and converting calls `convertToOrder` and
+  updates that result's tile in place
+- `CalculatorScreen`: the search icon navigates to `SearchScreen`

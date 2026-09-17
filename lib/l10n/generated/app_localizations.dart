@@ -817,6 +817,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to commit: {error}'**
   String failedToCommitError(String error);
+
+  /// No description provided for @searchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Records'**
+  String get searchTitle;
+
+  /// No description provided for @searchQueryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name, phone, or ID'**
+  String get searchQueryLabel;
+
+  /// No description provided for @searchButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get searchButton;
+
+  /// No description provided for @noResultsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No results'**
+  String get noResultsMessage;
+
+  /// No description provided for @netTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Net Total'**
+  String get netTotalLabel;
+
+  /// No description provided for @statusEstimateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate'**
+  String get statusEstimateLabel;
+
+  /// No description provided for @statusOrderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Order'**
+  String get statusOrderLabel;
+
+  /// No description provided for @convertToOrderButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Convert to Order'**
+  String get convertToOrderButton;
+
+  /// No description provided for @orderConvertedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Converted to order'**
+  String get orderConvertedMessage;
+
+  /// No description provided for @failedToConvertError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to convert: {error}'**
+  String failedToConvertError(String error);
 }
 
 class _AppLocalizationsDelegate

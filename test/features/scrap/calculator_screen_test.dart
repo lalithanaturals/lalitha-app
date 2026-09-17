@@ -158,4 +158,14 @@ void main() {
     expect(record.status, ExchangeStatus.order);
     expect(find.text('Order saved'), findsOneWidget);
   });
+
+  testWidgets('tapping the search icon navigates to the Search screen', (tester) async {
+    final repo = _MockExchangeRecordRepository();
+    await _pumpScreen(tester, repo: repo);
+
+    await tester.tap(find.byKey(const Key('openSearchButton')));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('searchQueryField')), findsOneWidget);
+  });
 }

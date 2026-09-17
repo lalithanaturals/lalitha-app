@@ -131,5 +131,16 @@
   "addLineItemLabel": "జోడించండి",
   "commitButton": "రిజిస్టర్ కమిట్ చేయండి",
   "registerCommittedMessage": "రిజిస్టర్ కమిట్ చేయబడింది",
-  "failedToCommitError": "కమిట్ చేయడంలో విఫలమైంది: {error}"
+  "failedToCommitError": "కమిట్ చేయడంలో విఫలమైంది: {error}",
+
+  "searchTitle": "రికార్డులను శోధించండి",
+  "searchQueryLabel": "పేరు, ఫోన్, లేదా ID",
+  "searchButton": "శోధించండి",
+  "noResultsMessage": "ఫలితాలు లేవు",
+  "netTotalLabel": "నికర మొత్తం",
+  "statusEstimateLabel": "అంచనా",
+  "statusOrderLabel": "ఆర్డర్",
+  "convertToOrderButton": "ఆర్డర్‌గా మార్చండి",
+  "orderConvertedMessage": "ఆర్డర్‌గా మార్చబడింది",
+  "failedToConvertError": "మార్చడంలో విఫలమైంది: {error}"
 }

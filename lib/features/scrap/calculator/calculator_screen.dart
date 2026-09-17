@@ -6,6 +6,7 @@ import '../../../core/models/exchange_record.dart';
 import '../../../core/models/staff.dart';
 import '../../../core/providers.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../search/search_screen.dart';
 import 'calculator_providers.dart';
 
 enum _Material { al, st }
@@ -133,7 +134,18 @@ class _CalculatorScreenState extends ConsumerState<CalculatorScreen> {
     final activeRate = ExchangeRates.ratePerKg[_activeMaterial == _Material.al ? 'al' : 'st']!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.calculatorTitle)),
+      appBar: AppBar(
+        title: Text(l10n.calculatorTitle),
+        actions: [
+          IconButton(
+            key: const Key('openSearchButton'),
+            icon: const Icon(Icons.search),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const SearchScreen()),
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
