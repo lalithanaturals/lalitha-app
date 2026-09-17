@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/models/exchange_record.dart';
 import '../../../core/providers.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../receipt/receipt_screen.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -125,6 +126,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         title: Text('${record.displayId ?? ''} — ${record.customerName}'),
         subtitle: Text(
           '${record.customerPhone} · $statusLabel · ${l10n.netTotalLabel}: ₹${record.netTotalAmount.toStringAsFixed(2)}',
+        ),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => ReceiptScreen(record: record)),
         ),
         trailing: record.status == ExchangeStatus.estimate
             ? TextButton(

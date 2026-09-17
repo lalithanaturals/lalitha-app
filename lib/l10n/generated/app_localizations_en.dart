@@ -466,4 +466,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get categoryBreakdownLabel => 'Category Breakdown';
+
+  @override
+  String get receiptTitle => 'Receipt';
+
+  @override
+  String get viewReceiptButton => 'View Receipt';
+
+  @override
+  String get displayIdLabel => 'ID';
+
+  @override
+  String get customerLabel => 'Customer';
+
+  @override
+  String get weightEntriesLabel => 'Weight Entries (kg)';
 }

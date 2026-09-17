@@ -12,9 +12,10 @@ against.
 - **Stock-transfer** — Inventory (per-branch stock counts with +/- adjustment) and Transit Sheet
   (dispatch stock between branches). Barcode scanning and offline caching (Stock-transfer's
   PROJECT_PLAN.md §3) are not yet implemented.
-- **scrap-calc** — the aluminum/steel Exchange Calculator (Get Estimation / Submit Order) and
-  Search (find past estimates/orders by name/phone/ID, convert an estimate to an order).
-  Thermal-receipt print preview (scrap-calc's PROJECT_PLAN.md §4) is not yet implemented.
+- **scrap-calc** — the aluminum/steel Exchange Calculator (Get Estimation / Submit Order), Search
+  (find past estimates/orders by name/phone/ID, convert an estimate to an order), and a Receipt
+  preview (thermal-receipt-styled read-only view, reached after saving or from a search result).
+  Actual native ESC/POS printing stays deferred suite-wide (master plan Phase 3).
 - **Denomination** — the daily cash Audit Register (denomination counts, category line items,
   commit), Archive (browse past registers per branch, expand to view line items), and a BI
   Dashboard (register count, total cash counted, and a per-category breakdown — all summed across
@@ -60,6 +61,7 @@ lib/
     scrap/
       calculator/                the al/st exchange Calculator + its FutureProviders
       search/                     search past estimates/orders, convert estimate -> order
+      receipt/                     thermal-receipt-styled read-only preview of a record
     denomination/
       denomination_home_screen.dart   lists the Denomination module's tools
       register/                        the Audit Register entry/commit screen + its FutureProviders
@@ -114,11 +116,11 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 173 tests: model/calculation unit tests, repository tests against a mocked
+flutter test      # 176 tests: model/calculation unit tests, repository tests against a mocked
                    # HTTP client, widget tests for all six Print-module screens plus
-                   # Stock-transfer (Inventory, Transit Sheet), scrap-calc (Calculator, Search),
-                   # and Denomination (Audit Register, Archive, Dashboard), the suite-wide
-                   # module picker, and locale-switching tests (English/Telugu)
+                   # Stock-transfer (Inventory, Transit Sheet), scrap-calc (Calculator, Search,
+                   # Receipt), and Denomination (Audit Register, Archive, Dashboard), the
+                   # suite-wide module picker, and locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -196,7 +198,11 @@ suite runs fully offline and deterministically.
   shows when the search comes back empty, the "Convert to Order" action appears only on
   `estimate`-status results (never on `order` ones), and converting calls `convertToOrder` and
   updates that result's tile in place
-- `CalculatorScreen`: the search icon navigates to `SearchScreen`
+- `CalculatorScreen`: the search icon navigates to `SearchScreen`; saving navigates to
+  `ReceiptScreen` with the created record
+- `ReceiptScreen`: shows customer info/display ID/status, only renders a material section for a
+  material that actually has entered weights, and each material's cost plus the grand total
+  reflect that material's own rate
 - `AuditRegisterRepository.listForBranch`: filters by branch and sorts by date descending
 - `ArchiveScreen`: a "no registers" message when a branch has none, each register lists its
   date/status/cash-total/closing-balance, and expanding it shows its line items (or a "no line

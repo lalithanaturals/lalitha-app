@@ -6,6 +6,7 @@ import '../../../core/models/exchange_record.dart';
 import '../../../core/models/staff.dart';
 import '../../../core/providers.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../receipt/receipt_screen.dart';
 import '../search/search_screen.dart';
 import 'calculator_providers.dart';
 
@@ -107,12 +108,15 @@ class _CalculatorScreenState extends ConsumerState<CalculatorScreen> {
         stWeights: _stWeights,
         stHandles: _stHandles,
       );
-      await ref.read(exchangeRecordRepositoryProvider).create(record);
+      final created = await ref.read(exchangeRecordRepositoryProvider).create(record);
       if (mounted) {
         final message = status == ExchangeStatus.order
             ? l10n.exchangeOrderSavedMessage
             : l10n.exchangeEstimateSavedMessage;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => ReceiptScreen(record: created)),
+        );
       }
     } catch (e) {
       setState(() => _errorMessage = l10n.failedToSaveError(e.toString()));

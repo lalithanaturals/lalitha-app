@@ -158,5 +158,11 @@
   "dashboardTitle": "బిజినెస్ ఇంటెలిజెన్స్ డాష్‌బోర్డ్",
   "registerCountLabel": "రిజిస్టర్లు",
   "totalCashLabel": "మొత్తం లెక్కించిన నగదు",
-  "categoryBreakdownLabel": "వర్గం వారీ వివరాలు"
+  "categoryBreakdownLabel": "వర్గం వారీ వివరాలు",
+
+  "receiptTitle": "రసీదు",
+  "viewReceiptButton": "రసీదు చూడండి",
+  "displayIdLabel": "ID",
+  "customerLabel": "కస్టమర్",
+  "weightEntriesLabel": "బరువు నమోదులు (కేజీ)"
 }

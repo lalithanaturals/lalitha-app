@@ -961,6 +961,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Category Breakdown'**
   String get categoryBreakdownLabel;
+
+  /// No description provided for @receiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt'**
+  String get receiptTitle;
+
+  /// No description provided for @viewReceiptButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View Receipt'**
+  String get viewReceiptButton;
+
+  /// No description provided for @displayIdLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'ID'**
+  String get displayIdLabel;
+
+  /// No description provided for @customerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer'**
+  String get customerLabel;
+
+  /// No description provided for @weightEntriesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight Entries (kg)'**
+  String get weightEntriesLabel;
 }
 
 class _AppLocalizationsDelegate

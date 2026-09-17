@@ -469,4 +469,19 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get categoryBreakdownLabel => 'వర్గం వారీ వివరాలు';
+
+  @override
+  String get receiptTitle => 'రసీదు';
+
+  @override
+  String get viewReceiptButton => 'రసీదు చూడండి';
+
+  @override
+  String get displayIdLabel => 'ID';
+
+  @override
+  String get customerLabel => 'కస్టమర్';
+
+  @override
+  String get weightEntriesLabel => 'బరువు నమోదులు (కేజీ)';
 }

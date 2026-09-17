@@ -189,5 +189,11 @@
   "dashboardTitle": "Business Intelligence Dashboard",
   "registerCountLabel": "Registers",
   "totalCashLabel": "Total Cash Counted",
-  "categoryBreakdownLabel": "Category Breakdown"
+  "categoryBreakdownLabel": "Category Breakdown",
+
+  "receiptTitle": "Receipt",
+  "viewReceiptButton": "View Receipt",
+  "displayIdLabel": "ID",
+  "customerLabel": "Customer",
+  "weightEntriesLabel": "Weight Entries (kg)"
 }
