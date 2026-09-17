@@ -9,9 +9,12 @@ against.
 
 - **Print** — fully migrated: all six original screens (Price Tag, Estimate, Coupon, Location
   Card, Visiting Card, Custom Text).
-- **Stock-transfer** — Inventory (per-branch stock counts with +/- adjustment) and Transit Sheet
-  (dispatch stock between branches). Barcode scanning and offline caching (Stock-transfer's
-  PROJECT_PLAN.md §3) are not yet implemented.
+- **Stock-transfer** — Inventory (per-branch stock counts with +/- adjustment), Transit Sheet
+  (dispatch stock between branches — validated: both branches selected and different, a
+  dispatching staff member, no item selected twice, a positive quantity on every selected item),
+  and Transit History (per-branch list of past sheets with their line items; the receiving branch
+  can Mark Received on a still-in-transit sheet). Barcode scanning and offline caching
+  (Stock-transfer's PROJECT_PLAN.md §3) are not yet implemented.
 - **scrap-calc** — the aluminum/steel Exchange Calculator (Get Estimation / Submit Order), Search
   (find past estimates/orders by name/phone/ID, convert an estimate to an order), and a Receipt
   preview (thermal-receipt-styled read-only view, reached after saving or from a search result).
@@ -62,6 +65,7 @@ lib/
       stock_home_screen.dart    lists the Stock-transfer module's tools
       inventory/                  per-branch stock counts (+/- adjustment) + its FutureProviders
       transit_sheet/               dispatch stock between branches + its FutureProviders
+      transit_history/              per-branch sheet list, line items, Mark Received + its FutureProviders
     scrap/
       calculator/                the al/st exchange Calculator + its FutureProviders
       search/                     search past estimates/orders, convert estimate -> order
@@ -133,12 +137,12 @@ cleartext traffic by default.
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 187 tests: model/calculation unit tests, repository tests against a mocked
+flutter test      # 198 tests: model/calculation unit tests, repository tests against a mocked
                    # HTTP client, widget tests for all six Print-module screens plus
-                   # Stock-transfer (Inventory, Transit Sheet), scrap-calc (Calculator, Search,
-                   # Receipt), Denomination (Audit Register, Archive, Dashboard, Receipt), staff
-                   # PIN login (StaffLoginScreen, AuthGate), the suite-wide module picker, and
-                   # locale-switching tests (English/Telugu)
+                   # Stock-transfer (Inventory, Transit Sheet, Transit History), scrap-calc
+                   # (Calculator, Search, Receipt), Denomination (Audit Register, Archive,
+                   # Dashboard, Receipt), staff PIN login (StaffLoginScreen, AuthGate), the
+                   # suite-wide module picker, and locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -180,13 +184,20 @@ suite runs fully offline and deterministically.
 - `InventoryRepository`: `setStockQuantity` upserts correctly (creates when no (item, branch) row
   exists yet, patches the existing row otherwise) and `listItemsForCategory`'s filter
 - `TransitSheetRepository`: multi-step create (sheet, then each item tagged with its new parent
-  id), the `(from_branch = X || to_branch = X)` filter for `listForBranch`, and that
-  `updateStatus` stamps `dispatched_at`/`received_at` only for the relevant transition
+  id), the `(from_branch = X || to_branch = X)` filter for `listForBranch`, that `updateStatus`
+  stamps `dispatched_at`/`received_at` only for the relevant transition, and that `listItems`
+  filters by `transit_sheet` and fills each item's name from a caller-supplied lookup map
+  (falling back to an empty string for an id the map doesn't have)
 - `InventoryScreen`: items with no stock row show quantity 0, +/- calls
   `setStockQuantity(quantity ± 1)`, and − is a no-op (never calls the repository) at quantity 0
-- `TransitSheetScreen`: validates both branches selected, that they differ, and that at least one
-  item/quantity is entered before dispatching; dispatching sends a `dispatched` sheet with the
-  selected item and quantity
+- `TransitSheetScreen`: validates both branches selected, that they differ, that a dispatching
+  staff member is selected, that no item is selected more than once, and that every selected
+  item has a positive quantity, all before dispatching; dispatching sends a `dispatched` sheet
+  with the selected item, quantity, and staff id
+- `TransitHistoryScreen`: a "no sheets" message when a branch has none, each sheet shows a
+  from→to summary and status, expanding it shows its line items, and Mark Received appears only
+  when the selected branch is the receiver of a still-`dispatched` sheet (never the sender, and
+  never once it's already `received`) — tapping it calls `updateStatus(id, received)`
 - `AppHomeScreen`/`StockHomeScreen`: module and tool tiles are present and navigate correctly
 - `ExchangeRecord`/`calculateMaterialTotals`: gross weight sums entered weights, the 0.10kg
   per-handle deduction is applied before pricing (never negative), aluminum/steel are priced at

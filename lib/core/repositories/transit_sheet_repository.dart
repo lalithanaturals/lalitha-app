@@ -30,6 +30,19 @@ class TransitSheetRepository {
     return records.map((r) => TransitSheet.fromJson(r.toJson())).toList();
   }
 
+  /// Line items for one sheet. `itemName` isn't stored on
+  /// `transit_sheet_items` (only the `item` relation id is), so callers pass
+  /// an `itemId -> name` lookup (e.g. from [transitSheetAllItemsProvider])
+  /// to fill it in for display.
+  Future<List<TransitSheetItem>> listItems(String transitSheetId, {Map<String, String> itemNames = const {}}) async {
+    final records = await _pb.collection('transit_sheet_items').getFullList(
+          filter: 'transit_sheet = "$transitSheetId"',
+        );
+    return records
+        .map((r) => TransitSheetItem.fromJson(r.toJson(), itemName: itemNames[r.data['item']] ?? ''))
+        .toList();
+  }
+
   Future<TransitSheet> updateStatus(String id, TransitSheetStatus status, {DateTime? at}) async {
     final body = <String, dynamic>{'status': status.toJson()};
     if (status == TransitSheetStatus.dispatched) {

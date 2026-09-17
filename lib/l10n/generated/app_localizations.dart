@@ -608,6 +608,78 @@ abstract class AppLocalizations {
   /// **'Add Item'**
   String get addTransitItemLabel;
 
+  /// No description provided for @selectDispatchingStaffError.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the staff member dispatching this sheet.'**
+  String get selectDispatchingStaffError;
+
+  /// No description provided for @duplicateTransitItemError.
+  ///
+  /// In en, this message translates to:
+  /// **'The same item is selected more than once.'**
+  String get duplicateTransitItemError;
+
+  /// No description provided for @invalidTransitQuantityError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a quantity greater than zero for each selected item.'**
+  String get invalidTransitQuantityError;
+
+  /// No description provided for @transitHistoryTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Transit History'**
+  String get transitHistoryTileTitle;
+
+  /// No description provided for @transitHistoryTileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View dispatched/received sheets for a branch'**
+  String get transitHistoryTileSubtitle;
+
+  /// No description provided for @transitHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Transit History'**
+  String get transitHistoryTitle;
+
+  /// No description provided for @noTransitSheetsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No transit sheets found for this branch'**
+  String get noTransitSheetsMessage;
+
+  /// No description provided for @statusDispatchedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'In Transit'**
+  String get statusDispatchedLabel;
+
+  /// No description provided for @statusReceivedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get statusReceivedLabel;
+
+  /// No description provided for @markReceivedButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark Received'**
+  String get markReceivedButton;
+
+  /// No description provided for @transitReceivedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Marked as received'**
+  String get transitReceivedMessage;
+
+  /// No description provided for @transitSheetSummaryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to}'**
+  String transitSheetSummaryLabel(String from, String to);
+
   /// No description provided for @scrapModuleTitle.
   ///
   /// In en, this message translates to:

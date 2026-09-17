@@ -281,6 +281,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addTransitItemLabel => 'Add Item';
 
   @override
+  String get selectDispatchingStaffError =>
+      'Select the staff member dispatching this sheet.';
+
+  @override
+  String get duplicateTransitItemError =>
+      'The same item is selected more than once.';
+
+  @override
+  String get invalidTransitQuantityError =>
+      'Enter a quantity greater than zero for each selected item.';
+
+  @override
+  String get transitHistoryTileTitle => 'Transit History';
+
+  @override
+  String get transitHistoryTileSubtitle =>
+      'View dispatched/received sheets for a branch';
+
+  @override
+  String get transitHistoryTitle => 'Transit History';
+
+  @override
+  String get noTransitSheetsMessage =>
+      'No transit sheets found for this branch';
+
+  @override
+  String get statusDispatchedLabel => 'In Transit';
+
+  @override
+  String get statusReceivedLabel => 'Received';
+
+  @override
+  String get markReceivedButton => 'Mark Received';
+
+  @override
+  String get transitReceivedMessage => 'Marked as received';
+
+  @override
+  String transitSheetSummaryLabel(String from, String to) {
+    return '$from → $to';
+  }
+
+  @override
   String get scrapModuleTitle => 'Scrap Exchange';
 
   @override

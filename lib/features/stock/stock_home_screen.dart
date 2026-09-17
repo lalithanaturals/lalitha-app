@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/app_colors.dart';
 import '../../l10n/generated/app_localizations.dart';
 import 'inventory/inventory_screen.dart';
+import 'transit_history/transit_history_screen.dart';
 import 'transit_sheet/transit_sheet_screen.dart';
 
 /// Landing screen for the Stock-transfer module (inventory counts + transit
@@ -51,6 +52,22 @@ class StockHomeScreen extends StatelessWidget {
               trailing: const Icon(Icons.chevron_right, color: AppColors.stock),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const TransitSheetScreen()),
+              ),
+            ),
+          ),
+          Card(
+            margin: const EdgeInsets.only(bottom: 12),
+            child: ListTile(
+              key: const Key('transitHistoryTile'),
+              leading: const CircleAvatar(
+                backgroundColor: AppColors.stock,
+                child: Icon(Icons.history_outlined, color: Colors.white),
+              ),
+              title: Text(l10n.transitHistoryTileTitle),
+              subtitle: Text(l10n.transitHistoryTileSubtitle),
+              trailing: const Icon(Icons.chevron_right, color: AppColors.stock),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const TransitHistoryScreen()),
               ),
             ),
           ),

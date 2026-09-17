@@ -282,6 +282,49 @@ class AppLocalizationsTe extends AppLocalizations {
   String get addTransitItemLabel => 'వస్తువు జోడించండి';
 
   @override
+  String get selectDispatchingStaffError =>
+      'ఈ షీట్‌ను పంపిస్తున్న సిబ్బందిని ఎంచుకోండి.';
+
+  @override
+  String get duplicateTransitItemError =>
+      'ఒకే వస్తువు ఒకటి కంటే ఎక్కువసార్లు ఎంచుకోబడింది.';
+
+  @override
+  String get invalidTransitQuantityError =>
+      'ఎంచుకున్న ప్రతి వస్తువుకు సున్నా కంటే ఎక్కువ పరిమాణాన్ని నమోదు చేయండి.';
+
+  @override
+  String get transitHistoryTileTitle => 'ట్రాన్సిట్ చరిత్ర';
+
+  @override
+  String get transitHistoryTileSubtitle =>
+      'ఒక బ్రాంచ్ కోసం పంపిన/అందుకున్న షీట్‌లను చూడండి';
+
+  @override
+  String get transitHistoryTitle => 'ట్రాన్సిట్ చరిత్ర';
+
+  @override
+  String get noTransitSheetsMessage =>
+      'ఈ బ్రాంచ్ కోసం ట్రాన్సిట్ షీట్‌లు కనుగొనబడలేదు';
+
+  @override
+  String get statusDispatchedLabel => 'రవాణాలో ఉంది';
+
+  @override
+  String get statusReceivedLabel => 'అందుకున్నారు';
+
+  @override
+  String get markReceivedButton => 'అందుకున్నట్లు గుర్తించండి';
+
+  @override
+  String get transitReceivedMessage => 'అందుకున్నట్లు గుర్తించబడింది';
+
+  @override
+  String transitSheetSummaryLabel(String from, String to) {
+    return '$from → $to';
+  }
+
+  @override
   String get scrapModuleTitle => 'స్క్రాప్ ఎక్స్ఛేంజ్';
 
   @override

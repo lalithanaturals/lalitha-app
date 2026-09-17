@@ -84,6 +84,74 @@ void main() {
     });
   });
 
+  group('TransitSheetRepository.listItems', () {
+    test('filters by transit_sheet and fills item names from the lookup map', () async {
+      Uri? capturedUri;
+      final pb = PocketBase(
+        'http://mock.local',
+        httpClientFactory: () => MockClient((request) async {
+          capturedUri = request.url;
+          final body = jsonEncode({
+            'page': 1,
+            'perPage': 30,
+            'totalItems': 1,
+            'totalPages': 1,
+            'items': [
+              {
+                'id': 'item-1',
+                'collectionId': 'transit_sheet_items',
+                'collectionName': 'transit_sheet_items',
+                'transit_sheet': 'sheet1',
+                'item': 'inv1',
+                'quantity': 5,
+              },
+            ],
+          });
+          return http.Response(body, 200, headers: {'content-type': 'application/json'});
+        }),
+      );
+
+      final repo = TransitSheetRepository(pb);
+      final items = await repo.listItems('sheet1', itemNames: {'inv1': 'Widget'});
+
+      expect(capturedUri!.queryParameters['filter'], 'transit_sheet = "sheet1"');
+      expect(items, hasLength(1));
+      expect(items.first.itemId, 'inv1');
+      expect(items.first.itemName, 'Widget');
+      expect(items.first.quantity, 5);
+    });
+
+    test('falls back to an empty name when the item id is not in the lookup map', () async {
+      final pb = PocketBase(
+        'http://mock.local',
+        httpClientFactory: () => MockClient((request) async {
+          final body = jsonEncode({
+            'page': 1,
+            'perPage': 30,
+            'totalItems': 1,
+            'totalPages': 1,
+            'items': [
+              {
+                'id': 'item-1',
+                'collectionId': 'transit_sheet_items',
+                'collectionName': 'transit_sheet_items',
+                'transit_sheet': 'sheet1',
+                'item': 'inv-unknown',
+                'quantity': 3,
+              },
+            ],
+          });
+          return http.Response(body, 200, headers: {'content-type': 'application/json'});
+        }),
+      );
+
+      final repo = TransitSheetRepository(pb);
+      final items = await repo.listItems('sheet1');
+
+      expect(items.first.itemName, '');
+    });
+  });
+
   group('TransitSheetRepository.updateStatus', () {
     test('dispatching stamps dispatched_at', () async {
       Map<String, dynamic>? capturedBody;

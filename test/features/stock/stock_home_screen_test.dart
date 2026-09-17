@@ -5,6 +5,7 @@ import 'package:lalitha_app/core/models/branch.dart';
 import 'package:lalitha_app/core/models/inventory.dart';
 import 'package:lalitha_app/features/stock/inventory/inventory_providers.dart';
 import 'package:lalitha_app/features/stock/stock_home_screen.dart';
+import 'package:lalitha_app/features/stock/transit_history/transit_history_providers.dart';
 import 'package:lalitha_app/features/stock/transit_sheet/transit_sheet_providers.dart';
 
 import '../../support/localized_test_app.dart';
@@ -15,18 +16,20 @@ Widget _stockHomeWithOverrides() => ProviderScope(
         inventoryCategoriesProvider.overrideWith((ref) async => const <InventoryCategory>[]),
         transitSheetBranchesProvider.overrideWith((ref) async => const <Branch>[]),
         transitSheetAllItemsProvider.overrideWith((ref) async => const <InventoryItem>[]),
+        transitHistoryBranchesProvider.overrideWith((ref) async => const <Branch>[]),
       ],
       child: localizedTestApp(home: const StockHomeScreen()),
     );
 
 void main() {
-  testWidgets('lists the Inventory and Transit Sheet tools', (tester) async {
+  testWidgets('lists the Inventory, Transit Sheet, and Transit History tools', (tester) async {
     await tester.pumpWidget(_stockHomeWithOverrides());
     await tester.pumpAndSettle();
 
     expect(find.text('Lalitha Naturals — Stock'), findsOneWidget);
     expect(find.byKey(const Key('inventoryTile')), findsOneWidget);
     expect(find.byKey(const Key('transitSheetTile')), findsOneWidget);
+    expect(find.byKey(const Key('transitHistoryTile')), findsOneWidget);
   });
 
   testWidgets('tapping Inventory navigates to the Inventory screen', (tester) async {
@@ -47,5 +50,15 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('fromBranchDropdown')), findsOneWidget);
+  });
+
+  testWidgets('tapping Transit History navigates to the Transit History screen', (tester) async {
+    await tester.pumpWidget(_stockHomeWithOverrides());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('transitHistoryTile')));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('transitHistoryBranchDropdown')), findsOneWidget);
   });
 }

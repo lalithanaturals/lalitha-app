@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/app_colors.dart';
 import '../../../core/models/inventory.dart';
+import '../../../core/models/staff.dart';
 import '../../../core/models/transit_sheet.dart';
 import '../../../core/providers.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -27,6 +28,7 @@ class TransitSheetScreen extends ConsumerStatefulWidget {
 class _TransitSheetScreenState extends ConsumerState<TransitSheetScreen> {
   String? _fromBranchId;
   String? _toBranchId;
+  String? _staffId;
   final List<_ItemRowDraft> _rows = [_ItemRowDraft()];
   bool _dispatching = false;
   String? _errorMessage;
@@ -58,12 +60,24 @@ class _TransitSheetScreenState extends ConsumerState<TransitSheetScreen> {
       setState(() => _errorMessage = l10n.fromAndToBranchMustDifferError);
       return;
     }
+    if (_staffId == null) {
+      setState(() => _errorMessage = l10n.selectDispatchingStaffError);
+      return;
+    }
+    final rowsWithItems = _rows.where((r) => r.itemId != null).toList();
+    final selectedItemIds = rowsWithItems.map((r) => r.itemId).toSet();
+    if (selectedItemIds.length != rowsWithItems.length) {
+      setState(() => _errorMessage = l10n.duplicateTransitItemError);
+      return;
+    }
     final items = <TransitSheetItem>[];
-    for (final row in _rows) {
-      if (row.itemId == null) continue;
+    for (final row in rowsWithItems) {
+      final qty = num.tryParse(row.quantityController.text);
+      if (qty == null || qty <= 0) {
+        setState(() => _errorMessage = l10n.invalidTransitQuantityError);
+        return;
+      }
       final item = allItems.firstWhere((i) => i.id == row.itemId);
-      final qty = num.tryParse(row.quantityController.text) ?? 0;
-      if (qty <= 0) continue;
       items.add(TransitSheetItem(itemId: item.id, itemName: item.name, quantity: qty));
     }
     if (items.isEmpty) {
@@ -79,6 +93,7 @@ class _TransitSheetScreenState extends ConsumerState<TransitSheetScreen> {
       final sheet = TransitSheet(
         fromBranchId: _fromBranchId!,
         toBranchId: _toBranchId!,
+        staffId: _staffId,
         status: TransitSheetStatus.dispatched,
         dispatchedAt: DateTime.now(),
         items: items,
@@ -101,6 +116,9 @@ class _TransitSheetScreenState extends ConsumerState<TransitSheetScreen> {
     final l10n = AppLocalizations.of(context)!;
     final branchesAsync = ref.watch(transitSheetBranchesProvider);
     final itemsAsync = ref.watch(transitSheetAllItemsProvider);
+    final AsyncValue<List<Staff>> staffAsync = _fromBranchId == null
+        ? const AsyncValue.data(<Staff>[])
+        : ref.watch(transitSheetStaffForBranchProvider(_fromBranchId!));
 
     return Scaffold(
       appBar: AppBar(
@@ -121,7 +139,10 @@ class _TransitSheetScreenState extends ConsumerState<TransitSheetScreen> {
                   items: branches
                       .map((b) => DropdownMenuItem(value: b.id, child: Text(b.name)))
                       .toList(),
-                  onChanged: (value) => setState(() => _fromBranchId = value),
+                  onChanged: (value) => setState(() {
+                    _fromBranchId = value;
+                    _staffId = null;
+                  }),
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
@@ -132,6 +153,20 @@ class _TransitSheetScreenState extends ConsumerState<TransitSheetScreen> {
                       .map((b) => DropdownMenuItem(value: b.id, child: Text(b.name)))
                       .toList(),
                   onChanged: (value) => setState(() => _toBranchId = value),
+                ),
+                const SizedBox(height: 12),
+                staffAsync.when(
+                  data: (staff) => DropdownButtonFormField<String>(
+                    key: const Key('transitStaffDropdown'),
+                    initialValue: _staffId,
+                    decoration: InputDecoration(labelText: l10n.staffLabel),
+                    items: staff
+                        .map((s) => DropdownMenuItem(value: s.id, child: Text(s.name)))
+                        .toList(),
+                    onChanged: (value) => setState(() => _staffId = value),
+                  ),
+                  loading: () => const LinearProgressIndicator(),
+                  error: (e, _) => Text('$e'),
                 ),
                 const SizedBox(height: 20),
                 Text(l10n.itemsLabel, style: Theme.of(context).textTheme.titleMedium),

@@ -117,6 +117,21 @@
   "selectFromAndToBranchError": "Select both a from-branch and a to-branch.",
   "fromAndToBranchMustDifferError": "From-branch and to-branch must be different.",
   "addTransitItemLabel": "Add Item",
+  "selectDispatchingStaffError": "Select the staff member dispatching this sheet.",
+  "duplicateTransitItemError": "The same item is selected more than once.",
+  "invalidTransitQuantityError": "Enter a quantity greater than zero for each selected item.",
+  "transitHistoryTileTitle": "Transit History",
+  "transitHistoryTileSubtitle": "View dispatched/received sheets for a branch",
+  "transitHistoryTitle": "Transit History",
+  "noTransitSheetsMessage": "No transit sheets found for this branch",
+  "statusDispatchedLabel": "In Transit",
+  "statusReceivedLabel": "Received",
+  "markReceivedButton": "Mark Received",
+  "transitReceivedMessage": "Marked as received",
+  "transitSheetSummaryLabel": "{from} → {to}",
+  "@transitSheetSummaryLabel": {
+    "placeholders": {"from": {"type": "String"}, "to": {"type": "String"}}
+  },
 
   "scrapModuleTitle": "Scrap Exchange",
   "scrapModuleSubtitle": "Aluminum & steel exchange calculator",
