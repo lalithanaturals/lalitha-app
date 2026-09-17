@@ -146,4 +146,24 @@ class AppLocalizationsTe extends AppLocalizations {
   String failedToRedeemError(String error) {
     return 'రీడీమ్ చేయడంలో విఫలమైంది: $error';
   }
+
+  @override
+  String get locationCardTileTitle => 'లొకేషన్ కార్డ్';
+
+  @override
+  String get locationCardTileSubtitle => 'బ్రాంచ్ చిరునామాను ప్రింట్ చేయండి';
+
+  @override
+  String get addressLabel => 'చిరునామా';
+
+  @override
+  String get printBothBranchesButton => 'రెండు బ్రాంచ్‌లను ప్రింట్ చేయండి';
+
+  @override
+  String get locationCardPrintedMessage => 'లొకేషన్ కార్డ్ ప్రింట్ చేయబడింది';
+
+  @override
+  String failedToPrintError(String error) {
+    return 'ప్రింట్ చేయడంలో విఫలమైంది: $error';
+  }
 }

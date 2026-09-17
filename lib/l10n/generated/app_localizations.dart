@@ -355,6 +355,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to redeem: {error}'**
   String failedToRedeemError(String error);
+
+  /// No description provided for @locationCardTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location Card'**
+  String get locationCardTileTitle;
+
+  /// No description provided for @locationCardTileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Print a branch\'s address'**
+  String get locationCardTileSubtitle;
+
+  /// No description provided for @addressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get addressLabel;
+
+  /// No description provided for @printBothBranchesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Print Both Branches'**
+  String get printBothBranchesButton;
+
+  /// No description provided for @locationCardPrintedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Location card printed'**
+  String get locationCardPrintedMessage;
+
+  /// No description provided for @failedToPrintError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to print: {error}'**
+  String failedToPrintError(String error);
 }
 
 class _AppLocalizationsDelegate

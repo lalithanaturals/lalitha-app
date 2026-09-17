@@ -5,10 +5,10 @@ Flutter client for the Lalitha Naturals app suite, backed by [`lalitha-backend`]
 suite-wide architecture, and its §4/§5 for the data model and API contract this app is built
 against.
 
-**Currently implemented: the Print module's Price Tag, Estimate (Quick Items), and Coupon
-screens** — the first module migrated, per the master plan's phased approach (Print was chosen
-first because it's the only one of the four original apps with no existing Google Sheets
-integration to migrate). Location/visiting cards, custom text, and the other three apps' modules
+**Currently implemented: the Print module's Price Tag, Estimate (Quick Items), Coupon, and
+Location Card screens** — the first module migrated, per the master plan's phased approach (Print
+was chosen first because it's the only one of the four original apps with no existing Google
+Sheets integration to migrate). Visiting card, custom text, and the other three apps' modules
 follow the same `lib/core` + `lib/features/<module>` pattern once scheduled.
 
 **Fully localized: English (default) + Telugu**, via Flutter's standard `gen-l10n` — see
@@ -30,6 +30,7 @@ lib/
       price_tag/                the Price Tag screen + its Riverpod FutureProviders
       estimate/                  the Estimate/Quick Items screen + its FutureProviders
       coupon/                    the Coupon issue/redeem screen + its FutureProviders
+      location_card/              the Location Card screen + its FutureProviders
   l10n/
     app_en.arb          English strings (template/default locale)
     app_te.arb           Telugu strings (full parallel translation)
@@ -79,9 +80,9 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 56 tests: model/calculation unit tests, repository tests against a mocked
-                   # HTTP client, widget tests for the Print home/Price Tag/Estimate/Coupon
-                   # screens, and locale-switching tests (English/Telugu)
+flutter test      # 69 tests: model/calculation unit tests, repository tests against a mocked
+                   # HTTP client, widget tests for the Print home/Price Tag/Estimate/Coupon/
+                   # Location Card screens, and locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -106,6 +107,12 @@ suite runs fully offline and deterministically.
 - `CouponScreen`: issue validation, that issuing calls the repository with the entered fields,
   the coupon list rendering redeemed vs. not-redeemed state per branch, and that redeeming calls
   the repository and refreshes the list
-- `PrintHomeScreen`/app boot: all three tool tiles are present and navigate to their screens
+- `CustomPrint`/`CustomPrintRepository`: `PrintType` JSON round-trip (`custom_text`,
+  `visiting_card`, `location_card`), arbitrary `content` map round-trip, and the branch +
+  print-type filter sent to PocketBase
+- `LocationCardScreen`: print button disabled until a branch is selected, the preview shows the
+  selected branch's name/address, printing one branch calls the repository with a
+  `location_card` record for it, and "Print Both Branches" calls it once per active branch
+- `PrintHomeScreen`/app boot: all four tool tiles are present and navigate to their screens
 - Localization: `AppLocalizations.supportedLocales` includes English and Telugu, and a screen
   actually renders Telugu text when the app locale is `te`

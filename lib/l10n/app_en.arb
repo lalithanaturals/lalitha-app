@@ -64,5 +64,15 @@
   "failedToRedeemError": "Failed to redeem: {error}",
   "@failedToRedeemError": {
     "placeholders": {"error": {"type": "String"}}
+  },
+
+  "locationCardTileTitle": "Location Card",
+  "locationCardTileSubtitle": "Print a branch's address",
+  "addressLabel": "Address",
+  "printBothBranchesButton": "Print Both Branches",
+  "locationCardPrintedMessage": "Location card printed",
+  "failedToPrintError": "Failed to print: {error}",
+  "@failedToPrintError": {
+    "placeholders": {"error": {"type": "String"}}
   }
 }

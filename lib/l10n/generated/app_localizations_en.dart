@@ -146,4 +146,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String failedToRedeemError(String error) {
     return 'Failed to redeem: $error';
   }
+
+  @override
+  String get locationCardTileTitle => 'Location Card';
+
+  @override
+  String get locationCardTileSubtitle => 'Print a branch\'s address';
+
+  @override
+  String get addressLabel => 'Address';
+
+  @override
+  String get printBothBranchesButton => 'Print Both Branches';
+
+  @override
+  String get locationCardPrintedMessage => 'Location card printed';
+
+  @override
+  String failedToPrintError(String error) {
+    return 'Failed to print: $error';
+  }
 }

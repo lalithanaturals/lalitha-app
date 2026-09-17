@@ -4,6 +4,7 @@ import 'package:pocketbase/pocketbase.dart';
 import 'client/pocketbase_client.dart';
 import 'repositories/branch_repository.dart';
 import 'repositories/coupon_repository.dart';
+import 'repositories/custom_print_repository.dart';
 import 'repositories/estimate_repository.dart';
 import 'repositories/price_tag_repository.dart';
 import 'repositories/product_repository.dart';
@@ -43,4 +44,8 @@ final estimateRepositoryProvider = Provider<EstimateRepository>((ref) {
 
 final couponRepositoryProvider = Provider<CouponRepository>((ref) {
   return CouponRepository(ref.watch(pocketBaseProvider));
+});
+
+final customPrintRepositoryProvider = Provider<CustomPrintRepository>((ref) {
+  return CustomPrintRepository(ref.watch(pocketBaseProvider));
 });

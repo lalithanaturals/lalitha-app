@@ -48,5 +48,12 @@
   "notRedeemedLabel": "రీడీమ్ చేయలేదు",
   "couponRedeemedMessage": "కూపన్ రీడీమ్ చేయబడింది",
   "selectBranchAndTypeError": "ముందుగా బ్రాంచ్ ఎంచుకుని కూపన్ రకాన్ని నమోదు చేయండి.",
-  "failedToRedeemError": "రీడీమ్ చేయడంలో విఫలమైంది: {error}"
+  "failedToRedeemError": "రీడీమ్ చేయడంలో విఫలమైంది: {error}",
+
+  "locationCardTileTitle": "లొకేషన్ కార్డ్",
+  "locationCardTileSubtitle": "బ్రాంచ్ చిరునామాను ప్రింట్ చేయండి",
+  "addressLabel": "చిరునామా",
+  "printBothBranchesButton": "రెండు బ్రాంచ్‌లను ప్రింట్ చేయండి",
+  "locationCardPrintedMessage": "లొకేషన్ కార్డ్ ప్రింట్ చేయబడింది",
+  "failedToPrintError": "ప్రింట్ చేయడంలో విఫలమైంది: {error}"
 }
