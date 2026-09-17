@@ -1,7 +1,7 @@
 import 'package:pocketbase/pocketbase.dart';
 
 /// Staff PIN login against the custom `/api/staff-login` route (see
-/// lalitha-backend's pb_hooks/main.pb.js) — every other collection requires
+/// lalitha-api's pb_hooks/main.pb.js) — every other collection requires
 /// an authenticated user, so this has to succeed before the app can show
 /// anything. The route returns the same {token, record} shape as
 /// authWithPassword, so [RecordAuth.fromJson] parses it directly.

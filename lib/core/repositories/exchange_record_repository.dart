@@ -8,7 +8,7 @@ class ExchangeRecordRepository {
   final PocketBase _pb;
 
   /// The server assigns `display_id` via a hook (see
-  /// lalitha-backend/pb_hooks/main.pb.js) — the returned record carries it.
+  /// lalitha-api/pb_hooks/main.pb.js) — the returned record carries it.
   Future<ExchangeRecord> create(ExchangeRecord record) async {
     final created = await _pb.collection('exchange_records').create(body: record.toJson());
     return ExchangeRecord.fromJson(created.toJson());

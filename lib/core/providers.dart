@@ -16,7 +16,7 @@ import 'repositories/staff_repository.dart';
 import 'repositories/transit_sheet_repository.dart';
 
 /// Override this in `main.dart`/tests to point at the Pi/cloud deployment
-/// or a local dev instance — see lalitha-backend/PROJECT_PLAN.md §5.1.
+/// or a local dev instance — see lalitha-api/PROJECT_PLAN.md §5.1.
 final backendBaseUrlProvider = Provider<String>((ref) => 'http://127.0.0.1:8090');
 
 final pocketBaseClientProvider = Provider<AppPocketBaseClient>((ref) {

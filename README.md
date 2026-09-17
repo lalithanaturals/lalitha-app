@@ -1,6 +1,6 @@
 # lalitha_app
 
-Flutter client for the Lalitha Naturals app suite, backed by [`lalitha-backend`](../lalitha-backend)
+Flutter client for the Lalitha Naturals app suite, backed by [`lalitha-api`](../lalitha-api)
 (PocketBase). See [PROJECT_PLAN.md](../Print/PROJECT_PLAN.md) in the `Print` repo for the full
 suite-wide architecture, and its §4/§5 for the data model and API contract this app is built
 against.
@@ -120,7 +120,7 @@ custom solution:
 
 ## Running
 
-Point the app at a running `lalitha-backend` instance (defaults to `http://127.0.0.1:8090` —
+Point the app at a running `lalitha-api` instance (defaults to `http://127.0.0.1:8090` —
 override `backendBaseUrlProvider` in `lib/core/providers.dart` or via a `ProviderScope` override
 for a Pi/cloud deployment):
 
@@ -130,7 +130,7 @@ flutter run
 
 Every collection except `staff` requires an authenticated user, so the app opens on
 `StaffLoginScreen` (pick your name, enter a 4-digit PIN) until login succeeds — see
-lalitha-backend's README for how that works server-side. The seed migration ships two starting
+lalitha-api's README for how that works server-side. The seed migration ships two starting
 accounts, both using PIN **1234** for easy testing: **Admin** and **Staff** (Gajuwaka).
 
 On a physical Android device connected over USB (not an emulator), `127.0.0.1:8090` from the

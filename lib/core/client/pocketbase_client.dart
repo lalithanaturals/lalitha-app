@@ -8,7 +8,7 @@ class AppPocketBaseClient {
       : pb = client ?? PocketBase(baseUrl);
 
   /// e.g. `http://printmanager.local:8090` on the shop LAN, or the cloud
-  /// deployment's URL — see PROJECT_PLAN.md in lalitha-backend for the
+  /// deployment's URL — see PROJECT_PLAN.md in lalitha-api for the
   /// hosting options.
   final String baseUrl;
 

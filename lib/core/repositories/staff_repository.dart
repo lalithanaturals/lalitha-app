@@ -17,7 +17,7 @@ class StaffRepository {
 
   /// Every active staff member, regardless of branch — used for the login
   /// screen's "pick your name" picker, which runs before authentication
-  /// (`staff.listRule` is public; see lalitha-backend's
+  /// (`staff.listRule` is public; see lalitha-api's
   /// 1700000021_staff_pin_login.js).
   Future<List<Staff>> listAllActive() async {
     final records = await _pb.collection('staff').getFullList(

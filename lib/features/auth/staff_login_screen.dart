@@ -8,7 +8,7 @@ import 'login_providers.dart';
 
 /// Every collection except `staff` requires an authenticated user, so this
 /// screen has to succeed before anything else in the app can load data —
-/// see lalitha-backend's pb_migrations/1700000021_staff_pin_login.js.
+/// see lalitha-api's pb_migrations/1700000021_staff_pin_login.js.
 class StaffLoginScreen extends ConsumerStatefulWidget {
   const StaffLoginScreen({super.key});
 

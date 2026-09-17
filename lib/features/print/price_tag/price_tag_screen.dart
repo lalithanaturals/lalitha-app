@@ -80,7 +80,7 @@ class _PriceTagScreenState extends ConsumerState<PriceTagScreen> {
   /// original app let anyone type a new brand name on the spot rather than
   /// requiring an admin to pre-populate a catalog. `products.createRule` is
   /// open to any authenticated user for the same reason (see
-  /// lalitha-backend's 1700000024_relax_products_create_and_seed_staff.js).
+  /// lalitha-api's 1700000024_relax_products_create_and_seed_staff.js).
   Future<void> _showAddProductDialog() async {
     final created = await showDialog<Product>(
       context: context,
