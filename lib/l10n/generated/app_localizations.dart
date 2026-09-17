@@ -709,6 +709,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Order saved'**
   String get exchangeOrderSavedMessage;
+
+  /// No description provided for @denominationModuleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Denomination'**
+  String get denominationModuleTitle;
+
+  /// No description provided for @denominationModuleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily cash audit register'**
+  String get denominationModuleSubtitle;
+
+  /// No description provided for @registerEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Audit Register'**
+  String get registerEntryTitle;
+
+  /// No description provided for @dateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateLabel;
+
+  /// No description provided for @openingBalanceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Balance'**
+  String get openingBalanceLabel;
+
+  /// No description provided for @closingBalanceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Closing Balance'**
+  String get closingBalanceLabel;
+
+  /// No description provided for @cashTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash Total'**
+  String get cashTotalLabel;
+
+  /// No description provided for @denominationCountsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Denomination Counts'**
+  String get denominationCountsLabel;
+
+  /// No description provided for @expenseCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses'**
+  String get expenseCategoryLabel;
+
+  /// No description provided for @ownerBillCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner Bills'**
+  String get ownerBillCategoryLabel;
+
+  /// No description provided for @vendorBillCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Vendor Bills'**
+  String get vendorBillCategoryLabel;
+
+  /// No description provided for @unbilledCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Unbilled Items'**
+  String get unbilledCategoryLabel;
+
+  /// No description provided for @lineItemNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get lineItemNameLabel;
+
+  /// No description provided for @lineItemAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get lineItemAmountLabel;
+
+  /// No description provided for @addLineItemLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get addLineItemLabel;
+
+  /// No description provided for @commitButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Commit Register'**
+  String get commitButton;
+
+  /// No description provided for @registerCommittedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Register committed'**
+  String get registerCommittedMessage;
+
+  /// No description provided for @failedToCommitError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to commit: {error}'**
+  String failedToCommitError(String error);
 }
 
 class _AppLocalizationsDelegate

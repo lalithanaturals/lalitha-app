@@ -338,4 +338,60 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get exchangeOrderSavedMessage => 'ఆర్డర్ సేవ్ చేయబడింది';
+
+  @override
+  String get denominationModuleTitle => 'డినామినేషన్';
+
+  @override
+  String get denominationModuleSubtitle => 'రోజువారీ నగదు ఆడిట్ రిజిస్టర్';
+
+  @override
+  String get registerEntryTitle => 'ఆడిట్ రిజిస్టర్';
+
+  @override
+  String get dateLabel => 'తేదీ';
+
+  @override
+  String get openingBalanceLabel => 'ప్రారంభ నిల్వ';
+
+  @override
+  String get closingBalanceLabel => 'ముగింపు నిల్వ';
+
+  @override
+  String get cashTotalLabel => 'నగదు మొత్తం';
+
+  @override
+  String get denominationCountsLabel => 'నోట్ల లెక్క';
+
+  @override
+  String get expenseCategoryLabel => 'ఖర్చులు';
+
+  @override
+  String get ownerBillCategoryLabel => 'యజమాని బిల్లులు';
+
+  @override
+  String get vendorBillCategoryLabel => 'వెండార్ బిల్లులు';
+
+  @override
+  String get unbilledCategoryLabel => 'బిల్లు లేని వస్తువులు';
+
+  @override
+  String get lineItemNameLabel => 'పేరు';
+
+  @override
+  String get lineItemAmountLabel => 'మొత్తం';
+
+  @override
+  String get addLineItemLabel => 'జోడించండి';
+
+  @override
+  String get commitButton => 'రిజిస్టర్ కమిట్ చేయండి';
+
+  @override
+  String get registerCommittedMessage => 'రిజిస్టర్ కమిట్ చేయబడింది';
+
+  @override
+  String failedToCommitError(String error) {
+    return 'కమిట్ చేయడంలో విఫలమైంది: $error';
+  }
 }

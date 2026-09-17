@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 import 'client/pocketbase_client.dart';
+import 'repositories/audit_register_repository.dart';
 import 'repositories/branch_repository.dart';
 import 'repositories/coupon_repository.dart';
 import 'repositories/custom_print_repository.dart';
@@ -63,4 +64,8 @@ final transitSheetRepositoryProvider = Provider<TransitSheetRepository>((ref) {
 
 final exchangeRecordRepositoryProvider = Provider<ExchangeRecordRepository>((ref) {
   return ExchangeRecordRepository(ref.watch(pocketBaseProvider));
+});
+
+final auditRegisterRepositoryProvider = Provider<AuditRegisterRepository>((ref) {
+  return AuditRegisterRepository(ref.watch(pocketBaseProvider));
 });

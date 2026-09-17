@@ -5,14 +5,18 @@ Flutter client for the Lalitha Naturals app suite, backed by [`lalitha-backend`]
 suite-wide architecture, and its §4/§5 for the data model and API contract this app is built
 against.
 
-**Three modules are live: Print (fully migrated), Stock-transfer (Inventory + Transit Sheets), and
-scrap-calc (Exchange Calculator).** The app's home screen is a module picker (`AppHomeScreen`) —
-Print has all six original screens (Price Tag, Estimate, Coupon, Location Card, Visiting Card,
-Custom Text); Stock-transfer has Inventory (per-branch stock counts with +/- adjustment) and
-Transit Sheet (dispatch stock between branches); scrap-calc has the aluminum/steel exchange
-Calculator (Get Estimation / Submit Order — search and thermal-receipt print preview, per
-scrap-calc/PROJECT_PLAN.md §4, are not yet implemented). Denomination follows the same
-`lib/core` + `lib/features/<module>` pattern once it's migrated.
+**All four modules are live.** The app's home screen is a module picker (`AppHomeScreen`):
+
+- **Print** — fully migrated: all six original screens (Price Tag, Estimate, Coupon, Location
+  Card, Visiting Card, Custom Text).
+- **Stock-transfer** — Inventory (per-branch stock counts with +/- adjustment) and Transit Sheet
+  (dispatch stock between branches). Barcode scanning and offline caching (Stock-transfer's
+  PROJECT_PLAN.md §3) are not yet implemented.
+- **scrap-calc** — the aluminum/steel Exchange Calculator (Get Estimation / Submit Order). Search
+  and thermal-receipt print preview (scrap-calc's PROJECT_PLAN.md §4) are not yet implemented.
+- **Denomination** — the daily cash Audit Register (denomination counts, category line items,
+  commit). Archive/search, exports (JPEG/PDF/Thermal/WhatsApp), and the BI dashboard
+  (Denomination's PROJECT_PLAN.md §4) are not yet implemented.
 
 **Fully localized: English (default) + Telugu**, via Flutter's standard `gen-l10n` — see
 [Internationalization](#internationalization) below.
@@ -25,14 +29,17 @@ lib/
     client/           AppPocketBaseClient — owns the single PocketBase instance
     models/           Branch, Staff, Product, PriceTag, Estimate/EstimateItem, Coupon,
                        CustomPrint/PrintType, InventoryCategory/InventoryItem/InventoryStock,
-                       TransitSheet/TransitSheetItem, ExchangeRecord/MaterialTotals (pure
-                       fromJson/toJson + pure calculation helpers, no I/O)
+                       TransitSheet/TransitSheetItem, ExchangeRecord/MaterialTotals,
+                       AuditRegister/AuditLineItem (pure fromJson/toJson + pure calculation
+                       helpers, no I/O)
     repositories/      thin wrappers around PocketBase's REST calls per collection
     providers.dart      Riverpod providers wiring client -> repositories
     business_info.dart   static business info (tagline, offerings, phone, website) — see
                           the note in that file about migrating it to the `settings` collection
     exchange_rates.dart   static al/st per-kg rates + per-handle deduction — same
                            settings-collection tech debt as business_info.dart
+    denomination_values.dart   the ₹500..₹1 denomination list + the closing-balance cutoff —
+                                same settings-collection tech debt
   features/
     app_home_screen.dart   suite-wide entry point — one tile per module (Print, Stock, ...)
     print/
@@ -49,6 +56,9 @@ lib/
       transit_sheet/               dispatch stock between branches + its FutureProviders
     scrap/
       calculator/                the al/st exchange Calculator + its FutureProviders
+    denomination/
+      denomination_home_screen.dart   lists the Denomination module's tools
+      register/                        the Audit Register entry/commit screen + its FutureProviders
   l10n/
     app_en.arb          English strings (template/default locale)
     app_te.arb           Telugu strings (full parallel translation)
@@ -98,10 +108,11 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 132 tests: model/calculation unit tests, repository tests against a mocked
+flutter test      # 155 tests: model/calculation unit tests, repository tests against a mocked
                    # HTTP client, widget tests for all six Print-module screens plus
-                   # Stock-transfer (Inventory, Transit Sheet) and scrap-calc (Calculator),
-                   # the suite-wide module picker, and locale-switching tests (English/Telugu)
+                   # Stock-transfer (Inventory, Transit Sheet), scrap-calc (Calculator), and
+                   # Denomination (Audit Register), the suite-wide module picker, and
+                   # locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -162,3 +173,16 @@ suite runs fully offline and deterministically.
   adjusted, switching material tabs shows that material's own weight rows and rate, validation
   requires a branch before saving, and Get Estimation/Submit Order create a record with the
   matching status
+- `calculateCashTotal`/`calculateClosingBalance`: cash total sums every denomination's
+  value × count; closing balance excludes denominations above ₹200 (mirrors the original app's
+  "larger notes get banked" rule), including the ₹200 boundary itself
+- `AuditRegister`/`AuditLineItem` JSON: `denomination_counts` round-trips between `int` keys in
+  Dart and string keys over the wire; `AuditLineCategory` JSON round-trip for all four categories
+- `AuditRegisterRepository`: `commit` PATCHes `status`+`committed_by` only; `findPreviousRegister`
+  sends a `date <` filter sorted descending (returns `null` when none exists) for the
+  opening-balance-chaining lookup; `addLineItem` posts category/name/amount
+- `RegisterScreen`: selecting a branch loads the opening balance from the previous register (or 0
+  if none), the cash total/closing balance recompute live as denomination counts are entered,
+  validation requires a branch before committing, and committing creates the register, then each
+  entered line item tagged with its new parent id, then commits it
+- `DenominationHomeScreen`: the Register Entry tile is present and navigates to the screen

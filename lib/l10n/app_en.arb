@@ -137,5 +137,27 @@
   "getEstimationButton": "Get Estimation",
   "submitOrderButton": "Submit Order",
   "exchangeEstimateSavedMessage": "Estimate saved",
-  "exchangeOrderSavedMessage": "Order saved"
+  "exchangeOrderSavedMessage": "Order saved",
+
+  "denominationModuleTitle": "Denomination",
+  "denominationModuleSubtitle": "Daily cash audit register",
+  "registerEntryTitle": "Audit Register",
+  "dateLabel": "Date",
+  "openingBalanceLabel": "Opening Balance",
+  "closingBalanceLabel": "Closing Balance",
+  "cashTotalLabel": "Cash Total",
+  "denominationCountsLabel": "Denomination Counts",
+  "expenseCategoryLabel": "Expenses",
+  "ownerBillCategoryLabel": "Owner Bills",
+  "vendorBillCategoryLabel": "Vendor Bills",
+  "unbilledCategoryLabel": "Unbilled Items",
+  "lineItemNameLabel": "Name",
+  "lineItemAmountLabel": "Amount",
+  "addLineItemLabel": "Add",
+  "commitButton": "Commit Register",
+  "registerCommittedMessage": "Register committed",
+  "failedToCommitError": "Failed to commit: {error}",
+  "@failedToCommitError": {
+    "placeholders": {"error": {"type": "String"}}
+  }
 }

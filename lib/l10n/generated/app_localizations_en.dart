@@ -336,4 +336,60 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exchangeOrderSavedMessage => 'Order saved';
+
+  @override
+  String get denominationModuleTitle => 'Denomination';
+
+  @override
+  String get denominationModuleSubtitle => 'Daily cash audit register';
+
+  @override
+  String get registerEntryTitle => 'Audit Register';
+
+  @override
+  String get dateLabel => 'Date';
+
+  @override
+  String get openingBalanceLabel => 'Opening Balance';
+
+  @override
+  String get closingBalanceLabel => 'Closing Balance';
+
+  @override
+  String get cashTotalLabel => 'Cash Total';
+
+  @override
+  String get denominationCountsLabel => 'Denomination Counts';
+
+  @override
+  String get expenseCategoryLabel => 'Expenses';
+
+  @override
+  String get ownerBillCategoryLabel => 'Owner Bills';
+
+  @override
+  String get vendorBillCategoryLabel => 'Vendor Bills';
+
+  @override
+  String get unbilledCategoryLabel => 'Unbilled Items';
+
+  @override
+  String get lineItemNameLabel => 'Name';
+
+  @override
+  String get lineItemAmountLabel => 'Amount';
+
+  @override
+  String get addLineItemLabel => 'Add';
+
+  @override
+  String get commitButton => 'Commit Register';
+
+  @override
+  String get registerCommittedMessage => 'Register committed';
+
+  @override
+  String failedToCommitError(String error) {
+    return 'Failed to commit: $error';
+  }
 }

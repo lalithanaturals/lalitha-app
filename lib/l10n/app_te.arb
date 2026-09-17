@@ -112,5 +112,24 @@
   "getEstimationButton": "అంచనా పొందండి",
   "submitOrderButton": "ఆర్డర్ సమర్పించండి",
   "exchangeEstimateSavedMessage": "అంచనా సేవ్ చేయబడింది",
-  "exchangeOrderSavedMessage": "ఆర్డర్ సేవ్ చేయబడింది"
+  "exchangeOrderSavedMessage": "ఆర్డర్ సేవ్ చేయబడింది",
+
+  "denominationModuleTitle": "డినామినేషన్",
+  "denominationModuleSubtitle": "రోజువారీ నగదు ఆడిట్ రిజిస్టర్",
+  "registerEntryTitle": "ఆడిట్ రిజిస్టర్",
+  "dateLabel": "తేదీ",
+  "openingBalanceLabel": "ప్రారంభ నిల్వ",
+  "closingBalanceLabel": "ముగింపు నిల్వ",
+  "cashTotalLabel": "నగదు మొత్తం",
+  "denominationCountsLabel": "నోట్ల లెక్క",
+  "expenseCategoryLabel": "ఖర్చులు",
+  "ownerBillCategoryLabel": "యజమాని బిల్లులు",
+  "vendorBillCategoryLabel": "వెండార్ బిల్లులు",
+  "unbilledCategoryLabel": "బిల్లు లేని వస్తువులు",
+  "lineItemNameLabel": "పేరు",
+  "lineItemAmountLabel": "మొత్తం",
+  "addLineItemLabel": "జోడించండి",
+  "commitButton": "రిజిస్టర్ కమిట్ చేయండి",
+  "registerCommittedMessage": "రిజిస్టర్ కమిట్ చేయబడింది",
+  "failedToCommitError": "కమిట్ చేయడంలో విఫలమైంది: {error}"
 }
