@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'features/print/print_home_screen.dart';
+import 'features/app_home_screen.dart';
 import 'l10n/generated/app_localizations.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class LalithaApp extends StatelessWidget {
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal)),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const PrintHomeScreen(),
+      home: const AppHomeScreen(),
     );
   }
 }

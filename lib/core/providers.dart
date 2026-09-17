@@ -6,9 +6,11 @@ import 'repositories/branch_repository.dart';
 import 'repositories/coupon_repository.dart';
 import 'repositories/custom_print_repository.dart';
 import 'repositories/estimate_repository.dart';
+import 'repositories/inventory_repository.dart';
 import 'repositories/price_tag_repository.dart';
 import 'repositories/product_repository.dart';
 import 'repositories/staff_repository.dart';
+import 'repositories/transit_sheet_repository.dart';
 
 /// Override this in `main.dart`/tests to point at the Pi/cloud deployment
 /// or a local dev instance — see lalitha-backend/PROJECT_PLAN.md §5.1.
@@ -48,4 +50,12 @@ final couponRepositoryProvider = Provider<CouponRepository>((ref) {
 
 final customPrintRepositoryProvider = Provider<CustomPrintRepository>((ref) {
   return CustomPrintRepository(ref.watch(pocketBaseProvider));
+});
+
+final inventoryRepositoryProvider = Provider<InventoryRepository>((ref) {
+  return InventoryRepository(ref.watch(pocketBaseProvider));
+});
+
+final transitSheetRepositoryProvider = Provider<TransitSheetRepository>((ref) {
+  return TransitSheetRepository(ref.watch(pocketBaseProvider));
 });

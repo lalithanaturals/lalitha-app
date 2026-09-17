@@ -91,5 +91,30 @@
   "boldLabel": "Bold",
   "fontSizeLabel": "Font Size",
   "enterTextError": "Enter some text first.",
-  "customTextPrintedMessage": "Custom text printed"
+  "customTextPrintedMessage": "Custom text printed",
+
+  "appHomeTitle": "Lalitha Naturals",
+  "printModuleTitle": "Print",
+  "printModuleSubtitle": "Price tags, estimates, coupons, cards",
+  "stockModuleTitle": "Stock",
+  "stockModuleSubtitle": "Inventory & transit sheets between branches",
+  "stockHomeTitle": "Lalitha Naturals — Stock",
+  "inventoryTileTitle": "Inventory",
+  "inventoryTileSubtitle": "View and adjust branch stock counts",
+  "transitSheetTileTitle": "Transit Sheet",
+  "transitSheetTileSubtitle": "Dispatch stock between branches",
+  "categoryLabel": "Category",
+  "currentStockLabel": "Current Stock",
+  "stockUpdatedMessage": "Stock updated",
+  "failedToUpdateStockError": "Failed to update stock: {error}",
+  "@failedToUpdateStockError": {
+    "placeholders": {"error": {"type": "String"}}
+  },
+  "fromBranchLabel": "From Branch",
+  "toBranchLabel": "To Branch",
+  "dispatchButton": "Dispatch",
+  "transitSheetDispatchedMessage": "Transit sheet dispatched",
+  "selectFromAndToBranchError": "Select both a from-branch and a to-branch.",
+  "fromAndToBranchMustDifferError": "From-branch and to-branch must be different.",
+  "addTransitItemLabel": "Add Item"
 }

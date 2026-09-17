@@ -72,5 +72,27 @@
   "boldLabel": "బోల్డ్",
   "fontSizeLabel": "ఫాంట్ పరిమాణం",
   "enterTextError": "ముందుగా కొంత టెక్స్ట్ నమోదు చేయండి.",
-  "customTextPrintedMessage": "కస్టమ్ టెక్స్ట్ ప్రింట్ చేయబడింది"
+  "customTextPrintedMessage": "కస్టమ్ టెక్స్ట్ ప్రింట్ చేయబడింది",
+
+  "appHomeTitle": "Lalitha Naturals",
+  "printModuleTitle": "ప్రింట్",
+  "printModuleSubtitle": "ధర ట్యాగ్‌లు, అంచనాలు, కూపన్లు, కార్డులు",
+  "stockModuleTitle": "స్టాక్",
+  "stockModuleSubtitle": "బ్రాంచ్‌ల మధ్య ఇన్వెంటరీ & ట్రాన్సిట్ షీట్‌లు",
+  "stockHomeTitle": "లలిత నేచురల్స్ — స్టాక్",
+  "inventoryTileTitle": "ఇన్వెంటరీ",
+  "inventoryTileSubtitle": "బ్రాంచ్ స్టాక్ లెక్కలను చూడండి మరియు సవరించండి",
+  "transitSheetTileTitle": "ట్రాన్సిట్ షీట్",
+  "transitSheetTileSubtitle": "బ్రాంచ్‌ల మధ్య స్టాక్‌ను పంపండి",
+  "categoryLabel": "వర్గం",
+  "currentStockLabel": "ప్రస్తుత స్టాక్",
+  "stockUpdatedMessage": "స్టాక్ నవీకరించబడింది",
+  "failedToUpdateStockError": "స్టాక్ నవీకరించడంలో విఫలమైంది: {error}",
+  "fromBranchLabel": "నుండి బ్రాంచ్",
+  "toBranchLabel": "కు బ్రాంచ్",
+  "dispatchButton": "పంపించు",
+  "transitSheetDispatchedMessage": "ట్రాన్సిట్ షీట్ పంపబడింది",
+  "selectFromAndToBranchError": "నుండి-బ్రాంచ్ మరియు కు-బ్రాంచ్ రెండింటినీ ఎంచుకోండి.",
+  "fromAndToBranchMustDifferError": "నుండి-బ్రాంచ్ మరియు కు-బ్రాంచ్ వేర్వేరుగా ఉండాలి.",
+  "addTransitItemLabel": "వస్తువు జోడించండి"
 }

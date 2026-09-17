@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lalitha_app/core/models/branch.dart';
 import 'package:lalitha_app/core/models/coupon.dart';
+import 'package:lalitha_app/core/models/inventory.dart';
 import 'package:lalitha_app/core/models/product.dart';
 import 'package:lalitha_app/core/models/staff.dart';
 import 'package:lalitha_app/features/print/coupon/coupon_providers.dart';
@@ -11,6 +12,8 @@ import 'package:lalitha_app/features/print/estimate/estimate_providers.dart';
 import 'package:lalitha_app/features/print/location_card/location_card_providers.dart';
 import 'package:lalitha_app/features/print/price_tag/price_tag_providers.dart';
 import 'package:lalitha_app/features/print/visiting_card/visiting_card_providers.dart';
+import 'package:lalitha_app/features/stock/inventory/inventory_providers.dart';
+import 'package:lalitha_app/features/stock/transit_sheet/transit_sheet_providers.dart';
 import 'package:lalitha_app/main.dart';
 
 Widget _appWithOverrides() => ProviderScope(
@@ -26,81 +29,41 @@ Widget _appWithOverrides() => ProviderScope(
         locationCardBranchesProvider.overrideWith((ref) async => const <Branch>[]),
         visitingCardBranchesProvider.overrideWith((ref) async => const <Branch>[]),
         customTextBranchesProvider.overrideWith((ref) async => const <Branch>[]),
+        inventoryBranchesProvider.overrideWith((ref) async => const <Branch>[]),
+        inventoryCategoriesProvider.overrideWith((ref) async => const <InventoryCategory>[]),
+        transitSheetBranchesProvider.overrideWith((ref) async => const <Branch>[]),
+        transitSheetAllItemsProvider.overrideWith((ref) async => const <InventoryItem>[]),
       ],
       child: const LalithaApp(),
     );
 
 void main() {
-  testWidgets('LalithaApp boots to the Print module home screen', (WidgetTester tester) async {
+  testWidgets('LalithaApp boots to the suite-wide module picker', (WidgetTester tester) async {
     await tester.pumpWidget(_appWithOverrides());
     await tester.pumpAndSettle();
 
-    expect(find.text('Lalitha Naturals — Print'), findsOneWidget);
+    expect(find.byKey(const Key('printModuleTile')), findsOneWidget);
+    expect(find.byKey(const Key('stockModuleTile')), findsOneWidget);
+  });
+
+  testWidgets('tapping the Print module tile navigates to the Print home screen', (tester) async {
+    await tester.pumpWidget(_appWithOverrides());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('printModuleTile')));
+    await tester.pumpAndSettle();
+
     expect(find.byKey(const Key('priceTagTile')), findsOneWidget);
-    expect(find.byKey(const Key('estimateTile')), findsOneWidget);
-    expect(find.byKey(const Key('couponTile')), findsOneWidget);
-    expect(find.byKey(const Key('locationCardTile')), findsOneWidget);
-    expect(find.byKey(const Key('visitingCardTile')), findsOneWidget);
-    expect(find.byKey(const Key('customTextTile')), findsOneWidget);
   });
 
-  testWidgets('tapping the Price Tag tile navigates to the Price Tag screen', (tester) async {
+  testWidgets('tapping the Stock module tile navigates to the Stock home screen', (tester) async {
     await tester.pumpWidget(_appWithOverrides());
     await tester.pumpAndSettle();
 
-    await tester.tap(find.byKey(const Key('priceTagTile')));
+    await tester.tap(find.byKey(const Key('stockModuleTile')));
     await tester.pumpAndSettle();
 
-    expect(find.byKey(const Key('mrpField')), findsOneWidget);
-  });
-
-  testWidgets('tapping the Estimate tile navigates to the Estimate screen', (tester) async {
-    await tester.pumpWidget(_appWithOverrides());
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byKey(const Key('estimateTile')));
-    await tester.pumpAndSettle();
-
-    expect(find.byKey(const Key('addItemButton')), findsOneWidget);
-  });
-
-  testWidgets('tapping the Coupon tile navigates to the Coupon screen', (tester) async {
-    await tester.pumpWidget(_appWithOverrides());
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byKey(const Key('couponTile')));
-    await tester.pumpAndSettle();
-
-    expect(find.byKey(const Key('issueCouponButton')), findsOneWidget);
-  });
-
-  testWidgets('tapping the Location Card tile navigates to the Location Card screen', (tester) async {
-    await tester.pumpWidget(_appWithOverrides());
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byKey(const Key('locationCardTile')));
-    await tester.pumpAndSettle();
-
-    expect(find.byKey(const Key('locationCardBranchDropdown')), findsOneWidget);
-  });
-
-  testWidgets('tapping the Visiting Card tile navigates to the Visiting Card screen', (tester) async {
-    await tester.pumpWidget(_appWithOverrides());
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byKey(const Key('visitingCardTile')));
-    await tester.pumpAndSettle();
-
-    expect(find.byKey(const Key('visitingCardBranchDropdown')), findsOneWidget);
-  });
-
-  testWidgets('tapping the Custom Text tile navigates to the Custom Text screen', (tester) async {
-    await tester.pumpWidget(_appWithOverrides());
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byKey(const Key('customTextTile')));
-    await tester.pumpAndSettle();
-
-    expect(find.byKey(const Key('customTextField')), findsOneWidget);
+    expect(find.byKey(const Key('inventoryTile')), findsOneWidget);
+    expect(find.byKey(const Key('transitSheetTile')), findsOneWidget);
   });
 }

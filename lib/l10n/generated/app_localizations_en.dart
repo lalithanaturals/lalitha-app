@@ -211,4 +211,72 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get customTextPrintedMessage => 'Custom text printed';
+
+  @override
+  String get appHomeTitle => 'Lalitha Naturals';
+
+  @override
+  String get printModuleTitle => 'Print';
+
+  @override
+  String get printModuleSubtitle => 'Price tags, estimates, coupons, cards';
+
+  @override
+  String get stockModuleTitle => 'Stock';
+
+  @override
+  String get stockModuleSubtitle =>
+      'Inventory & transit sheets between branches';
+
+  @override
+  String get stockHomeTitle => 'Lalitha Naturals — Stock';
+
+  @override
+  String get inventoryTileTitle => 'Inventory';
+
+  @override
+  String get inventoryTileSubtitle => 'View and adjust branch stock counts';
+
+  @override
+  String get transitSheetTileTitle => 'Transit Sheet';
+
+  @override
+  String get transitSheetTileSubtitle => 'Dispatch stock between branches';
+
+  @override
+  String get categoryLabel => 'Category';
+
+  @override
+  String get currentStockLabel => 'Current Stock';
+
+  @override
+  String get stockUpdatedMessage => 'Stock updated';
+
+  @override
+  String failedToUpdateStockError(String error) {
+    return 'Failed to update stock: $error';
+  }
+
+  @override
+  String get fromBranchLabel => 'From Branch';
+
+  @override
+  String get toBranchLabel => 'To Branch';
+
+  @override
+  String get dispatchButton => 'Dispatch';
+
+  @override
+  String get transitSheetDispatchedMessage => 'Transit sheet dispatched';
+
+  @override
+  String get selectFromAndToBranchError =>
+      'Select both a from-branch and a to-branch.';
+
+  @override
+  String get fromAndToBranchMustDifferError =>
+      'From-branch and to-branch must be different.';
+
+  @override
+  String get addTransitItemLabel => 'Add Item';
 }

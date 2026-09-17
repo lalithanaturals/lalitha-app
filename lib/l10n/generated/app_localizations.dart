@@ -481,6 +481,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Custom text printed'**
   String get customTextPrintedMessage;
+
+  /// No description provided for @appHomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lalitha Naturals'**
+  String get appHomeTitle;
+
+  /// No description provided for @printModuleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Print'**
+  String get printModuleTitle;
+
+  /// No description provided for @printModuleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Price tags, estimates, coupons, cards'**
+  String get printModuleSubtitle;
+
+  /// No description provided for @stockModuleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock'**
+  String get stockModuleTitle;
+
+  /// No description provided for @stockModuleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory & transit sheets between branches'**
+  String get stockModuleSubtitle;
+
+  /// No description provided for @stockHomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lalitha Naturals — Stock'**
+  String get stockHomeTitle;
+
+  /// No description provided for @inventoryTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory'**
+  String get inventoryTileTitle;
+
+  /// No description provided for @inventoryTileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View and adjust branch stock counts'**
+  String get inventoryTileSubtitle;
+
+  /// No description provided for @transitSheetTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Transit Sheet'**
+  String get transitSheetTileTitle;
+
+  /// No description provided for @transitSheetTileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dispatch stock between branches'**
+  String get transitSheetTileSubtitle;
+
+  /// No description provided for @categoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get categoryLabel;
+
+  /// No description provided for @currentStockLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Stock'**
+  String get currentStockLabel;
+
+  /// No description provided for @stockUpdatedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock updated'**
+  String get stockUpdatedMessage;
+
+  /// No description provided for @failedToUpdateStockError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update stock: {error}'**
+  String failedToUpdateStockError(String error);
+
+  /// No description provided for @fromBranchLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'From Branch'**
+  String get fromBranchLabel;
+
+  /// No description provided for @toBranchLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'To Branch'**
+  String get toBranchLabel;
+
+  /// No description provided for @dispatchButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Dispatch'**
+  String get dispatchButton;
+
+  /// No description provided for @transitSheetDispatchedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Transit sheet dispatched'**
+  String get transitSheetDispatchedMessage;
+
+  /// No description provided for @selectFromAndToBranchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Select both a from-branch and a to-branch.'**
+  String get selectFromAndToBranchError;
+
+  /// No description provided for @fromAndToBranchMustDifferError.
+  ///
+  /// In en, this message translates to:
+  /// **'From-branch and to-branch must be different.'**
+  String get fromAndToBranchMustDifferError;
+
+  /// No description provided for @addTransitItemLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Item'**
+  String get addTransitItemLabel;
 }
 
 class _AppLocalizationsDelegate

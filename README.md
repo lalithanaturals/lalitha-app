@@ -5,12 +5,12 @@ Flutter client for the Lalitha Naturals app suite, backed by [`lalitha-backend`]
 suite-wide architecture, and its §4/§5 for the data model and API contract this app is built
 against.
 
-**The Print module is now fully migrated** — Price Tag, Estimate (Quick Items), Coupon, Location
-Card, Visiting Card, and Custom Text — every screen from the original Print app, per the master
-plan's phased approach (Print was chosen first because it's the only one of the four original
-apps with no existing Google Sheets integration to migrate). The other three apps' modules
-(Stock-transfer, scrap-calc, Denomination) follow the same `lib/core` + `lib/features/<module>`
-pattern as they're scheduled.
+**Two modules are live: Print (fully migrated) and Stock-transfer (Inventory + Transit Sheets).**
+The app's home screen is now a module picker (`AppHomeScreen`) — Print has all six original
+screens (Price Tag, Estimate, Coupon, Location Card, Visiting Card, Custom Text); Stock-transfer
+has Inventory (per-branch stock counts with +/- adjustment) and Transit Sheet (dispatch stock
+between branches). scrap-calc and Denomination follow the same `lib/core` +
+`lib/features/<module>` pattern as they're scheduled.
 
 **Fully localized: English (default) + Telugu**, via Flutter's standard `gen-l10n` — see
 [Internationalization](#internationalization) below.
@@ -22,21 +22,27 @@ lib/
   core/
     client/           AppPocketBaseClient — owns the single PocketBase instance
     models/           Branch, Staff, Product, PriceTag, Estimate/EstimateItem, Coupon,
-                       CustomPrint/PrintType (pure fromJson/toJson + pure calculation
-                       helpers, no I/O)
+                       CustomPrint/PrintType, InventoryCategory/InventoryItem/InventoryStock,
+                       TransitSheet/TransitSheetItem (pure fromJson/toJson + pure
+                       calculation helpers, no I/O)
     repositories/      thin wrappers around PocketBase's REST calls per collection
     providers.dart      Riverpod providers wiring client -> repositories
     business_info.dart   static business info (tagline, offerings, phone, website) — see
                           the note in that file about migrating it to the `settings` collection
   features/
+    app_home_screen.dart   suite-wide entry point — one tile per module (Print, Stock, ...)
     print/
-      print_home_screen.dart   entry point — lists the Print module's tools
+      print_home_screen.dart   lists the Print module's tools
       price_tag/                the Price Tag screen + its Riverpod FutureProviders
       estimate/                  the Estimate/Quick Items screen + its FutureProviders
       coupon/                    the Coupon issue/redeem screen + its FutureProviders
       location_card/              the Location Card screen + its FutureProviders
       visiting_card/               the Visiting Card screen + its FutureProviders
       custom_text/                 the Custom Text screen + its FutureProviders
+    stock/
+      stock_home_screen.dart    lists the Stock-transfer module's tools
+      inventory/                  per-branch stock counts (+/- adjustment) + its FutureProviders
+      transit_sheet/               dispatch stock between branches + its FutureProviders
   l10n/
     app_en.arb          English strings (template/default locale)
     app_te.arb           Telugu strings (full parallel translation)
@@ -86,9 +92,10 @@ flutter run
 
 ```bash
 flutter analyze   # static analysis — currently clean
-flutter test      # 78 tests: model/calculation unit tests, repository tests against a mocked
-                   # HTTP client, widget tests for all six Print-module screens, and
-                   # locale-switching tests (English/Telugu)
+flutter test      # 112 tests: model/calculation unit tests, repository tests against a mocked
+                   # HTTP client, widget tests for all six Print-module screens plus the
+                   # Stock-transfer module (Inventory, Transit Sheet), the suite-wide module
+                   # picker, and locale-switching tests (English/Telugu)
 ```
 
 No Docker/network is required to run `flutter test` — repository tests fake the PocketBase HTTP
@@ -127,3 +134,14 @@ suite runs fully offline and deterministically.
 - `PrintHomeScreen`/app boot: all six tool tiles are present and navigate to their screens
 - Localization: `AppLocalizations.supportedLocales` includes English and Telugu, and a screen
   actually renders Telugu text when the app locale is `te`
+- `InventoryRepository`: `setStockQuantity` upserts correctly (creates when no (item, branch) row
+  exists yet, patches the existing row otherwise) and `listItemsForCategory`'s filter
+- `TransitSheetRepository`: multi-step create (sheet, then each item tagged with its new parent
+  id), the `(from_branch = X || to_branch = X)` filter for `listForBranch`, and that
+  `updateStatus` stamps `dispatched_at`/`received_at` only for the relevant transition
+- `InventoryScreen`: items with no stock row show quantity 0, +/- calls
+  `setStockQuantity(quantity ± 1)`, and − is a no-op (never calls the repository) at quantity 0
+- `TransitSheetScreen`: validates both branches selected, that they differ, and that at least one
+  item/quantity is entered before dispatching; dispatching sends a `dispatched` sheet with the
+  selected item and quantity
+- `AppHomeScreen`/`StockHomeScreen`: module and tool tiles are present and navigate correctly

@@ -211,4 +211,73 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get customTextPrintedMessage => 'కస్టమ్ టెక్స్ట్ ప్రింట్ చేయబడింది';
+
+  @override
+  String get appHomeTitle => 'Lalitha Naturals';
+
+  @override
+  String get printModuleTitle => 'ప్రింట్';
+
+  @override
+  String get printModuleSubtitle => 'ధర ట్యాగ్‌లు, అంచనాలు, కూపన్లు, కార్డులు';
+
+  @override
+  String get stockModuleTitle => 'స్టాక్';
+
+  @override
+  String get stockModuleSubtitle =>
+      'బ్రాంచ్‌ల మధ్య ఇన్వెంటరీ & ట్రాన్సిట్ షీట్‌లు';
+
+  @override
+  String get stockHomeTitle => 'లలిత నేచురల్స్ — స్టాక్';
+
+  @override
+  String get inventoryTileTitle => 'ఇన్వెంటరీ';
+
+  @override
+  String get inventoryTileSubtitle =>
+      'బ్రాంచ్ స్టాక్ లెక్కలను చూడండి మరియు సవరించండి';
+
+  @override
+  String get transitSheetTileTitle => 'ట్రాన్సిట్ షీట్';
+
+  @override
+  String get transitSheetTileSubtitle => 'బ్రాంచ్‌ల మధ్య స్టాక్‌ను పంపండి';
+
+  @override
+  String get categoryLabel => 'వర్గం';
+
+  @override
+  String get currentStockLabel => 'ప్రస్తుత స్టాక్';
+
+  @override
+  String get stockUpdatedMessage => 'స్టాక్ నవీకరించబడింది';
+
+  @override
+  String failedToUpdateStockError(String error) {
+    return 'స్టాక్ నవీకరించడంలో విఫలమైంది: $error';
+  }
+
+  @override
+  String get fromBranchLabel => 'నుండి బ్రాంచ్';
+
+  @override
+  String get toBranchLabel => 'కు బ్రాంచ్';
+
+  @override
+  String get dispatchButton => 'పంపించు';
+
+  @override
+  String get transitSheetDispatchedMessage => 'ట్రాన్సిట్ షీట్ పంపబడింది';
+
+  @override
+  String get selectFromAndToBranchError =>
+      'నుండి-బ్రాంచ్ మరియు కు-బ్రాంచ్ రెండింటినీ ఎంచుకోండి.';
+
+  @override
+  String get fromAndToBranchMustDifferError =>
+      'నుండి-బ్రాంచ్ మరియు కు-బ్రాంచ్ వేర్వేరుగా ఉండాలి.';
+
+  @override
+  String get addTransitItemLabel => 'వస్తువు జోడించండి';
 }
