@@ -15,9 +15,11 @@ import 'repositories/product_repository.dart';
 import 'repositories/staff_repository.dart';
 import 'repositories/transit_sheet_repository.dart';
 
-/// Override this in `main.dart`/tests to point at the Pi/cloud deployment
-/// or a local dev instance — see lalitha-api/PROJECT_PLAN.md §5.1.
-final backendBaseUrlProvider = Provider<String>((ref) => 'http://127.0.0.1:8090');
+/// Override this in tests (or via `main.dart`) to point at a local dev
+/// instance instead — see lalitha-api/PROJECT_PLAN.md §5.1. Defaults to the
+/// Pi deployment (lalitha-api's `lipi.online` vhost, TLS-terminated by
+/// Apache — see lalitha-api/README.md's "Deploying to the Raspberry Pi").
+final backendBaseUrlProvider = Provider<String>((ref) => 'https://lipi.online');
 
 final pocketBaseClientProvider = Provider<AppPocketBaseClient>((ref) {
   return AppPocketBaseClient(ref.watch(backendBaseUrlProvider));
